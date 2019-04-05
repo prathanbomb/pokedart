@@ -1,0 +1,103 @@
+import 'package:pokeapi/dao/common.dart';
+
+class Berry {
+  CommonResult firmness;
+  List<Flavors> flavors;
+  int growthTime;
+  int id;
+  CommonResult item;
+  int maxHarvest;
+  String name;
+  int naturalGiftPower;
+  CommonResult naturalGiftType;
+  int size;
+  int smoothness;
+  int soilDryness;
+
+  Berry(
+      {this.firmness,
+      this.flavors,
+      this.growthTime,
+      this.id,
+      this.item,
+      this.maxHarvest,
+      this.name,
+      this.naturalGiftPower,
+      this.naturalGiftType,
+      this.size,
+      this.smoothness,
+      this.soilDryness});
+
+  Berry.fromJson(Map<String, dynamic> json) {
+    firmness = json['firmness'] != null
+        ? new CommonResult.fromJson(json['firmness'])
+        : null;
+    if (json['flavors'] != null) {
+      flavors = new List<Flavors>();
+      json['flavors'].forEach((v) {
+        flavors.add(new Flavors.fromJson(v));
+      });
+    }
+    growthTime = json['growth_time'];
+    id = json['id'];
+    item =
+        json['item'] != null ? new CommonResult.fromJson(json['item']) : null;
+    maxHarvest = json['max_harvest'];
+    name = json['name'];
+    naturalGiftPower = json['natural_gift_power'];
+    naturalGiftType = json['natural_gift_type'] != null
+        ? new CommonResult.fromJson(json['natural_gift_type'])
+        : null;
+    size = json['size'];
+    smoothness = json['smoothness'];
+    soilDryness = json['soil_dryness'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.firmness != null) {
+      data['firmness'] = this.firmness.toJson();
+    }
+    if (this.flavors != null) {
+      data['flavors'] = this.flavors.map((v) => v.toJson()).toList();
+    }
+    data['growth_time'] = this.growthTime;
+    data['id'] = this.id;
+    if (this.item != null) {
+      data['item'] = this.item.toJson();
+    }
+    data['max_harvest'] = this.maxHarvest;
+    data['name'] = this.name;
+    data['natural_gift_power'] = this.naturalGiftPower;
+    if (this.naturalGiftType != null) {
+      data['natural_gift_type'] = this.naturalGiftType.toJson();
+    }
+    data['size'] = this.size;
+    data['smoothness'] = this.smoothness;
+    data['soil_dryness'] = this.soilDryness;
+    return data;
+  }
+}
+
+class Flavors {
+  CommonResult flavor;
+  int potency;
+
+  Flavors({this.flavor, this.potency});
+
+  Flavors.fromJson(Map<String, dynamic> json) {
+    flavor = json['flavor'] != null
+        ? new CommonResult.fromJson(json['flavor'])
+        : null;
+    potency = json['potency'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.flavor != null) {
+      data['flavor'] = this.flavor.toJson();
+    }
+    data['potency'] = this.potency;
+    return data;
+  }
+}
