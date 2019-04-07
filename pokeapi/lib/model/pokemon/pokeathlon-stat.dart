@@ -1,4 +1,4 @@
-import 'package:pokeapi/dao/common.dart';
+import 'package:pokeapi/model/utils/common.dart';
 
 class PokeAthlonStat {
   int id;
@@ -71,14 +71,14 @@ class AffectingNatures {
 
 class Increase {
   int maxChange;
-  CommonResult nature;
+  NamedAPIResource nature;
 
   Increase({this.maxChange, this.nature});
 
   Increase.fromJson(Map<String, dynamic> json) {
     maxChange = json['max_change'];
     nature = json['nature'] != null
-        ? new CommonResult.fromJson(json['nature'])
+        ? new NamedAPIResource.fromJson(json['nature'])
         : null;
   }
 
@@ -94,14 +94,14 @@ class Increase {
 
 class Decrease {
   int maxChange;
-  CommonResult nature;
+  NamedAPIResource nature;
 
   Decrease({this.maxChange, this.nature});
 
   Decrease.fromJson(Map<String, dynamic> json) {
     maxChange = json['max_change'];
     nature = json['nature'] != null
-        ? new CommonResult.fromJson(json['nature'])
+        ? new NamedAPIResource.fromJson(json['nature'])
         : null;
   }
 
@@ -117,14 +117,14 @@ class Decrease {
 
 class Names {
   String name;
-  CommonResult language;
+  NamedAPIResource language;
 
   Names({this.name, this.language});
 
   Names.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     language = json['language'] != null
-        ? new CommonResult.fromJson(json['language'])
+        ? new NamedAPIResource.fromJson(json['language'])
         : null;
   }
 

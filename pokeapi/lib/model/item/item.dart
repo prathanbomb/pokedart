@@ -1,13 +1,13 @@
-import 'package:pokeapi/dao/common.dart';
+import 'package:pokeapi/model/utils/common.dart';
 
 class Item {
   int id;
   String name;
   int cost;
   int flingPower;
-  CommonResult flingEffect;
-  List<CommonResult> attributes;
-  CommonResult category;
+  NamedAPIResource flingEffect;
+  List<NamedAPIResource> attributes;
+  NamedAPIResource category;
   List<EffectEntries> effectEntries;
   List<FlavorTextEntries> flavorTextEntries;
   List<GameIndices> gameIndices;
@@ -38,16 +38,16 @@ class Item {
     cost = json['cost'];
     flingPower = json['fling_power'];
     flingEffect = json['fling_effect'] != null
-        ? new CommonResult.fromJson(json['fling_effect'])
+        ? new NamedAPIResource.fromJson(json['fling_effect'])
         : null;
     if (json['attributes'] != null) {
-      attributes = new List<CommonResult>();
+      attributes = new List<NamedAPIResource>();
       json['attributes'].forEach((v) {
-        attributes.add(new CommonResult.fromJson(v));
+        attributes.add(new NamedAPIResource.fromJson(v));
       });
     }
     category = json['category'] != null
-        ? new CommonResult.fromJson(json['category'])
+        ? new NamedAPIResource.fromJson(json['category'])
         : null;
     if (json['effect_entries'] != null) {
       effectEntries = new List<EffectEntries>();
@@ -132,7 +132,7 @@ class Item {
 class EffectEntries {
   String effect;
   String shortEffect;
-  CommonResult language;
+  NamedAPIResource language;
 
   EffectEntries({this.effect, this.shortEffect, this.language});
 
@@ -140,7 +140,7 @@ class EffectEntries {
     effect = json['effect'];
     shortEffect = json['short_effect'];
     language = json['language'] != null
-        ? new CommonResult.fromJson(json['language'])
+        ? new NamedAPIResource.fromJson(json['language'])
         : null;
   }
 
@@ -157,18 +157,18 @@ class EffectEntries {
 
 class FlavorTextEntries {
   String text;
-  CommonResult versionGroup;
-  CommonResult language;
+  NamedAPIResource versionGroup;
+  NamedAPIResource language;
 
   FlavorTextEntries({this.text, this.versionGroup, this.language});
 
   FlavorTextEntries.fromJson(Map<String, dynamic> json) {
     text = json['text'];
     versionGroup = json['version_group'] != null
-        ? new CommonResult.fromJson(json['version_group'])
+        ? new NamedAPIResource.fromJson(json['version_group'])
         : null;
     language = json['language'] != null
-        ? new CommonResult.fromJson(json['language'])
+        ? new NamedAPIResource.fromJson(json['language'])
         : null;
   }
 
@@ -187,14 +187,14 @@ class FlavorTextEntries {
 
 class GameIndices {
   int gameIndex;
-  CommonResult generation;
+  NamedAPIResource generation;
 
   GameIndices({this.gameIndex, this.generation});
 
   GameIndices.fromJson(Map<String, dynamic> json) {
     gameIndex = json['game_index'];
     generation = json['generation'] != null
-        ? new CommonResult.fromJson(json['generation'])
+        ? new NamedAPIResource.fromJson(json['generation'])
         : null;
   }
 
@@ -210,14 +210,14 @@ class GameIndices {
 
 class Names {
   String name;
-  CommonResult language;
+  NamedAPIResource language;
 
   Names({this.name, this.language});
 
   Names.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     language = json['language'] != null
-        ? new CommonResult.fromJson(json['language'])
+        ? new NamedAPIResource.fromJson(json['language'])
         : null;
   }
 
@@ -248,14 +248,14 @@ class Sprites {
 }
 
 class HeldByPokemon {
-  CommonResult pokemon;
+  NamedAPIResource pokemon;
   List<VersionDetails> versionDetails;
 
   HeldByPokemon({this.pokemon, this.versionDetails});
 
   HeldByPokemon.fromJson(Map<String, dynamic> json) {
     pokemon = json['pokemon'] != null
-        ? new CommonResult.fromJson(json['pokemon'])
+        ? new NamedAPIResource.fromJson(json['pokemon'])
         : null;
     if (json['version_details'] != null) {
       versionDetails = new List<VersionDetails>();
@@ -280,14 +280,14 @@ class HeldByPokemon {
 
 class VersionDetails {
   int rarity;
-  CommonResult version;
+  NamedAPIResource version;
 
   VersionDetails({this.rarity, this.version});
 
   VersionDetails.fromJson(Map<String, dynamic> json) {
     rarity = json['rarity'];
     version = json['version'] != null
-        ? new CommonResult.fromJson(json['version'])
+        ? new NamedAPIResource.fromJson(json['version'])
         : null;
   }
 

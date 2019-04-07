@@ -1,4 +1,4 @@
-import 'package:pokeapi/dao/common.dart';
+import 'package:pokeapi/model/utils/common.dart';
 
 class PokemonForm {
   int id;
@@ -9,9 +9,9 @@ class PokemonForm {
   bool isBattleOnly;
   bool isMega;
   String formName;
-  CommonResult pokemon;
+  NamedAPIResource pokemon;
   Sprites sprites;
-  CommonResult versionGroup;
+  NamedAPIResource versionGroup;
 
   PokemonForm(
       {this.id,
@@ -36,12 +36,12 @@ class PokemonForm {
     isMega = json['is_mega'];
     formName = json['form_name'];
     pokemon = json['pokemon'] != null
-        ? new CommonResult.fromJson(json['pokemon'])
+        ? new NamedAPIResource.fromJson(json['pokemon'])
         : null;
     sprites =
         json['sprites'] != null ? new Sprites.fromJson(json['sprites']) : null;
     versionGroup = json['version_group'] != null
-        ? new CommonResult.fromJson(json['version_group'])
+        ? new NamedAPIResource.fromJson(json['version_group'])
         : null;
   }
 

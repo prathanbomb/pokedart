@@ -1,15 +1,15 @@
-import 'package:pokeapi/dao/common.dart';
+import 'package:pokeapi/model/utils/common.dart';
 
 class Berry {
-  CommonResult firmness;
+  NamedAPIResource firmness;
   List<Flavors> flavors;
   int growthTime;
   int id;
-  CommonResult item;
+  NamedAPIResource item;
   int maxHarvest;
   String name;
   int naturalGiftPower;
-  CommonResult naturalGiftType;
+  NamedAPIResource naturalGiftType;
   int size;
   int smoothness;
   int soilDryness;
@@ -30,7 +30,7 @@ class Berry {
 
   Berry.fromJson(Map<String, dynamic> json) {
     firmness = json['firmness'] != null
-        ? new CommonResult.fromJson(json['firmness'])
+        ? new NamedAPIResource.fromJson(json['firmness'])
         : null;
     if (json['flavors'] != null) {
       flavors = new List<Flavors>();
@@ -40,13 +40,14 @@ class Berry {
     }
     growthTime = json['growth_time'];
     id = json['id'];
-    item =
-        json['item'] != null ? new CommonResult.fromJson(json['item']) : null;
+    item = json['item'] != null
+        ? new NamedAPIResource.fromJson(json['item'])
+        : null;
     maxHarvest = json['max_harvest'];
     name = json['name'];
     naturalGiftPower = json['natural_gift_power'];
     naturalGiftType = json['natural_gift_type'] != null
-        ? new CommonResult.fromJson(json['natural_gift_type'])
+        ? new NamedAPIResource.fromJson(json['natural_gift_type'])
         : null;
     size = json['size'];
     smoothness = json['smoothness'];
@@ -80,14 +81,14 @@ class Berry {
 }
 
 class Flavors {
-  CommonResult flavor;
+  NamedAPIResource flavor;
   int potency;
 
   Flavors({this.flavor, this.potency});
 
   Flavors.fromJson(Map<String, dynamic> json) {
     flavor = json['flavor'] != null
-        ? new CommonResult.fromJson(json['flavor'])
+        ? new NamedAPIResource.fromJson(json['flavor'])
         : null;
     potency = json['potency'];
   }

@@ -3,10 +3,10 @@ library pokeapi;
 import 'dart:convert';
 
 import 'package:http/http.dart' as Http;
-import 'package:pokeapi/dao/api.dart';
-import 'package:pokeapi/dao/berry/berry.dart';
-import 'package:pokeapi/dao/common.dart';
-import 'package:pokeapi/dao/pokemon/pokemon.dart';
+import 'package:pokeapi/model/berry/berry.dart';
+import 'package:pokeapi/model/pokemon/pokemon.dart';
+import 'package:pokeapi/model/utils/api.dart';
+import 'package:pokeapi/model/utils/common.dart';
 
 class PokeAPI {
   static final baseUrl = "https://pokeapi.co/api/v2/";
@@ -18,11 +18,11 @@ class PokeAPI {
     return Api.fromJson(map);
   }
 
-  static Future<CommonDAO> getAbility() async {
+  static Future<Common> getAbility() async {
     var baseAPI = await getAPI();
     var response = await Http.get(baseAPI.ability);
     Map map = json.decode(response.body);
-    return CommonDAO.fromJson(map);
+    return Common.fromJson(map);
   }
 
   static Future<List<Berry>> getBerryList(int offset, int limit) async {
@@ -31,14 +31,34 @@ class PokeAPI {
     var url = baseAPI.berry + "?offset=$offset&limit=$limit";
     var response = await Http.get(url);
     Map berryListMap = json.decode(response.body);
-    List<CommonResult> commonResultList =
-        CommonDAO.fromJson(berryListMap).results;
-    for (CommonResult result in commonResultList) {
+    List<NamedAPIResource> commonResultList =
+        Common
+            .fromJson(berryListMap)
+            .results;
+    for (NamedAPIResource result in commonResultList) {
       response = await Http.get(result.url);
       Map berryMap = json.decode(response.body);
       berryList.add(Berry.fromJson(berryMap));
     }
     return berryList;
+  }
+
+  static Future<Berry> getBerry(int id) async {
+    var baseAPI = await getAPI();
+    var url = baseAPI.berry + "?offset=${id + 1}&limit=1";
+    var response = await Http.get(url);
+    Map berryListMap = json.decode(response.body);
+    List<NamedAPIResource> commonResultList =
+        Common
+            .fromJson(berryListMap)
+            .results;
+    if (commonResultList.isNotEmpty) {
+      response = await Http.get(commonResultList[0].url);
+      Map berryMap = json.decode(response.body);
+      return Berry.fromJson(berryMap);
+    } else {
+      return null;
+    }
   }
 
   static Future<List<Pokemon>> getPokemonList(int offset, int limit) async {
@@ -47,13 +67,33 @@ class PokeAPI {
     var url = baseAPI.pokemon + "?offset=$offset&limit=$limit";
     var response = await Http.get(url);
     Map pokemonListMap = json.decode(response.body);
-    List<CommonResult> commonResultList =
-        CommonDAO.fromJson(pokemonListMap).results;
-    for (CommonResult result in commonResultList) {
+    List<NamedAPIResource> commonResultList =
+        Common
+            .fromJson(pokemonListMap)
+            .results;
+    for (NamedAPIResource result in commonResultList) {
       response = await Http.get(result.url);
       Map pokemonMap = json.decode(response.body);
       pokemonList.add(Pokemon.fromJson(pokemonMap));
     }
     return pokemonList;
+  }
+
+  static Future<Pokemon> getPokemon(int id) async {
+    var baseAPI = await getAPI();
+    var url = baseAPI.pokemon + "?offset=${id + 1}&limit=1";
+    var response = await Http.get(url);
+    Map pokemonListMap = json.decode(response.body);
+    List<NamedAPIResource> commonResultList =
+        Common
+            .fromJson(pokemonListMap)
+            .results;
+    if (commonResultList.isNotEmpty) {
+      response = await Http.get(commonResultList[0].url);
+      Map pokemonMap = json.decode(response.body);
+      return Pokemon.fromJson(pokemonMap);
+    } else {
+      return null;
+    }
   }
 }

@@ -1,15 +1,15 @@
-import 'package:pokeapi/dao/common.dart';
+import 'package:pokeapi/model/utils/common.dart';
 
 class Ability {
   int id;
   String name;
   bool isMainSeries;
-  CommonResult generation;
+  NamedAPIResource generation;
   List<Names> names;
   List<EffectEntries> effectEntries;
   List<EffectChanges> effectChanges;
   List<FlavorTextEntries> flavorTextEntries;
-  List<CommonResult> pokemon;
+  List<NamedAPIResource> pokemon;
 
   Ability(
       {this.id,
@@ -27,7 +27,7 @@ class Ability {
     name = json['name'];
     isMainSeries = json['is_main_series'];
     generation = json['generation'] != null
-        ? new CommonResult.fromJson(json['generation'])
+        ? new NamedAPIResource.fromJson(json['generation'])
         : null;
     if (json['names'] != null) {
       names = new List<Names>();
@@ -54,9 +54,9 @@ class Ability {
       });
     }
     if (json['pokemon'] != null) {
-      pokemon = new List<CommonResult>();
+      pokemon = new List<NamedAPIResource>();
       json['pokemon'].forEach((v) {
-        pokemon.add(new CommonResult.fromJson(v));
+        pokemon.add(new NamedAPIResource.fromJson(v));
       });
     }
   }
@@ -93,14 +93,14 @@ class Ability {
 
 class Names {
   String name;
-  CommonResult language;
+  NamedAPIResource language;
 
   Names({this.name, this.language});
 
   Names.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     language = json['language'] != null
-        ? new CommonResult.fromJson(json['language'])
+        ? new NamedAPIResource.fromJson(json['language'])
         : null;
   }
 
@@ -117,7 +117,7 @@ class Names {
 class EffectEntries {
   String effect;
   String shortEffect;
-  CommonResult language;
+  NamedAPIResource language;
 
   EffectEntries({this.effect, this.shortEffect, this.language});
 
@@ -125,7 +125,7 @@ class EffectEntries {
     effect = json['effect'];
     shortEffect = json['short_effect'];
     language = json['language'] != null
-        ? new CommonResult.fromJson(json['language'])
+        ? new NamedAPIResource.fromJson(json['language'])
         : null;
   }
 
@@ -141,14 +141,14 @@ class EffectEntries {
 }
 
 class EffectChanges {
-  CommonResult versionGroup;
+  NamedAPIResource versionGroup;
   List<EffectEntries> effectEntries;
 
   EffectChanges({this.versionGroup, this.effectEntries});
 
   EffectChanges.fromJson(Map<String, dynamic> json) {
     versionGroup = json['version_group'] != null
-        ? new CommonResult.fromJson(json['version_group'])
+        ? new NamedAPIResource.fromJson(json['version_group'])
         : null;
     if (json['effect_entries'] != null) {
       effectEntries = new List<EffectEntries>();
@@ -173,18 +173,18 @@ class EffectChanges {
 
 class FlavorTextEntries {
   String flavorText;
-  CommonResult language;
-  CommonResult versionGroup;
+  NamedAPIResource language;
+  NamedAPIResource versionGroup;
 
   FlavorTextEntries({this.flavorText, this.language, this.versionGroup});
 
   FlavorTextEntries.fromJson(Map<String, dynamic> json) {
     flavorText = json['flavor_text'];
     language = json['language'] != null
-        ? new CommonResult.fromJson(json['language'])
+        ? new NamedAPIResource.fromJson(json['language'])
         : null;
     versionGroup = json['version_group'] != null
-        ? new CommonResult.fromJson(json['version_group'])
+        ? new NamedAPIResource.fromJson(json['version_group'])
         : null;
   }
 

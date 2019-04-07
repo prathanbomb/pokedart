@@ -1,10 +1,10 @@
-import 'package:pokeapi/dao/common.dart';
+import 'package:pokeapi/model/utils/common.dart';
 
 class ItemAbility {
   int id;
   String name;
   List<Descriptions> descriptions;
-  List<CommonResult> items;
+  List<NamedAPIResource> items;
   List<Names> names;
 
   ItemAbility({this.id, this.name, this.descriptions, this.items, this.names});
@@ -19,9 +19,9 @@ class ItemAbility {
       });
     }
     if (json['items'] != null) {
-      items = new List<CommonResult>();
+      items = new List<NamedAPIResource>();
       json['items'].forEach((v) {
-        items.add(new CommonResult.fromJson(v));
+        items.add(new NamedAPIResource.fromJson(v));
       });
     }
     if (json['names'] != null) {
@@ -51,14 +51,14 @@ class ItemAbility {
 
 class Descriptions {
   String description;
-  CommonResult language;
+  NamedAPIResource language;
 
   Descriptions({this.description, this.language});
 
   Descriptions.fromJson(Map<String, dynamic> json) {
     description = json['description'];
     language = json['language'] != null
-        ? new CommonResult.fromJson(json['language'])
+        ? new NamedAPIResource.fromJson(json['language'])
         : null;
   }
 
@@ -74,14 +74,14 @@ class Descriptions {
 
 class Names {
   String name;
-  CommonResult language;
+  NamedAPIResource language;
 
   Names({this.name, this.language});
 
   Names.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     language = json['language'] != null
-        ? new CommonResult.fromJson(json['language'])
+        ? new NamedAPIResource.fromJson(json['language'])
         : null;
   }
 

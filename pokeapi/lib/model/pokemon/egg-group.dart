@@ -1,14 +1,14 @@
-import 'package:pokeapi/dao/common.dart';
+import 'package:pokeapi/model/utils/common.dart';
 
-class PokemonColor {
+class EggGroup {
   int id;
   String name;
   List<Names> names;
-  List<CommonResult> pokemonSpecies;
+  List<NamedAPIResource> pokemonSpecies;
 
-  PokemonColor({this.id, this.name, this.names, this.pokemonSpecies});
+  EggGroup({this.id, this.name, this.names, this.pokemonSpecies});
 
-  PokemonColor.fromJson(Map<String, dynamic> json) {
+  EggGroup.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     if (json['names'] != null) {
@@ -18,9 +18,9 @@ class PokemonColor {
       });
     }
     if (json['pokemon_species'] != null) {
-      pokemonSpecies = new List<CommonResult>();
+      pokemonSpecies = new List<NamedAPIResource>();
       json['pokemon_species'].forEach((v) {
-        pokemonSpecies.add(new CommonResult.fromJson(v));
+        pokemonSpecies.add(new NamedAPIResource.fromJson(v));
       });
     }
   }
@@ -42,14 +42,14 @@ class PokemonColor {
 
 class Names {
   String name;
-  CommonResult language;
+  NamedAPIResource language;
 
   Names({this.name, this.language});
 
   Names.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     language = json['language'] != null
-        ? new CommonResult.fromJson(json['language'])
+        ? new NamedAPIResource.fromJson(json['language'])
         : null;
   }
 

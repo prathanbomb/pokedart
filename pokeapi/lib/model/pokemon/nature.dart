@@ -1,12 +1,12 @@
-import 'package:pokeapi/dao/common.dart';
+import 'package:pokeapi/model/utils/common.dart';
 
 class Nature {
   int id;
   String name;
-  CommonResult decreasedStat;
-  CommonResult increasedStat;
-  CommonResult likesFlavor;
-  CommonResult hatesFlavor;
+  NamedAPIResource decreasedStat;
+  NamedAPIResource increasedStat;
+  NamedAPIResource likesFlavor;
+  NamedAPIResource hatesFlavor;
   List<PokeathlonStatChanges> pokeathlonStatChanges;
   List<MoveBattleStylePreferences> moveBattleStylePreferences;
   List<Names> names;
@@ -26,16 +26,16 @@ class Nature {
     id = json['id'];
     name = json['name'];
     decreasedStat = json['decreased_stat'] != null
-        ? new CommonResult.fromJson(json['decreased_stat'])
+        ? new NamedAPIResource.fromJson(json['decreased_stat'])
         : null;
     increasedStat = json['increased_stat'] != null
-        ? new CommonResult.fromJson(json['increased_stat'])
+        ? new NamedAPIResource.fromJson(json['increased_stat'])
         : null;
     likesFlavor = json['likes_flavor'] != null
-        ? new CommonResult.fromJson(json['likes_flavor'])
+        ? new NamedAPIResource.fromJson(json['likes_flavor'])
         : null;
     hatesFlavor = json['hates_flavor'] != null
-        ? new CommonResult.fromJson(json['hates_flavor'])
+        ? new NamedAPIResource.fromJson(json['hates_flavor'])
         : null;
     if (json['pokeathlon_stat_changes'] != null) {
       pokeathlonStatChanges = new List<PokeathlonStatChanges>();
@@ -91,14 +91,14 @@ class Nature {
 
 class PokeathlonStatChanges {
   int maxChange;
-  CommonResult pokeathlonStat;
+  NamedAPIResource pokeathlonStat;
 
   PokeathlonStatChanges({this.maxChange, this.pokeathlonStat});
 
   PokeathlonStatChanges.fromJson(Map<String, dynamic> json) {
     maxChange = json['max_change'];
     pokeathlonStat = json['pokeathlon_stat'] != null
-        ? new CommonResult.fromJson(json['pokeathlon_stat'])
+        ? new NamedAPIResource.fromJson(json['pokeathlon_stat'])
         : null;
   }
 
@@ -115,7 +115,7 @@ class PokeathlonStatChanges {
 class MoveBattleStylePreferences {
   int lowHpPreference;
   int highHpPreference;
-  CommonResult moveBattleStyle;
+  NamedAPIResource moveBattleStyle;
 
   MoveBattleStylePreferences(
       {this.lowHpPreference, this.highHpPreference, this.moveBattleStyle});
@@ -124,7 +124,7 @@ class MoveBattleStylePreferences {
     lowHpPreference = json['low_hp_preference'];
     highHpPreference = json['high_hp_preference'];
     moveBattleStyle = json['move_battle_style'] != null
-        ? new CommonResult.fromJson(json['move_battle_style'])
+        ? new NamedAPIResource.fromJson(json['move_battle_style'])
         : null;
   }
 
@@ -141,14 +141,14 @@ class MoveBattleStylePreferences {
 
 class Names {
   String name;
-  CommonResult language;
+  NamedAPIResource language;
 
   Names({this.name, this.language});
 
   Names.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     language = json['language'] != null
-        ? new CommonResult.fromJson(json['language'])
+        ? new NamedAPIResource.fromJson(json['language'])
         : null;
   }
 

@@ -1,4 +1,4 @@
-import 'package:pokeapi/dao/common.dart';
+import 'package:pokeapi/model/utils/common.dart';
 
 class GrowthRate {
   int id;
@@ -6,7 +6,7 @@ class GrowthRate {
   String formula;
   List<Descriptions> descriptions;
   List<Levels> levels;
-  List<CommonResult> pokemonSpecies;
+  List<NamedAPIResource> pokemonSpecies;
 
   GrowthRate(
       {this.id,
@@ -33,9 +33,9 @@ class GrowthRate {
       });
     }
     if (json['pokemon_species'] != null) {
-      pokemonSpecies = new List<CommonResult>();
+      pokemonSpecies = new List<NamedAPIResource>();
       json['pokemon_species'].forEach((v) {
-        pokemonSpecies.add(new CommonResult.fromJson(v));
+        pokemonSpecies.add(new NamedAPIResource.fromJson(v));
       });
     }
   }
@@ -61,14 +61,14 @@ class GrowthRate {
 
 class Descriptions {
   String description;
-  CommonResult language;
+  NamedAPIResource language;
 
   Descriptions({this.description, this.language});
 
   Descriptions.fromJson(Map<String, dynamic> json) {
     description = json['description'];
     language = json['language'] != null
-        ? new CommonResult.fromJson(json['language'])
+        ? new NamedAPIResource.fromJson(json['language'])
         : null;
   }
 

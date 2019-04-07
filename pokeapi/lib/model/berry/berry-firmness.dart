@@ -1,20 +1,20 @@
-import 'package:pokeapi/dao/common.dart';
+import 'package:pokeapi/model/utils/common.dart';
 
-class ItemPocket {
+class BerryFirmness {
   int id;
   String name;
-  List<CommonResult> categories;
+  List<NamedAPIResource> berries;
   List<Names> names;
 
-  ItemPocket({this.id, this.name, this.categories, this.names});
+  BerryFirmness({this.id, this.name, this.berries, this.names});
 
-  ItemPocket.fromJson(Map<String, dynamic> json) {
+  BerryFirmness.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    if (json['categories'] != null) {
-      categories = new List<CommonResult>();
-      json['categories'].forEach((v) {
-        categories.add(new CommonResult.fromJson(v));
+    if (json['berries'] != null) {
+      berries = new List<NamedAPIResource>();
+      json['berries'].forEach((v) {
+        berries.add(new NamedAPIResource.fromJson(v));
       });
     }
     if (json['names'] != null) {
@@ -29,8 +29,8 @@ class ItemPocket {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['name'] = this.name;
-    if (this.categories != null) {
-      data['categories'] = this.categories.map((v) => v.toJson()).toList();
+    if (this.berries != null) {
+      data['berries'] = this.berries.map((v) => v.toJson()).toList();
     }
     if (this.names != null) {
       data['names'] = this.names.map((v) => v.toJson()).toList();
@@ -41,14 +41,14 @@ class ItemPocket {
 
 class Names {
   String name;
-  CommonResult language;
+  NamedAPIResource language;
 
   Names({this.name, this.language});
 
   Names.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     language = json['language'] != null
-        ? new CommonResult.fromJson(json['language'])
+        ? new NamedAPIResource.fromJson(json['language'])
         : null;
   }
 

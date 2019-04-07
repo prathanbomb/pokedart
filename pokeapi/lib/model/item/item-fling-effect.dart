@@ -1,10 +1,10 @@
-import 'package:pokeapi/dao/common.dart';
+import 'package:pokeapi/model/utils/common.dart';
 
 class ItemFlingEffect {
   int id;
   String name;
   List<EffectEntries> effectEntries;
-  List<CommonResult> items;
+  List<NamedAPIResource> items;
 
   ItemFlingEffect({this.id, this.name, this.effectEntries, this.items});
 
@@ -18,9 +18,9 @@ class ItemFlingEffect {
       });
     }
     if (json['items'] != null) {
-      items = new List<CommonResult>();
+      items = new List<NamedAPIResource>();
       json['items'].forEach((v) {
-        items.add(new CommonResult.fromJson(v));
+        items.add(new NamedAPIResource.fromJson(v));
       });
     }
   }
@@ -42,14 +42,14 @@ class ItemFlingEffect {
 
 class EffectEntries {
   String effect;
-  CommonResult language;
+  NamedAPIResource language;
 
   EffectEntries({this.effect, this.language});
 
   EffectEntries.fromJson(Map<String, dynamic> json) {
     effect = json['effect'];
     language = json['language'] != null
-        ? new CommonResult.fromJson(json['language'])
+        ? new NamedAPIResource.fromJson(json['language'])
         : null;
   }
 

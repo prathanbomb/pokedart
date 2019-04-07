@@ -1,11 +1,11 @@
-import 'package:pokeapi/dao/common.dart';
+import 'package:pokeapi/model/utils/common.dart';
 
 class ItemCategory {
   int id;
   String name;
-  List<CommonResult> items;
-  List<CommonResult> names;
-  CommonResult pocket;
+  List<NamedAPIResource> items;
+  List<NamedAPIResource> names;
+  NamedAPIResource pocket;
 
   ItemCategory({this.id, this.name, this.items, this.names, this.pocket});
 
@@ -13,19 +13,19 @@ class ItemCategory {
     id = json['id'];
     name = json['name'];
     if (json['items'] != null) {
-      items = new List<CommonResult>();
+      items = new List<NamedAPIResource>();
       json['items'].forEach((v) {
-        items.add(new CommonResult.fromJson(v));
+        items.add(new NamedAPIResource.fromJson(v));
       });
     }
     if (json['names'] != null) {
-      names = new List<CommonResult>();
+      names = new List<NamedAPIResource>();
       json['names'].forEach((v) {
-        names.add(new CommonResult.fromJson(v));
+        names.add(new NamedAPIResource.fromJson(v));
       });
     }
     pocket = json['pocket'] != null
-        ? new CommonResult.fromJson(json['pocket'])
+        ? new NamedAPIResource.fromJson(json['pocket'])
         : null;
   }
 

@@ -1,19 +1,19 @@
-class CommonDAO {
+class Common {
   int count;
   String next;
   String previous;
-  List<CommonResult> results;
+  List<NamedAPIResource> results;
 
-  CommonDAO({this.count, this.next, this.previous, this.results});
+  Common({this.count, this.next, this.previous, this.results});
 
-  CommonDAO.fromJson(Map<String, dynamic> json) {
+  Common.fromJson(Map<String, dynamic> json) {
     count = json['count'];
     next = json['next'];
     previous = json['previous'];
     if (json['results'] != null) {
-      results = new List<CommonResult>();
+      results = new List<NamedAPIResource>();
       json['results'].forEach((v) {
-        results.add(new CommonResult.fromJson(v));
+        results.add(new NamedAPIResource.fromJson(v));
       });
     }
   }
@@ -35,13 +35,13 @@ class CommonDAO {
   }
 }
 
-class CommonResult {
+class NamedAPIResource {
   String name;
   String url;
 
-  CommonResult({this.name, this.url});
+  NamedAPIResource({this.name, this.url});
 
-  CommonResult.fromJson(Map<String, dynamic> json) {
+  NamedAPIResource.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     url = json['url'];
   }

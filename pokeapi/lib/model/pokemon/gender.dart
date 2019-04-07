@@ -1,10 +1,10 @@
-import 'package:pokeapi/dao/common.dart';
+import 'package:pokeapi/model/utils/common.dart';
 
 class Gender {
   int id;
   String name;
   List<PokemonSpeciesDetails> pokemonSpeciesDetails;
-  List<CommonResult> requiredForEvolution;
+  List<NamedAPIResource> requiredForEvolution;
 
   Gender(
       {this.id,
@@ -22,9 +22,9 @@ class Gender {
       });
     }
     if (json['required_for_evolution'] != null) {
-      requiredForEvolution = new List<CommonResult>();
+      requiredForEvolution = new List<NamedAPIResource>();
       json['required_for_evolution'].forEach((v) {
-        requiredForEvolution.add(new CommonResult.fromJson(v));
+        requiredForEvolution.add(new NamedAPIResource.fromJson(v));
       });
     }
   }
@@ -47,14 +47,14 @@ class Gender {
 
 class PokemonSpeciesDetails {
   int rate;
-  CommonResult pokemonSpecies;
+  NamedAPIResource pokemonSpecies;
 
   PokemonSpeciesDetails({this.rate, this.pokemonSpecies});
 
   PokemonSpeciesDetails.fromJson(Map<String, dynamic> json) {
     rate = json['rate'];
     pokemonSpecies = json['pokemon_species'] != null
-        ? new CommonResult.fromJson(json['pokemon_species'])
+        ? new NamedAPIResource.fromJson(json['pokemon_species'])
         : null;
   }
 

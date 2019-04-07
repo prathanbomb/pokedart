@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pokeapi/dao/pokemon/pokemon.dart';
+import 'package:pokeapi/model/pokemon/pokemon.dart';
 import 'package:pokeapi/pokeapi.dart';
 
 void main() => runApp(MyApp());
