@@ -18,14 +18,15 @@ class Pokemon {
   List<Stats> stats;
   List<Types> types;
 
-  Pokemon({this.id,
-    this.name,
+  Pokemon(
+      {this.id,
+      this.name,
       this.baseExperience,
-    this.height,
-    this.isDefault,
-    this.order,
-    this.weight,
-    this.abilities,
+      this.height,
+      this.isDefault,
+      this.order,
+      this.weight,
+      this.abilities,
       this.forms,
       this.gameIndices,
       this.heldItems,
@@ -33,7 +34,7 @@ class Pokemon {
       this.species,
       this.sprites,
       this.stats,
-    this.types});
+      this.types});
 
   Pokemon.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -77,7 +78,7 @@ class Pokemon {
         ? new NamedAPIResource.fromJson(json['species'])
         : null;
     sprites =
-    json['sprites'] != null ? new Sprites.fromJson(json['sprites']) : null;
+        json['sprites'] != null ? new Sprites.fromJson(json['sprites']) : null;
     if (json['stats'] != null) {
       stats = new List<Stats>();
       json['stats'].forEach((v) {
@@ -267,11 +268,12 @@ class EncounterDetails {
   int chance;
   Method method;
 
-  EncounterDetails({this.minLevel,
-    this.maxLevel,
-    this.conditionValues,
-    this.chance,
-    this.method});
+  EncounterDetails(
+      {this.minLevel,
+      this.maxLevel,
+      this.conditionValues,
+      this.chance,
+      this.method});
 
   EncounterDetails.fromJson(Map<String, dynamic> json) {
     minLevel = json['min_level'];
@@ -284,7 +286,7 @@ class EncounterDetails {
     }
     chance = json['chance'];
     method =
-    json['method'] != null ? new Method.fromJson(json['method']) : null;
+        json['method'] != null ? new Method.fromJson(json['method']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -462,14 +464,15 @@ class Sprites {
   String frontDefault;
   String frontShiny;
 
-  Sprites({this.backFemale,
-    this.backShinyFemale,
-    this.backDefault,
-    this.frontFemale,
-    this.frontShinyFemale,
-    this.backShiny,
-    this.frontDefault,
-    this.frontShiny});
+  Sprites(
+      {this.backFemale,
+      this.backShinyFemale,
+      this.backDefault,
+      this.frontFemale,
+      this.frontShinyFemale,
+      this.backShiny,
+      this.frontDefault,
+      this.frontShiny});
 
   Sprites.fromJson(Map<String, dynamic> json) {
     backFemale = json['back_female'];
