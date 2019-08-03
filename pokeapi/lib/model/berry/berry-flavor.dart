@@ -44,6 +44,11 @@ class BerryFlavor {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'BerryFlavor{id: $id, name: $name, berries: $berries, contestType: $contestType, names: $names}';
+  }
 }
 
 class Berries {
@@ -67,6 +72,11 @@ class Berries {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'Berries{potency: $potency, berry: $berry}';
+  }
 }
 
 class Names {
@@ -89,5 +99,10 @@ class Names {
       data['language'] = this.language.toJson();
     }
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'Names{name: $name, language: $language}';
   }
 }

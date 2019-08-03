@@ -43,6 +43,11 @@ class Gender {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'Gender{id: $id, name: $name, pokemonSpeciesDetails: $pokemonSpeciesDetails, requiredForEvolution: $requiredForEvolution}';
+  }
 }
 
 class PokemonSpeciesDetails {
@@ -65,5 +70,10 @@ class PokemonSpeciesDetails {
       data['pokemon_species'] = this.pokemonSpecies.toJson();
     }
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'PokemonSpeciesDetails{rate: $rate, pokemonSpecies: $pokemonSpecies}';
   }
 }

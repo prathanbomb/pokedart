@@ -66,6 +66,11 @@ class PokemonForm {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'PokemonForm{id: $id, name: $name, order: $order, formOrder: $formOrder, isDefault: $isDefault, isBattleOnly: $isBattleOnly, isMega: $isMega, formName: $formName, pokemon: $pokemon, sprites: $sprites, versionGroup: $versionGroup}';
+  }
 }
 
 class Sprites {
@@ -91,5 +96,10 @@ class Sprites {
     data['front_default'] = this.frontDefault;
     data['front_shiny'] = this.frontShiny;
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'Sprites{backDefault: $backDefault, backShiny: $backShiny, frontDefault: $frontDefault, frontShiny: $frontShiny}';
   }
 }

@@ -47,6 +47,11 @@ class ItemAbility {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'ItemAbility{id: $id, name: $name, descriptions: $descriptions, items: $items, names: $names}';
+  }
 }
 
 class Descriptions {
@@ -70,6 +75,11 @@ class Descriptions {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'Descriptions{description: $description, language: $language}';
+  }
 }
 
 class Names {
@@ -92,5 +102,10 @@ class Names {
       data['language'] = this.language.toJson();
     }
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'Names{name: $name, language: $language}';
   }
 }

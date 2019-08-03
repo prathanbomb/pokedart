@@ -38,7 +38,8 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               FutureBuilder(
-                  future: PokeAPI.getPokemonList(0, 10),
+                  future: PokeAPI.getObjectList<Pokemon>(1, 10),
+                  // ignore: missing_return
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       List<Pokemon> pokemonList = snapshot.data;

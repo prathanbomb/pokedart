@@ -87,6 +87,11 @@ class Nature {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'Nature{id: $id, name: $name, decreasedStat: $decreasedStat, increasedStat: $increasedStat, likesFlavor: $likesFlavor, hatesFlavor: $hatesFlavor, pokeathlonStatChanges: $pokeathlonStatChanges, moveBattleStylePreferences: $moveBattleStylePreferences, names: $names}';
+  }
 }
 
 class PokeathlonStatChanges {
@@ -109,6 +114,11 @@ class PokeathlonStatChanges {
       data['pokeathlon_stat'] = this.pokeathlonStat.toJson();
     }
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'PokeathlonStatChanges{maxChange: $maxChange, pokeathlonStat: $pokeathlonStat}';
   }
 }
 
@@ -137,6 +147,11 @@ class MoveBattleStylePreferences {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'MoveBattleStylePreferences{lowHpPreference: $lowHpPreference, highHpPreference: $highHpPreference, moveBattleStyle: $moveBattleStyle}';
+  }
 }
 
 class Names {
@@ -159,5 +174,10 @@ class Names {
       data['language'] = this.language.toJson();
     }
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'Names{name: $name, language: $language}';
   }
 }

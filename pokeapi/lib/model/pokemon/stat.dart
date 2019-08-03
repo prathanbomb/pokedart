@@ -74,6 +74,11 @@ class Stat {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'Stat{id: $id, name: $name, gameIndex: $gameIndex, isBattleOnly: $isBattleOnly, affectingMoves: $affectingMoves, affectingNatures: $affectingNatures, characteristics: $characteristics, moveDamageClass: $moveDamageClass, names: $names}';
+  }
 }
 
 class AffectingMoves {
@@ -107,6 +112,11 @@ class AffectingMoves {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'AffectingMoves{increase: $increase, decrease: $decrease}';
+  }
 }
 
 class Increase {
@@ -130,6 +140,11 @@ class Increase {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'Increase{change: $change, move: $move}';
+  }
 }
 
 class Decrease {
@@ -152,6 +167,11 @@ class Decrease {
       data['move'] = this.move.toJson();
     }
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'Decrease{change: $change, move: $move}';
   }
 }
 
@@ -186,6 +206,11 @@ class AffectingNatures {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'AffectingNatures{increase: $increase, decrease: $decrease}';
+  }
 }
 
 class Characteristics {
@@ -201,6 +226,11 @@ class Characteristics {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['url'] = this.url;
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'Characteristics{url: $url}';
   }
 }
 
@@ -224,5 +254,10 @@ class Names {
       data['language'] = this.language.toJson();
     }
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'Names{name: $name, language: $language}';
   }
 }

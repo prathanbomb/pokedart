@@ -57,6 +57,11 @@ class GrowthRate {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'GrowthRate{id: $id, name: $name, formula: $formula, descriptions: $descriptions, levels: $levels, pokemonSpecies: $pokemonSpecies}';
+  }
 }
 
 class Descriptions {
@@ -80,6 +85,11 @@ class Descriptions {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'Descriptions{description: $description, language: $language}';
+  }
 }
 
 class Levels {
@@ -98,5 +108,10 @@ class Levels {
     data['level'] = this.level;
     data['experience'] = this.experience;
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'Levels{level: $level, experience: $experience}';
   }
 }

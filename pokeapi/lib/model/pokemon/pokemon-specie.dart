@@ -185,6 +185,11 @@ class PokemonSpecie {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'PokemonSpecie{id: $id, name: $name, order: $order, genderRate: $genderRate, captureRate: $captureRate, baseHappiness: $baseHappiness, isBaby: $isBaby, hatchCounter: $hatchCounter, hasGenderDifferences: $hasGenderDifferences, formsSwitchable: $formsSwitchable, growthRate: $growthRate, pokedexNumbers: $pokedexNumbers, eggGroups: $eggGroups, color: $color, shape: $shape, evolvesFromSpecies: $evolvesFromSpecies, evolutionChain: $evolutionChain, habitat: $habitat, generation: $generation, names: $names, flavorTextEntries: $flavorTextEntries, formDescriptions: $formDescriptions, genera: $genera, varieties: $varieties}';
+  }
 }
 
 class PokedexNumbers {
@@ -208,6 +213,11 @@ class PokedexNumbers {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'PokedexNumbers{entryNumber: $entryNumber, pokedex: $pokedex}';
+  }
 }
 
 class EvolutionChain {
@@ -223,6 +233,11 @@ class EvolutionChain {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['url'] = this.url;
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'EvolutionChain{url: $url}';
   }
 }
 
@@ -246,6 +261,11 @@ class Names {
       data['language'] = this.language.toJson();
     }
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'Names{name: $name, language: $language}';
   }
 }
 
@@ -277,6 +297,11 @@ class FlavorTextEntries {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'FlavorTextEntries{flavorText: $flavorText, language: $language, version: $version}';
+  }
 }
 
 class FormDescriptions {
@@ -299,6 +324,11 @@ class FormDescriptions {
       data['language'] = this.language.toJson();
     }
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'FormDescriptions{description: $description, language: $language}';
   }
 }
 
@@ -323,6 +353,11 @@ class Genera {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'Genera{genus: $genus, language: $language}';
+  }
 }
 
 class Varieties {
@@ -345,5 +380,10 @@ class Varieties {
       data['pokemon'] = this.pokemon.toJson();
     }
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'Varieties{isDefault: $isDefault, pokemon: $pokemon}';
   }
 }

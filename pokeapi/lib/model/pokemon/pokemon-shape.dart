@@ -49,6 +49,11 @@ class PokemonShape {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'PokemonShape{id: $id, name: $name, awesomeNames: $awesomeNames, names: $names, pokemonSpecies: $pokemonSpecies}';
+  }
 }
 
 class AwesomeNames {
@@ -72,6 +77,11 @@ class AwesomeNames {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'AwesomeNames{awesomeName: $awesomeName, language: $language}';
+  }
 }
 
 class Names {
@@ -94,5 +104,10 @@ class Names {
       data['language'] = this.language.toJson();
     }
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'Names{name: $name, language: $language}';
   }
 }

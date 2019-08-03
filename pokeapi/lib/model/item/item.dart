@@ -127,6 +127,11 @@ class Item {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'Item{id: $id, name: $name, cost: $cost, flingPower: $flingPower, flingEffect: $flingEffect, attributes: $attributes, category: $category, effectEntries: $effectEntries, flavorTextEntries: $flavorTextEntries, gameIndices: $gameIndices, names: $names, sprites: $sprites, heldByPokemon: $heldByPokemon, babyTriggerFor: $babyTriggerFor}';
+  }
 }
 
 class EffectEntries {
@@ -152,6 +157,11 @@ class EffectEntries {
       data['language'] = this.language.toJson();
     }
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'EffectEntries{effect: $effect, shortEffect: $shortEffect, language: $language}';
   }
 }
 
@@ -183,6 +193,11 @@ class FlavorTextEntries {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'FlavorTextEntries{text: $text, versionGroup: $versionGroup, language: $language}';
+  }
 }
 
 class GameIndices {
@@ -205,6 +220,11 @@ class GameIndices {
       data['generation'] = this.generation.toJson();
     }
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'GameIndices{gameIndex: $gameIndex, generation: $generation}';
   }
 }
 
@@ -229,6 +249,11 @@ class Names {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'Names{name: $name, language: $language}';
+  }
 }
 
 class Sprites {
@@ -244,6 +269,11 @@ class Sprites {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['default'] = this.sprite;
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'Sprites{sprite: $sprite}';
   }
 }
 
@@ -276,6 +306,11 @@ class HeldByPokemon {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'HeldByPokemon{pokemon: $pokemon, versionDetails: $versionDetails}';
+  }
 }
 
 class VersionDetails {
@@ -299,6 +334,11 @@ class VersionDetails {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'VersionDetails{rarity: $rarity, version: $version}';
+  }
 }
 
 class BabyTriggerFor {
@@ -314,5 +354,10 @@ class BabyTriggerFor {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['url'] = this.url;
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'BabyTriggerFor{url: $url}';
   }
 }

@@ -1,3 +1,5 @@
+import 'converter.dart';
+
 class Common {
   int count;
   String next;
@@ -38,12 +40,16 @@ class Common {
 class NamedAPIResource {
   String name;
   String url;
+  String id;
+  String category;
 
   NamedAPIResource({this.name, this.url});
 
   NamedAPIResource.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     url = json['url'];
+    id = Converter.urlToId(url);
+    category = Converter.urlToCat(url);
   }
 
   Map<String, dynamic> toJson() {
@@ -55,6 +61,6 @@ class NamedAPIResource {
 
   @override
   String toString() {
-    return 'Results{name: $name, url: $url}';
+    return 'NamedAPIResource{name: $name, url: $url, id: $id, category: $category}';
   }
 }

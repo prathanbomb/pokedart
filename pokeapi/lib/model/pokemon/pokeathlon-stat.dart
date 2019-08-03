@@ -34,6 +34,11 @@ class PokeAthlonStat {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'PokeAthlonStat{id: $id, name: $name, affectingNatures: $affectingNatures, names: $names}';
+  }
 }
 
 class AffectingNatures {
@@ -67,6 +72,11 @@ class AffectingNatures {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'AffectingNatures{increase: $increase, decrease: $decrease}';
+  }
 }
 
 class Increase {
@@ -89,6 +99,11 @@ class Increase {
       data['nature'] = this.nature.toJson();
     }
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'Increase{maxChange: $maxChange, nature: $nature}';
   }
 }
 
@@ -113,6 +128,11 @@ class Decrease {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'Decrease{maxChange: $maxChange, nature: $nature}';
+  }
 }
 
 class Names {
@@ -135,5 +155,10 @@ class Names {
       data['language'] = this.language.toJson();
     }
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'Names{name: $name, language: $language}';
   }
 }

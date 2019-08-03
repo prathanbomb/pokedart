@@ -37,6 +37,11 @@ class ItemPocket {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'ItemPocket{id: $id, name: $name, categories: $categories, names: $names}';
+  }
 }
 
 class Names {
@@ -59,5 +64,10 @@ class Names {
       data['language'] = this.language.toJson();
     }
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'Names{name: $name, language: $language}';
   }
 }

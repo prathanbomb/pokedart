@@ -78,6 +78,11 @@ class Berry {
     data['soil_dryness'] = this.soilDryness;
     return data;
   }
+
+  @override
+  String toString() {
+    return 'Berry{firmness: $firmness, flavors: $flavors, growthTime: $growthTime, id: $id, item: $item, maxHarvest: $maxHarvest, name: $name, naturalGiftPower: $naturalGiftPower, naturalGiftType: $naturalGiftType, size: $size, smoothness: $smoothness, soilDryness: $soilDryness}';
+  }
 }
 
 class Flavors {
@@ -100,5 +105,10 @@ class Flavors {
     }
     data['potency'] = this.potency;
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'Flavors{flavor: $flavor, potency: $potency}';
   }
 }

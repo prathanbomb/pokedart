@@ -42,6 +42,11 @@ class Characteristic {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'Characteristic{id: $id, geneModulo: $geneModulo, possibleValues: $possibleValues, highestStat: $highestStat, descriptions: $descriptions}';
+  }
 }
 
 class Descriptions {
@@ -64,5 +69,10 @@ class Descriptions {
       data['language'] = this.language.toJson();
     }
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'Descriptions{description: $description, language: $language}';
   }
 }

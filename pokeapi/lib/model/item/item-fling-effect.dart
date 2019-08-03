@@ -38,6 +38,11 @@ class ItemFlingEffect {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'ItemFlingEffect{id: $id, name: $name, effectEntries: $effectEntries, items: $items}';
+  }
 }
 
 class EffectEntries {
@@ -60,5 +65,10 @@ class EffectEntries {
       data['language'] = this.language.toJson();
     }
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'EffectEntries{effect: $effect, language: $language}';
   }
 }

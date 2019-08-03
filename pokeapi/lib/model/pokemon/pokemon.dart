@@ -12,7 +12,6 @@ class Pokemon {
   List<NamedAPIResource> forms;
   List<GameIndices> gameIndices;
   List<HeldItems> heldItems;
-  List<LocationAreaEncounters> locationAreaEncounters;
   List<Moves> moves;
   NamedAPIResource species;
   Sprites sprites;
@@ -30,7 +29,6 @@ class Pokemon {
       this.forms,
       this.gameIndices,
       this.heldItems,
-      this.locationAreaEncounters,
       this.moves,
       this.species,
       this.sprites,
@@ -67,12 +65,6 @@ class Pokemon {
       heldItems = new List<HeldItems>();
       json['held_items'].forEach((v) {
         heldItems.add(new HeldItems.fromJson(v));
-      });
-    }
-    if (json['location_area_encounters'] != null) {
-      locationAreaEncounters = new List<LocationAreaEncounters>();
-      json['location_area_encounters'].forEach((v) {
-        locationAreaEncounters.add(new LocationAreaEncounters.fromJson(v));
       });
     }
     if (json['moves'] != null) {
@@ -121,10 +113,6 @@ class Pokemon {
     if (this.heldItems != null) {
       data['held_items'] = this.heldItems.map((v) => v.toJson()).toList();
     }
-    if (this.locationAreaEncounters != null) {
-      data['location_area_encounters'] =
-          this.locationAreaEncounters.map((v) => v.toJson()).toList();
-    }
     if (this.moves != null) {
       data['moves'] = this.moves.map((v) => v.toJson()).toList();
     }
@@ -141,6 +129,11 @@ class Pokemon {
       data['types'] = this.types.map((v) => v.toJson()).toList();
     }
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'Pokemon{id: $id, name: $name, baseExperience: $baseExperience, height: $height, isDefault: $isDefault, order: $order, weight: $weight, abilities: $abilities, forms: $forms, gameIndices: $gameIndices, heldItems: $heldItems, moves: $moves, species: $species, sprites: $sprites, stats: $stats, types: $types}';
   }
 }
 
@@ -168,6 +161,11 @@ class Abilities {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'Abilities{isHidden: $isHidden, slot: $slot, ability: $ability}';
+  }
 }
 
 class GameIndices {
@@ -190,6 +188,11 @@ class GameIndices {
       data['version'] = this.version.toJson();
     }
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'GameIndices{gameIndex: $gameIndex, version: $version}';
   }
 }
 
@@ -222,6 +225,11 @@ class HeldItems {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'HeldItems{item: $item, versionDetails: $versionDetails}';
+  }
 }
 
 class VersionDetails {
@@ -245,36 +253,10 @@ class VersionDetails {
     }
     return data;
   }
-}
 
-class LocationAreaEncounters {
-  NamedAPIResource locationArea;
-  List<VersionDetails> versionDetails;
-
-  LocationAreaEncounters({this.locationArea, this.versionDetails});
-
-  LocationAreaEncounters.fromJson(Map<String, dynamic> json) {
-    locationArea = json['location_area'] != null
-        ? new NamedAPIResource.fromJson(json['location_area'])
-        : null;
-    if (json['version_details'] != null) {
-      versionDetails = new List<VersionDetails>();
-      json['version_details'].forEach((v) {
-        versionDetails.add(new VersionDetails.fromJson(v));
-      });
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.locationArea != null) {
-      data['location_area'] = this.locationArea.toJson();
-    }
-    if (this.versionDetails != null) {
-      data['version_details'] =
-          this.versionDetails.map((v) => v.toJson()).toList();
-    }
-    return data;
+  @override
+  String toString() {
+    return 'VersionDetails{rarity: $rarity, version: $version}';
   }
 }
 
@@ -319,6 +301,11 @@ class EncounterDetails {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'EncounterDetails{minLevel: $minLevel, maxLevel: $maxLevel, conditionValues: $conditionValues, chance: $chance, method: $method}';
+  }
 }
 
 class ConditionValues {
@@ -338,6 +325,11 @@ class ConditionValues {
     data['url'] = this.url;
     return data;
   }
+
+  @override
+  String toString() {
+    return 'ConditionValues{name: $name, url: $url}';
+  }
 }
 
 class Method {
@@ -356,6 +348,11 @@ class Method {
     data['name'] = this.name;
     data['url'] = this.url;
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'Method{name: $name, url: $url}';
   }
 }
 
@@ -388,6 +385,11 @@ class Moves {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'Moves{move: $move, versionGroupDetails: $versionGroupDetails}';
+  }
 }
 
 class VersionGroupDetails {
@@ -419,6 +421,11 @@ class VersionGroupDetails {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'VersionGroupDetails{levelLearnedAt: $levelLearnedAt, versionGroup: $versionGroup, moveLearnMethod: $moveLearnMethod}';
+  }
 }
 
 class VersionGroup {
@@ -437,6 +444,11 @@ class VersionGroup {
     data['name'] = this.name;
     data['url'] = this.url;
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'VersionGroup{name: $name, url: $url}';
   }
 }
 
@@ -482,6 +494,11 @@ class Sprites {
     data['front_shiny'] = this.frontShiny;
     return data;
   }
+
+  @override
+  String toString() {
+    return 'Sprites{backFemale: $backFemale, backShinyFemale: $backShinyFemale, backDefault: $backDefault, frontFemale: $frontFemale, frontShinyFemale: $frontShinyFemale, backShiny: $backShiny, frontDefault: $frontDefault, frontShiny: $frontShiny}';
+  }
 }
 
 class Stats {
@@ -508,6 +525,11 @@ class Stats {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'Stats{baseStat: $baseStat, effort: $effort, stat: $stat}';
+  }
 }
 
 class Types {
@@ -530,5 +552,10 @@ class Types {
       data['type'] = this.type.toJson();
     }
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'Types{slot: $slot, type: $type}';
   }
 }

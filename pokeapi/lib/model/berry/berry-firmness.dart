@@ -37,6 +37,11 @@ class BerryFirmness {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'BerryFirmness{id: $id, name: $name, berries: $berries, names: $names}';
+  }
 }
 
 class Names {
@@ -59,5 +64,10 @@ class Names {
       data['language'] = this.language.toJson();
     }
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'Names{name: $name, language: $language}';
   }
 }

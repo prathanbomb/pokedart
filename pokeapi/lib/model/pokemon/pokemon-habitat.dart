@@ -38,6 +38,11 @@ class PokemonHabitat {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'PokemonHabitat{id: $id, name: $name, names: $names, pokemonSpecies: $pokemonSpecies}';
+  }
 }
 
 class Names {
@@ -60,5 +65,10 @@ class Names {
       data['language'] = this.language.toJson();
     }
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'Names{name: $name, language: $language}';
   }
 }

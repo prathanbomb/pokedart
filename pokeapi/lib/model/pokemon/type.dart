@@ -8,7 +8,7 @@ class Type {
   NamedAPIResource generation;
   NamedAPIResource moveDamageClass;
   List<Names> names;
-  List<Pokemon> pokemon;
+  List<TypePokemon> pokemon;
   List<NamedAPIResource> moves;
 
   Type(
@@ -47,9 +47,9 @@ class Type {
       });
     }
     if (json['pokemon'] != null) {
-      pokemon = new List<Pokemon>();
+      pokemon = new List<TypePokemon>();
       json['pokemon'].forEach((v) {
-        pokemon.add(new Pokemon.fromJson(v));
+        pokemon.add(new TypePokemon.fromJson(v));
       });
     }
     if (json['moves'] != null) {
@@ -219,13 +219,13 @@ class Names {
   }
 }
 
-class Pokemon {
+class TypePokemon {
   int slot;
   NamedAPIResource pokemon;
 
-  Pokemon({this.slot, this.pokemon});
+  TypePokemon({this.slot, this.pokemon});
 
-  Pokemon.fromJson(Map<String, dynamic> json) {
+  TypePokemon.fromJson(Map<String, dynamic> json) {
     slot = json['slot'];
     pokemon = json['pokemon'] != null
         ? new NamedAPIResource.fromJson(json['pokemon'])

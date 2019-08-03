@@ -21,6 +21,7 @@ class ItemCategory {
     if (json['names'] != null) {
       names = new List<NamedAPIResource>();
       json['names'].forEach((v) {
+        v = v['language'];
         names.add(new NamedAPIResource.fromJson(v));
       });
     }
