@@ -31,6 +31,14 @@ void main() {
     });
   }
 
+  test('getBerryList', () {
+    try {
+      expect(getObjectList<Berry>(1, 10), completion(equals(true)));
+    } catch (e) {
+      print(e.toString());
+    }
+  });
+
   test('getBerry', () {
     try {
       expect(getObject<Berry>(1), completion(equals(true)));

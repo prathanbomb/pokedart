@@ -39,11 +39,12 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               FutureBuilder(
                   future: PokeAPI.getObjectList<Pokemon>(1, 10),
-                  // ignore: missing_return
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       List<Pokemon> pokemonList = snapshot.data;
-                      return Text(pokemonList[0].baseExperience.toString());
+                      return Text(pokemonList.toString());
+                    } else {
+                      return Text("");
                     }
                   })
             ],

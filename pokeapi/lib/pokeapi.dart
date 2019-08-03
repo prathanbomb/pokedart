@@ -269,7 +269,7 @@ class PokeAPI {
         .results;
     for (NamedAPIResource result in commonResultList) {
       response = await Http.get(result.url);
-      objectList.add(_mapJson(response));
+      objectList.add(_mapJson<T>(response));
     }
     return objectList;
   }
