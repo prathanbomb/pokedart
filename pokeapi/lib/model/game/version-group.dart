@@ -1,6 +1,6 @@
 import 'package:pokeapi/model/utils/common.dart';
 
-class VersionGroupEntity {
+class VersionGroup {
   NamedAPIResource generation;
   List<NamedAPIResource> regions;
   List<NamedAPIResource> pokedexes;
@@ -10,7 +10,7 @@ class VersionGroupEntity {
   List<NamedAPIResource> moveLearnMethods;
   int order;
 
-  VersionGroupEntity(
+  VersionGroup(
       {this.generation,
       this.regions,
       this.pokedexes,
@@ -20,7 +20,7 @@ class VersionGroupEntity {
       this.moveLearnMethods,
       this.order});
 
-  VersionGroupEntity.fromJson(Map<String, dynamic> json) {
+  VersionGroup.fromJson(Map<String, dynamic> json) {
     generation = json['generation'] != null
         ? new NamedAPIResource.fromJson(json['generation'])
         : null;

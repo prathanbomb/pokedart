@@ -396,7 +396,7 @@ class Moves {
 
 class VersionGroupDetails {
   int levelLearnedAt;
-  VersionGroup versionGroup;
+  NamedAPIResource versionGroup;
   NamedAPIResource moveLearnMethod;
 
   VersionGroupDetails(
@@ -405,7 +405,7 @@ class VersionGroupDetails {
   VersionGroupDetails.fromJson(Map<String, dynamic> json) {
     levelLearnedAt = json['level_learned_at'];
     versionGroup = json['version_group'] != null
-        ? new VersionGroup.fromJson(json['version_group'])
+        ? new NamedAPIResource.fromJson(json['version_group'])
         : null;
     moveLearnMethod = json['move_learn_method'] != null
         ? new NamedAPIResource.fromJson(json['move_learn_method'])
@@ -427,30 +427,6 @@ class VersionGroupDetails {
   @override
   String toString() {
     return 'VersionGroupDetails{levelLearnedAt: $levelLearnedAt, versionGroup: $versionGroup, moveLearnMethod: $moveLearnMethod}';
-  }
-}
-
-class VersionGroup {
-  String name;
-  String url;
-
-  VersionGroup({this.name, this.url});
-
-  VersionGroup.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    url = json['url'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['url'] = this.url;
-    return data;
-  }
-
-  @override
-  String toString() {
-    return 'VersionGroup{name: $name, url: $url}';
   }
 }
 

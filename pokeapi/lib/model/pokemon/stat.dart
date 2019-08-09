@@ -91,12 +91,14 @@ class AffectingMoves {
     if (json['increase'] != null) {
       increase = new List<NamedAPIResource>();
       json['increase'].forEach((v) {
+        v = v['move'];
         increase.add(new NamedAPIResource.fromJson(v));
       });
     }
     if (json['decrease'] != null) {
       decrease = new List<NamedAPIResource>();
       json['decrease'].forEach((v) {
+        v = v['move'];
         decrease.add(new NamedAPIResource.fromJson(v));
       });
     }

@@ -6,11 +6,35 @@ import 'package:http/http.dart' as Http;
 import 'package:pokeapi/model/berry/berry-firmness.dart';
 import 'package:pokeapi/model/berry/berry-flavor.dart';
 import 'package:pokeapi/model/berry/berry.dart';
-import 'package:pokeapi/model/item/item-ability.dart';
+import 'package:pokeapi/model/contest/contest-effect.dart';
+import 'package:pokeapi/model/contest/contest-type.dart';
+import 'package:pokeapi/model/contest/super-contest-effect.dart';
+import 'package:pokeapi/model/encounter/encounter-condition-value.dart';
+import 'package:pokeapi/model/encounter/encounter-condition.dart';
+import 'package:pokeapi/model/encounter/encounter-method.dart';
+import 'package:pokeapi/model/evolution/evolution-chain.dart';
+import 'package:pokeapi/model/evolution/evolution-trigger.dart';
+import 'package:pokeapi/model/game/generation.dart';
+import 'package:pokeapi/model/game/pokedex.dart';
+import 'package:pokeapi/model/game/version-group.dart';
+import 'package:pokeapi/model/game/version.dart';
+import 'package:pokeapi/model/item/item-attribute.dart';
 import 'package:pokeapi/model/item/item-category.dart';
 import 'package:pokeapi/model/item/item-fling-effect.dart';
 import 'package:pokeapi/model/item/item-pocket.dart';
 import 'package:pokeapi/model/item/item.dart';
+import 'package:pokeapi/model/location/location-area.dart';
+import 'package:pokeapi/model/location/location.dart';
+import 'package:pokeapi/model/location/pal-park-area.dart';
+import 'package:pokeapi/model/location/region.dart';
+import 'package:pokeapi/model/machine/machine.dart';
+import 'package:pokeapi/model/move/move-ailment.dart';
+import 'package:pokeapi/model/move/move-battle-style.dart';
+import 'package:pokeapi/model/move/move-category.dart';
+import 'package:pokeapi/model/move/move-damage-class.dart';
+import 'package:pokeapi/model/move/move-learn-method.dart';
+import 'package:pokeapi/model/move/move-target.dart';
+import 'package:pokeapi/model/move/move.dart';
 import 'package:pokeapi/model/pokemon/ability.dart';
 import 'package:pokeapi/model/pokemon/characteristic.dart';
 import 'package:pokeapi/model/pokemon/egg-group.dart';
@@ -132,6 +156,102 @@ class PokeAPI {
       case Type:
         {
           return Type.fromJson(map) as T;
+        }
+      case ContestEffect:
+        {
+          return ContestEffect.fromJson(map) as T;
+        }
+      case ContestType:
+        {
+          return ContestType.fromJson(map) as T;
+        }
+      case SuperContestEffect:
+        {
+          return SuperContestEffect.fromJson(map) as T;
+        }
+      case EncounterCondition:
+        {
+          return EncounterCondition.fromJson(map) as T;
+        }
+      case EncounterConditionValue:
+        {
+          return EncounterConditionValue.fromJson(map) as T;
+        }
+      case EncounterMethod:
+        {
+          return EncounterMethod.fromJson(map) as T;
+        }
+      case EvolutionChain:
+        {
+          return EvolutionChain.fromJson(map) as T;
+        }
+      case EvolutionTrigger:
+        {
+          return EvolutionTrigger.fromJson(map) as T;
+        }
+      case Generation:
+        {
+          return Generation.fromJson(map) as T;
+        }
+      case Pokedex:
+        {
+          return Pokedex.fromJson(map) as T;
+        }
+      case Version:
+        {
+          return Version.fromJson(map) as T;
+        }
+      case VersionGroup:
+        {
+          return VersionGroup.fromJson(map) as T;
+        }
+      case Location:
+        {
+          return Location.fromJson(map) as T;
+        }
+      case LocationArea:
+        {
+          return LocationArea.fromJson(map) as T;
+        }
+      case PalParkArea:
+        {
+          return PalParkArea.fromJson(map) as T;
+        }
+      case Region:
+        {
+          return Region.fromJson(map) as T;
+        }
+      case Machine:
+        {
+          return Machine.fromJson(map) as T;
+        }
+      case Move:
+        {
+          return Move.fromJson(map) as T;
+        }
+      case MoveAilment:
+        {
+          return MoveAilment.fromJson(map) as T;
+        }
+      case MoveBattleStyle:
+        {
+          return MoveBattleStyle.fromJson(map) as T;
+        }
+      case MoveCategory:
+        {
+          return MoveCategory.fromJson(map) as T;
+        }
+      case MoveDamageClass:
+        {
+          return MoveDamageClass.fromJson(map) as T;
+        }
+      case MoveLearnMethod:
+        {
+          return MoveLearnMethod.fromJson(map) as T;
+        }
+      case MoveTarget:
+        {
+          return MoveTarget.fromJson(map) as T;
         }
       default:
         {
@@ -258,6 +378,126 @@ class PokeAPI {
       case Type:
         {
           url = api.type;
+          break;
+        }
+      case ContestEffect:
+        {
+          url = api.contestEffect;
+          break;
+        }
+      case ContestType:
+        {
+          url = api.contestType;
+          break;
+        }
+      case SuperContestEffect:
+        {
+          url = api.superContestEffect;
+          break;
+        }
+      case EncounterCondition:
+        {
+          url = api.encounterCondition;
+          break;
+        }
+      case EncounterConditionValue:
+        {
+          url = api.encounterConditionValue;
+          break;
+        }
+      case EncounterMethod:
+        {
+          url = api.encounterMethod;
+          break;
+        }
+      case EvolutionChain:
+        {
+          url = api.evolutionChain;
+          break;
+        }
+      case EvolutionTrigger:
+        {
+          url = api.evolutionTrigger;
+          break;
+        }
+      case Generation:
+        {
+          url = api.generation;
+          break;
+        }
+      case Pokedex:
+        {
+          url = api.pokedex;
+          break;
+        }
+      case Version:
+        {
+          url = api.version;
+          break;
+        }
+      case VersionGroup:
+        {
+          url = api.versionGroup;
+          break;
+        }
+      case Location:
+        {
+          url = api.location;
+          break;
+        }
+      case LocationArea:
+        {
+          url = api.locationArea;
+          break;
+        }
+      case PalParkArea:
+        {
+          url = api.palParkArea;
+          break;
+        }
+      case Region:
+        {
+          url = api.region;
+          break;
+        }
+      case Machine:
+        {
+          url = api.machine;
+          break;
+        }
+      case Move:
+        {
+          url = api.move;
+          break;
+        }
+      case MoveAilment:
+        {
+          url = api.moveAilment;
+          break;
+        }
+      case MoveBattleStyle:
+        {
+          url = api.moveBattleStyle;
+          break;
+        }
+      case MoveCategory:
+        {
+          url = api.moveCategory;
+          break;
+        }
+      case MoveDamageClass:
+        {
+          url = api.moveDamageClass;
+          break;
+        }
+      case MoveLearnMethod:
+        {
+          url = api.moveLearnMethod;
+          break;
+        }
+      case MoveTarget:
+        {
+          url = api.moveTarget;
           break;
         }
     }
@@ -391,6 +631,126 @@ class PokeAPI {
       case Type:
         {
           url = api.type;
+          break;
+        }
+      case ContestEffect:
+        {
+          url = api.contestEffect;
+          break;
+        }
+      case ContestType:
+        {
+          url = api.contestType;
+          break;
+        }
+      case SuperContestEffect:
+        {
+          url = api.superContestEffect;
+          break;
+        }
+      case EncounterCondition:
+        {
+          url = api.encounterCondition;
+          break;
+        }
+      case EncounterConditionValue:
+        {
+          url = api.encounterConditionValue;
+          break;
+        }
+      case EncounterMethod:
+        {
+          url = api.encounterMethod;
+          break;
+        }
+      case EvolutionChain:
+        {
+          url = api.evolutionChain;
+          break;
+        }
+      case EvolutionTrigger:
+        {
+          url = api.evolutionTrigger;
+          break;
+        }
+      case Generation:
+        {
+          url = api.generation;
+          break;
+        }
+      case Pokedex:
+        {
+          url = api.pokedex;
+          break;
+        }
+      case Version:
+        {
+          url = api.version;
+          break;
+        }
+      case VersionGroup:
+        {
+          url = api.versionGroup;
+          break;
+        }
+      case Location:
+        {
+          url = api.location;
+          break;
+        }
+      case LocationArea:
+        {
+          url = api.locationArea;
+          break;
+        }
+      case PalParkArea:
+        {
+          url = api.palParkArea;
+          break;
+        }
+      case Region:
+        {
+          url = api.region;
+          break;
+        }
+      case Machine:
+        {
+          url = api.machine;
+          break;
+        }
+      case Move:
+        {
+          url = api.move;
+          break;
+        }
+      case MoveAilment:
+        {
+          url = api.moveAilment;
+          break;
+        }
+      case MoveBattleStyle:
+        {
+          url = api.moveBattleStyle;
+          break;
+        }
+      case MoveCategory:
+        {
+          url = api.moveCategory;
+          break;
+        }
+      case MoveDamageClass:
+        {
+          url = api.moveDamageClass;
+          break;
+        }
+      case MoveLearnMethod:
+        {
+          url = api.moveLearnMethod;
+          break;
+        }
+      case MoveTarget:
+        {
+          url = api.moveTarget;
           break;
         }
     }

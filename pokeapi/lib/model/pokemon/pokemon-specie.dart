@@ -17,7 +17,7 @@ class PokemonSpecie {
   NamedAPIResource color;
   NamedAPIResource shape;
   NamedAPIResource evolvesFromSpecies;
-  EvolutionChain evolutionChain;
+  NamedAPIResource evolutionChain;
   NamedAPIResource habitat;
   NamedAPIResource generation;
   List<Names> names;
@@ -88,7 +88,7 @@ class PokemonSpecie {
         ? new NamedAPIResource.fromJson(json['evolves_from_species'])
         : null;
     evolutionChain = json['evolution_chain'] != null
-        ? new EvolutionChain.fromJson(json['evolution_chain'])
+        ? new NamedAPIResource.fromJson(json['evolution_chain'])
         : null;
     habitat = json['habitat'] != null
         ? new NamedAPIResource.fromJson(json['habitat'])
@@ -217,27 +217,6 @@ class PokedexNumbers {
   @override
   String toString() {
     return 'PokedexNumbers{entryNumber: $entryNumber, pokedex: $pokedex}';
-  }
-}
-
-class EvolutionChain {
-  String url;
-
-  EvolutionChain({this.url});
-
-  EvolutionChain.fromJson(Map<String, dynamic> json) {
-    url = json['url'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['url'] = this.url;
-    return data;
-  }
-
-  @override
-  String toString() {
-    return 'EvolutionChain{url: $url}';
   }
 }
 

@@ -1,1 +1,1 @@
-## [1.0.0] - implement berry, contest, encounter, evolution, game, item, pokemon, utility
+## [1.0.1] - complete all endpoints.
