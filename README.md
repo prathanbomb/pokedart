@@ -1,4 +1,5 @@
 # pokeapi-dart
+[![CircleCI](https://circleci.com/gh/prathanbomb/pokedart.svg?style=svg)](https://circleci.com/gh/prathanbomb/pokedart)
 
 Wrapper for [Poke API](https://pokeapi.co), written in Dart. *Supports PokeAPI v2.*
 
