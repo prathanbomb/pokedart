@@ -260,253 +260,27 @@ class PokeAPI {
     }
   }
 
-  static Future<List<T>> getObjectList<T>(int offset, int limit) async {
-    List<T> objectList = new List();
-    var api = await _getAPI();
-    var url;
-    switch (T) {
-      case Ability:
-        {
-          url = api.ability;
-          break;
-        }
-      case Berry:
-        {
-          url = api.berry;
-          break;
-        }
-      case BerryFirmness:
-        {
-          url = api.berryFirmness;
-          break;
-        }
-      case BerryFlavor:
-        {
-          url = api.berryFlavor;
-          break;
-        }
-      case Characteristic:
-        {
-          url = api.characteristic;
-          break;
-        }
-      case EggGroup:
-        {
-          url = api.eggGroup;
-          break;
-        }
-      case Gender:
-        {
-          url = api.gender;
-          break;
-        }
-      case GrowthRate:
-        {
-          url = api.growthRate;
-          break;
-        }
-      case Item:
-        {
-          url = api.item;
-          break;
-        }
-      case ItemAbility:
-        {
-          url = api.itemAttribute;
-          break;
-        }
-      case ItemCategory:
-        {
-          url = api.itemCategory;
-          break;
-        }
-      case ItemFlingEffect:
-        {
-          url = api.itemFlingEffect;
-          break;
-        }
-      case ItemPocket:
-        {
-          url = api.itemPocket;
-          break;
-        }
-      case Nature:
-        {
-          url = api.nature;
-          break;
-        }
-      case PokeAthlonStat:
-        {
-          url = api.pokeathlonStat;
-          break;
-        }
-      case Pokemon:
-        {
-          url = api.pokemon;
-          break;
-        }
-      case PokemonColor:
-        {
-          url = api.pokemonColor;
-          break;
-        }
-      case PokemonForm:
-        {
-          url = api.pokemonForm;
-          break;
-        }
-      case PokemonHabitat:
-        {
-          url = api.pokemonHabitat;
-          break;
-        }
-      case PokemonShape:
-        {
-          url = api.pokemonShape;
-          break;
-        }
-      case PokemonSpecie:
-        {
-          url = api.pokemonSpecies;
-          break;
-        }
-      case Stat:
-        {
-          url = api.stat;
-          break;
-        }
-      case Type:
-        {
-          url = api.type;
-          break;
-        }
-      case ContestEffect:
-        {
-          url = api.contestEffect;
-          break;
-        }
-      case ContestType:
-        {
-          url = api.contestType;
-          break;
-        }
-      case SuperContestEffect:
-        {
-          url = api.superContestEffect;
-          break;
-        }
-      case EncounterCondition:
-        {
-          url = api.encounterCondition;
-          break;
-        }
-      case EncounterConditionValue:
-        {
-          url = api.encounterConditionValue;
-          break;
-        }
-      case EncounterMethod:
-        {
-          url = api.encounterMethod;
-          break;
-        }
-      case EvolutionChain:
-        {
-          url = api.evolutionChain;
-          break;
-        }
-      case EvolutionTrigger:
-        {
-          url = api.evolutionTrigger;
-          break;
-        }
-      case Generation:
-        {
-          url = api.generation;
-          break;
-        }
-      case Pokedex:
-        {
-          url = api.pokedex;
-          break;
-        }
-      case Version:
-        {
-          url = api.version;
-          break;
-        }
-      case VersionGroup:
-        {
-          url = api.versionGroup;
-          break;
-        }
-      case Location:
-        {
-          url = api.location;
-          break;
-        }
-      case LocationArea:
-        {
-          url = api.locationArea;
-          break;
-        }
-      case PalParkArea:
-        {
-          url = api.palParkArea;
-          break;
-        }
-      case Region:
-        {
-          url = api.region;
-          break;
-        }
-      case Machine:
-        {
-          url = api.machine;
-          break;
-        }
-      case Move:
-        {
-          url = api.move;
-          break;
-        }
-      case MoveAilment:
-        {
-          url = api.moveAilment;
-          break;
-        }
-      case MoveBattleStyle:
-        {
-          url = api.moveBattleStyle;
-          break;
-        }
-      case MoveCategory:
-        {
-          url = api.moveCategory;
-          break;
-        }
-      case MoveDamageClass:
-        {
-          url = api.moveDamageClass;
-          break;
-        }
-      case MoveLearnMethod:
-        {
-          url = api.moveLearnMethod;
-          break;
-        }
-      case MoveTarget:
-        {
-          url = api.moveTarget;
-          break;
-        }
-    }
+  static Future<List<NamedAPIResource>> getCommonList<T>(
+      int offset, int limit) async {
+    String url = await getBaseUrl<T>();
+
     url += "?offset=${offset - 1}&limit=$limit";
     var response = await Http.get(url);
     Map listMap = json.decode(response.body);
-    List<NamedAPIResource> commonResultList = Common
-        .fromJson(listMap)
-        .results;
+    List<NamedAPIResource> commonResultList = Common.fromJson(listMap).results;
+
+    return commonResultList;
+  }
+
+  static Future<List<T>> getObjectList<T>(int offset, int limit) async {
+    List<T> objectList = new List();
+    var url = await getBaseUrl<T>();
+
+    url += "?offset=${offset - 1}&limit=$limit";
+    var response = await Http.get(url);
+    Map listMap = json.decode(response.body);
+    List<NamedAPIResource> commonResultList = Common.fromJson(listMap).results;
+
     for (NamedAPIResource result in commonResultList) {
       response = await Http.get(result.url);
       objectList.add(_mapJson<T>(response));
@@ -515,8 +289,23 @@ class PokeAPI {
   }
 
   static Future<T> getObject<T>(int id) async {
+    String url = await getBaseUrl<T>();
+    url += "?offset=${id - 1}&limit=1";
+    var response = await Http.get(url);
+    Map listMap = json.decode(response.body);
+    List<NamedAPIResource> commonResultList = Common.fromJson(listMap).results;
+
+    if (commonResultList.isNotEmpty) {
+      response = await Http.get(commonResultList[0].url);
+      return _mapJson<T>(response);
+    } else {
+      return null;
+    }
+  }
+
+  static getBaseUrl<T>() async {
     var api = await _getAPI();
-    var url;
+    String url;
     switch (T) {
       case Ability:
         {
@@ -754,17 +543,6 @@ class PokeAPI {
           break;
         }
     }
-    url += "?offset=${id - 1}&limit=1";
-    var response = await Http.get(url);
-    Map listMap = json.decode(response.body);
-    List<NamedAPIResource> commonResultList = Common
-        .fromJson(listMap)
-        .results;
-    if (commonResultList.isNotEmpty) {
-      response = await Http.get(commonResultList[0].url);
-      return _mapJson<T>(response);
-    } else {
-      return null;
-    }
+    return url;
   }
 }
