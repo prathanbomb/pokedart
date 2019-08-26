@@ -64,200 +64,55 @@ class PokeAPI {
 
   static dynamic _mapJson<T>(Http.Response response) {
     Map map = json.decode(response.body);
-    switch (T) {
-      case Ability:
-        {
-          return Ability.fromJson(map) as T;
-        }
-      case Berry:
-        {
-          return Berry.fromJson(map) as T;
-        }
-      case BerryFirmness:
-        {
-          return BerryFirmness.fromJson(map) as T;
-        }
-      case BerryFlavor:
-        {
-          return BerryFlavor.fromJson(map) as T;
-        }
-      case Characteristic:
-        {
-          return Characteristic.fromJson(map) as T;
-        }
-      case EggGroup:
-        {
-          return EggGroup.fromJson(map) as T;
-        }
-      case Gender:
-        {
-          return Gender.fromJson(map) as T;
-        }
-      case GrowthRate:
-        {
-          return GrowthRate.fromJson(map) as T;
-        }
-      case Item:
-        {
-          return Item.fromJson(map) as T;
-        }
-      case ItemAbility:
-        {
-          return ItemAbility.fromJson(map) as T;
-        }
-      case ItemCategory:
-        {
-          return ItemCategory.fromJson(map) as T;
-        }
-      case ItemFlingEffect:
-        {
-          return ItemFlingEffect.fromJson(map) as T;
-        }
-      case ItemPocket:
-        {
-          return ItemPocket.fromJson(map) as T;
-        }
-      case Nature:
-        {
-          return Nature.fromJson(map) as T;
-        }
-      case PokeAthlonStat:
-        {
-          return PokeAthlonStat.fromJson(map) as T;
-        }
-      case Pokemon:
-        {
-          return Pokemon.fromJson(map) as T;
-        }
-      case PokemonColor:
-        {
-          return PokemonColor.fromJson(map) as T;
-        }
-      case PokemonForm:
-        {
-          return PokemonForm.fromJson(map) as T;
-        }
-      case PokemonHabitat:
-        {
-          return PokemonHabitat.fromJson(map) as T;
-        }
-      case PokemonShape:
-        {
-          return PokemonShape.fromJson(map) as T;
-        }
-      case PokemonSpecie:
-        {
-          return PokemonSpecie.fromJson(map) as T;
-        }
-      case Stat:
-        {
-          return Stat.fromJson(map) as T;
-        }
-      case Type:
-        {
-          return Type.fromJson(map) as T;
-        }
-      case ContestEffect:
-        {
-          return ContestEffect.fromJson(map) as T;
-        }
-      case ContestType:
-        {
-          return ContestType.fromJson(map) as T;
-        }
-      case SuperContestEffect:
-        {
-          return SuperContestEffect.fromJson(map) as T;
-        }
-      case EncounterCondition:
-        {
-          return EncounterCondition.fromJson(map) as T;
-        }
-      case EncounterConditionValue:
-        {
-          return EncounterConditionValue.fromJson(map) as T;
-        }
-      case EncounterMethod:
-        {
-          return EncounterMethod.fromJson(map) as T;
-        }
-      case EvolutionChain:
-        {
-          return EvolutionChain.fromJson(map) as T;
-        }
-      case EvolutionTrigger:
-        {
-          return EvolutionTrigger.fromJson(map) as T;
-        }
-      case Generation:
-        {
-          return Generation.fromJson(map) as T;
-        }
-      case Pokedex:
-        {
-          return Pokedex.fromJson(map) as T;
-        }
-      case Version:
-        {
-          return Version.fromJson(map) as T;
-        }
-      case VersionGroup:
-        {
-          return VersionGroup.fromJson(map) as T;
-        }
-      case Location:
-        {
-          return Location.fromJson(map) as T;
-        }
-      case LocationArea:
-        {
-          return LocationArea.fromJson(map) as T;
-        }
-      case PalParkArea:
-        {
-          return PalParkArea.fromJson(map) as T;
-        }
-      case Region:
-        {
-          return Region.fromJson(map) as T;
-        }
-      case Machine:
-        {
-          return Machine.fromJson(map) as T;
-        }
-      case Move:
-        {
-          return Move.fromJson(map) as T;
-        }
-      case MoveAilment:
-        {
-          return MoveAilment.fromJson(map) as T;
-        }
-      case MoveBattleStyle:
-        {
-          return MoveBattleStyle.fromJson(map) as T;
-        }
-      case MoveCategory:
-        {
-          return MoveCategory.fromJson(map) as T;
-        }
-      case MoveDamageClass:
-        {
-          return MoveDamageClass.fromJson(map) as T;
-        }
-      case MoveLearnMethod:
-        {
-          return MoveLearnMethod.fromJson(map) as T;
-        }
-      case MoveTarget:
-        {
-          return MoveTarget.fromJson(map) as T;
-        }
-      default:
-        {
-          return null;
-        }
-    }
+
+    if (T == Ability) Ability.fromJson(map) as T;
+    if (T == Berry) Berry.fromJson(map) as T;
+    if (T == BerryFirmness) BerryFirmness.fromJson(map) as T;
+    if (T == BerryFlavor) BerryFlavor.fromJson(map) as T;
+    if (T == Characteristic) Characteristic.fromJson(map) as T;
+    if (T == EggGroup) EggGroup.fromJson(map) as T;
+    if (T == Gender) Gender.fromJson(map) as T;
+    if (T == GrowthRate) GrowthRate.fromJson(map) as T;
+    if (T == Item) Item.fromJson(map) as T;
+    if (T == ItemAbility) ItemAbility.fromJson(map) as T;
+    if (T == ItemCategory) ItemCategory.fromJson(map) as T;
+    if (T == ItemFlingEffect) ItemFlingEffect.fromJson(map) as T;
+    if (T == ItemPocket) ItemPocket.fromJson(map) as T;
+    if (T == Nature) Nature.fromJson(map) as T;
+    if (T == PokeAthlonStat) PokeAthlonStat.fromJson(map) as T;
+    if (T == Pokemon) Pokemon.fromJson(map) as T;
+    if (T == PokemonColor) PokemonColor.fromJson(map) as T;
+    if (T == PokemonForm) PokemonForm.fromJson(map) as T;
+    if (T == PokemonHabitat) PokemonHabitat.fromJson(map) as T;
+    if (T == PokemonShape) PokemonShape.fromJson(map) as T;
+    if (T == PokemonSpecie) PokemonSpecie.fromJson(map) as T;
+    if (T == Stat) Stat.fromJson(map) as T;
+    if (T == Type) Type.fromJson(map) as T;
+    if (T == ContestEffect) ContestEffect.fromJson(map) as T;
+    if (T == ContestType) ContestType.fromJson(map) as T;
+    if (T == SuperContestEffect) SuperContestEffect.fromJson(map) as T;
+    if (T == EncounterCondition) EncounterCondition.fromJson(map) as T;
+    if (T == EncounterConditionValue)
+      EncounterConditionValue.fromJson(map) as T;
+    if (T == EncounterMethod) EncounterMethod.fromJson(map) as T;
+    if (T == EvolutionChain) EvolutionChain.fromJson(map) as T;
+    if (T == EvolutionTrigger) EvolutionTrigger.fromJson(map) as T;
+    if (T == Generation) Generation.fromJson(map) as T;
+    if (T == Pokedex) Pokedex.fromJson(map) as T;
+    if (T == Version) Version.fromJson(map) as T;
+    if (T == VersionGroup) VersionGroup.fromJson(map) as T;
+    if (T == Location) Location.fromJson(map) as T;
+    if (T == LocationArea) LocationArea.fromJson(map) as T;
+    if (T == PalParkArea) PalParkArea.fromJson(map) as T;
+    if (T == Region) Region.fromJson(map) as T;
+    if (T == Machine) Machine.fromJson(map) as T;
+    if (T == Move) Move.fromJson(map) as T;
+    if (T == MoveAilment) MoveAilment.fromJson(map) as T;
+    if (T == MoveBattleStyle) MoveBattleStyle.fromJson(map) as T;
+    if (T == MoveCategory) MoveCategory.fromJson(map) as T;
+    if (T == MoveDamageClass) MoveDamageClass.fromJson(map) as T;
+    if (T == MoveLearnMethod) MoveLearnMethod.fromJson(map) as T;
+    if (T == MoveTarget) MoveTarget.fromJson(map) as T;
   }
 
   static Future<List<NamedAPIResource>> getCommonList<T>(
@@ -306,243 +161,55 @@ class PokeAPI {
   static getBaseUrl<T>() async {
     var api = await _getAPI();
     String url;
-    switch (T) {
-      case Ability:
-        {
-          url = api.ability;
-          break;
-        }
-      case Berry:
-        {
-          url = api.berry;
-          break;
-        }
-      case BerryFirmness:
-        {
-          url = api.berryFirmness;
-          break;
-        }
-      case BerryFlavor:
-        {
-          url = api.berryFlavor;
-          break;
-        }
-      case Characteristic:
-        {
-          url = api.characteristic;
-          break;
-        }
-      case EggGroup:
-        {
-          url = api.eggGroup;
-          break;
-        }
-      case Gender:
-        {
-          url = api.gender;
-          break;
-        }
-      case GrowthRate:
-        {
-          url = api.growthRate;
-          break;
-        }
-      case Item:
-        {
-          url = api.item;
-          break;
-        }
-      case ItemAbility:
-        {
-          url = api.itemAttribute;
-          break;
-        }
-      case ItemCategory:
-        {
-          url = api.itemCategory;
-          break;
-        }
-      case ItemFlingEffect:
-        {
-          url = api.itemFlingEffect;
-          break;
-        }
-      case ItemPocket:
-        {
-          url = api.itemPocket;
-          break;
-        }
-      case Nature:
-        {
-          url = api.nature;
-          break;
-        }
-      case PokeAthlonStat:
-        {
-          url = api.pokeathlonStat;
-          break;
-        }
-      case Pokemon:
-        {
-          url = api.pokemon;
-          break;
-        }
-      case PokemonColor:
-        {
-          url = api.pokemonColor;
-          break;
-        }
-      case PokemonForm:
-        {
-          url = api.pokemonForm;
-          break;
-        }
-      case PokemonHabitat:
-        {
-          url = api.pokemonHabitat;
-          break;
-        }
-      case PokemonShape:
-        {
-          url = api.pokemonShape;
-          break;
-        }
-      case PokemonSpecie:
-        {
-          url = api.pokemonSpecies;
-          break;
-        }
-      case Stat:
-        {
-          url = api.stat;
-          break;
-        }
-      case Type:
-        {
-          url = api.type;
-          break;
-        }
-      case ContestEffect:
-        {
-          url = api.contestEffect;
-          break;
-        }
-      case ContestType:
-        {
-          url = api.contestType;
-          break;
-        }
-      case SuperContestEffect:
-        {
-          url = api.superContestEffect;
-          break;
-        }
-      case EncounterCondition:
-        {
-          url = api.encounterCondition;
-          break;
-        }
-      case EncounterConditionValue:
-        {
-          url = api.encounterConditionValue;
-          break;
-        }
-      case EncounterMethod:
-        {
-          url = api.encounterMethod;
-          break;
-        }
-      case EvolutionChain:
-        {
-          url = api.evolutionChain;
-          break;
-        }
-      case EvolutionTrigger:
-        {
-          url = api.evolutionTrigger;
-          break;
-        }
-      case Generation:
-        {
-          url = api.generation;
-          break;
-        }
-      case Pokedex:
-        {
-          url = api.pokedex;
-          break;
-        }
-      case Version:
-        {
-          url = api.version;
-          break;
-        }
-      case VersionGroup:
-        {
-          url = api.versionGroup;
-          break;
-        }
-      case Location:
-        {
-          url = api.location;
-          break;
-        }
-      case LocationArea:
-        {
-          url = api.locationArea;
-          break;
-        }
-      case PalParkArea:
-        {
-          url = api.palParkArea;
-          break;
-        }
-      case Region:
-        {
-          url = api.region;
-          break;
-        }
-      case Machine:
-        {
-          url = api.machine;
-          break;
-        }
-      case Move:
-        {
-          url = api.move;
-          break;
-        }
-      case MoveAilment:
-        {
-          url = api.moveAilment;
-          break;
-        }
-      case MoveBattleStyle:
-        {
-          url = api.moveBattleStyle;
-          break;
-        }
-      case MoveCategory:
-        {
-          url = api.moveCategory;
-          break;
-        }
-      case MoveDamageClass:
-        {
-          url = api.moveDamageClass;
-          break;
-        }
-      case MoveLearnMethod:
-        {
-          url = api.moveLearnMethod;
-          break;
-        }
-      case MoveTarget:
-        {
-          url = api.moveTarget;
-          break;
-        }
-    }
+
+    if (T == Ability) url = api.ability;
+    if (T == Berry) url = api.berry;
+    if (T == BerryFirmness) url = api.berryFirmness;
+    if (T == BerryFlavor) url = api.berryFlavor;
+    if (T == Characteristic) url = api.characteristic;
+    if (T == EggGroup) url = api.eggGroup;
+    if (T == Gender) url = api.gender;
+    if (T == GrowthRate) url = api.growthRate;
+    if (T == Item) url = api.item;
+    if (T == ItemAbility) url = api.itemAttribute;
+    if (T == ItemCategory) url = api.itemCategory;
+    if (T == ItemFlingEffect) url = api.itemFlingEffect;
+    if (T == ItemPocket) url = api.itemPocket;
+    if (T == Nature) url = api.nature;
+    if (T == PokeAthlonStat) url = api.pokeathlonStat;
+    if (T == Pokemon) url = api.pokemon;
+    if (T == PokemonColor) url = api.pokemonColor;
+    if (T == PokemonForm) url = api.pokemonForm;
+    if (T == PokemonHabitat) url = api.pokemonHabitat;
+    if (T == PokemonShape) url = api.pokemonShape;
+    if (T == PokemonSpecie) url = api.pokemonSpecies;
+    if (T == Stat) url = api.stat;
+    if (T == Type) url = api.type;
+    if (T == ContestEffect) url = api.contestEffect;
+    if (T == ContestType) url = api.contestType;
+    if (T == SuperContestEffect) url = api.superContestEffect;
+    if (T == EncounterCondition) url = api.encounterCondition;
+    if (T == EncounterConditionValue) url = api.encounterConditionValue;
+    if (T == EncounterMethod) url = api.encounterMethod;
+    if (T == EvolutionChain) url = api.evolutionChain;
+    if (T == EvolutionTrigger) url = api.evolutionTrigger;
+    if (T == Generation) url = api.generation;
+    if (T == Pokedex) url = api.pokedex;
+    if (T == Version) url = api.version;
+    if (T == VersionGroup) url = api.versionGroup;
+    if (T == Location) url = api.location;
+    if (T == LocationArea) url = api.locationArea;
+    if (T == PalParkArea) url = api.palParkArea;
+    if (T == Region) url = api.region;
+    if (T == Machine) url = api.machine;
+    if (T == Move) url = api.move;
+    if (T == MoveAilment) url = api.moveAilment;
+    if (T == MoveBattleStyle) url = api.moveBattleStyle;
+    if (T == MoveCategory) url = api.moveCategory;
+    if (T == MoveDamageClass) url = api.moveDamageClass;
+    if (T == MoveLearnMethod) url = api.moveLearnMethod;
+    if (T == MoveTarget) url = api.moveTarget;
+
     return url;
   }
 }
