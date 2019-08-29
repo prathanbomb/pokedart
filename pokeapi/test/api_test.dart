@@ -1,4 +1,4 @@
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 import 'package:pokeapi/model/berry/berry-firmness.dart';
 import 'package:pokeapi/model/berry/berry-flavor.dart';
 import 'package:pokeapi/model/berry/berry.dart';
@@ -59,8 +59,19 @@ void main() {
     });
   }
 
-  Future getObjectList<T>(int offset, int limit) {
+  Future getObjectList<T>(int offset, int limit,
+      {showOnlyCommonResults = false}) {
     return PokeAPI.getObjectList<T>(offset, limit).then((response) {
+      print(response.toString());
+      return true;
+    }).catchError((error, stackTrace) {
+      print(stackTrace.toString());
+      return false;
+    });
+  }
+
+  Future getCommonList<T>(int offset, int limit) {
+    return PokeAPI.getCommonList<T>(offset, limit).then((response) {
       print(response.toString());
       return true;
     }).catchError((error, stackTrace) {
@@ -715,9 +726,22 @@ void main() {
       }
     });
 
+    test('getPokemonListCommon', () {
+      try {
+        expect(getCommonList<Pokemon>(1, 3), completion(equals(true)));
+      } catch (e) {
+        print(e.toString());
+      }
+    });
+
     test('getPokemonList', () {
       try {
-        expect(getObjectList<Pokemon>(1, 3), completion(equals(true)));
+        expect(
+            getObjectList<Pokemon>(
+              1,
+              3,
+            ),
+            completion(equals(true)));
       } catch (e) {
         print(e.toString());
       }
