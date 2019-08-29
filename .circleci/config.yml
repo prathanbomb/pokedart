@@ -6,5 +6,4 @@ jobs:
     steps:
       - checkout
       - run: flutter doctor
-      - run: cd pokeapi
-      - run: flutter test 
+      - run: cd pokeapi && flutter test
