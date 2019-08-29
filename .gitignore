@@ -27,6 +27,10 @@
 .pub/
 /build/
 
+.gradle/
+lib/generated
+*.sh
+
 # Android related
 **/android/**/gradle-wrapper.jar
 **/android/.gradle
