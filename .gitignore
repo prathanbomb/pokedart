@@ -30,6 +30,7 @@
 .gradle/
 lib/generated
 *.sh
+*.lock
 
 # Android related
 **/android/**/gradle-wrapper.jar
