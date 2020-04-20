@@ -16,11 +16,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - uses: takuyaohashi/setup-flutter@v1
+    - name: install dependencies
+      uses: steebchen/flutter@v1.0.0
       with:
-        flutter-version: 'latest'
-        channel: 'stable'
-    - name: Install dependencies
-      run: flutter pub get
-    - name: Run tests
-      run: flutter test
+        args: pub get
+    - name: run tests
+      uses: steebchen/flutter@v1.0.0
+      with:
+        args: test
