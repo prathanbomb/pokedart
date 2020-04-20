@@ -1,5 +1,6 @@
 # pokeapi-dart
 [![CircleCI](https://circleci.com/gh/prathanbomb/pokedart.svg?style=svg)](https://circleci.com/gh/prathanbomb/pokedart)
+[![Known Vulnerabilities](https://snyk.io/test/github/prathanbomb/pokedart/badge.svg?targetFile=android/app/build.gradle)](https://snyk.io/test/github/prathanbomb/pokedart?targetFile=android/app/build.gradle)
 
 Wrapper for [Poke API](https://pokeapi.co), written in Dart. *Supports PokeAPI v2.*
 
