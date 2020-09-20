@@ -80,7 +80,7 @@ class EvolutionChainChain {
 class EvolutionChainChainEvolvesTo {
   List<EvolutionChainChainEvolvesToEvolutionDetail> evolutionDetails;
   NamedAPIResource species;
-  List<NamedAPIResource> evolvesTo;
+  List<EvolutionChainChainEvolvesTo> evolvesTo;
   bool isBaby;
 
   EvolutionChainChainEvolvesTo(
@@ -99,7 +99,10 @@ class EvolutionChainChainEvolvesTo {
         ? new NamedAPIResource.fromJson(json['species'])
         : null;
     if (json['evolves_to'] != null) {
-      evolvesTo = new List<NamedAPIResource>();
+      evolvesTo = new List<EvolutionChainChainEvolvesTo>();
+       (json['evolves_to'] as List).forEach((v) {
+        evolvesTo.add(new EvolutionChainChainEvolvesTo.fromJson(v));
+      });
     }
     isBaby = json['is_baby'];
   }
