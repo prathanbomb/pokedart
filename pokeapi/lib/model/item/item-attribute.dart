@@ -1,11 +1,11 @@
 import 'package:pokeapi/model/utils/common.dart';
 
 class ItemAbility {
-  int id;
-  String name;
-  List<Descriptions> descriptions;
-  List<NamedAPIResource> items;
-  List<Names> names;
+  int? id;
+  String? name;
+  List<Descriptions>? descriptions;
+  List<NamedAPIResource>? items;
+  List<Names>? names;
 
   ItemAbility({this.id, this.name, this.descriptions, this.items, this.names});
 
@@ -13,21 +13,21 @@ class ItemAbility {
     id = json['id'];
     name = json['name'];
     if (json['descriptions'] != null) {
-      descriptions = new List<Descriptions>();
+      descriptions = <Descriptions>[];
       json['descriptions'].forEach((v) {
-        descriptions.add(new Descriptions.fromJson(v));
+        descriptions!.add(new Descriptions.fromJson(v));
       });
     }
     if (json['items'] != null) {
-      items = new List<NamedAPIResource>();
+      items = <NamedAPIResource>[];
       json['items'].forEach((v) {
-        items.add(new NamedAPIResource.fromJson(v));
+        items!.add(new NamedAPIResource.fromJson(v));
       });
     }
     if (json['names'] != null) {
-      names = new List<Names>();
+      names = <Names>[];
       json['names'].forEach((v) {
-        names.add(new Names.fromJson(v));
+        names!.add(new Names.fromJson(v));
       });
     }
   }
@@ -37,13 +37,13 @@ class ItemAbility {
     data['id'] = this.id;
     data['name'] = this.name;
     if (this.descriptions != null) {
-      data['descriptions'] = this.descriptions.map((v) => v.toJson()).toList();
+      data['descriptions'] = this.descriptions!.map((v) => v.toJson()).toList();
     }
     if (this.items != null) {
-      data['items'] = this.items.map((v) => v.toJson()).toList();
+      data['items'] = this.items!.map((v) => v.toJson()).toList();
     }
     if (this.names != null) {
-      data['names'] = this.names.map((v) => v.toJson()).toList();
+      data['names'] = this.names!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -55,8 +55,8 @@ class ItemAbility {
 }
 
 class Descriptions {
-  String description;
-  NamedAPIResource language;
+  String? description;
+  NamedAPIResource? language;
 
   Descriptions({this.description, this.language});
 
@@ -71,7 +71,7 @@ class Descriptions {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['description'] = this.description;
     if (this.language != null) {
-      data['language'] = this.language.toJson();
+      data['language'] = this.language!.toJson();
     }
     return data;
   }
@@ -83,8 +83,8 @@ class Descriptions {
 }
 
 class Names {
-  String name;
-  NamedAPIResource language;
+  String? name;
+  NamedAPIResource? language;
 
   Names({this.name, this.language});
 
@@ -99,7 +99,7 @@ class Names {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['name'] = this.name;
     if (this.language != null) {
-      data['language'] = this.language.toJson();
+      data['language'] = this.language!.toJson();
     }
     return data;
   }

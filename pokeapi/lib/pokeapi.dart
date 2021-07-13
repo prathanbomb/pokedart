@@ -59,99 +59,99 @@ class PokeAPI {
   static Future<Api> _getAPI() async {
     var response = await Http.get(_baseUrl);
     Map map = json.decode(response.body);
-    return Api.fromJson(map);
+    return Api.fromJson(map as Map<String, dynamic>);
   }
 
   static dynamic _mapJson<T>(Http.Response response) {
-    Map map = json.decode(response.body);
+    Map? map = json.decode(response.body);
 
-    if (T == Ability) return Ability.fromJson(map) as T;
-    if (T == Berry) return Berry.fromJson(map) as T;
-    if (T == BerryFirmness) return BerryFirmness.fromJson(map) as T;
-    if (T == BerryFlavor) return BerryFlavor.fromJson(map) as T;
-    if (T == Characteristic) return Characteristic.fromJson(map) as T;
-    if (T == EggGroup) return EggGroup.fromJson(map) as T;
-    if (T == Gender) return Gender.fromJson(map) as T;
-    if (T == GrowthRate) return GrowthRate.fromJson(map) as T;
-    if (T == Item) return Item.fromJson(map) as T;
-    if (T == ItemAbility) return ItemAbility.fromJson(map) as T;
-    if (T == ItemCategory) return ItemCategory.fromJson(map) as T;
-    if (T == ItemFlingEffect) return ItemFlingEffect.fromJson(map) as T;
-    if (T == ItemPocket) return ItemPocket.fromJson(map) as T;
-    if (T == Nature) return Nature.fromJson(map) as T;
-    if (T == PokeAthlonStat) return PokeAthlonStat.fromJson(map) as T;
-    if (T == Pokemon) return Pokemon.fromJson(map) as T;
-    if (T == PokemonColor) return PokemonColor.fromJson(map) as T;
-    if (T == PokemonForm) return PokemonForm.fromJson(map) as T;
-    if (T == PokemonHabitat) return PokemonHabitat.fromJson(map) as T;
-    if (T == PokemonShape) return PokemonShape.fromJson(map) as T;
-    if (T == PokemonSpecie) return PokemonSpecie.fromJson(map) as T;
-    if (T == Stat) return Stat.fromJson(map) as T;
-    if (T == Type) return Type.fromJson(map) as T;
-    if (T == ContestEffect) return ContestEffect.fromJson(map) as T;
-    if (T == ContestType) return ContestType.fromJson(map) as T;
-    if (T == SuperContestEffect) return SuperContestEffect.fromJson(map) as T;
-    if (T == EncounterCondition) return EncounterCondition.fromJson(map) as T;
+    if (T == Ability) return Ability.fromJson(map as Map<String, dynamic>) as T;
+    if (T == Berry) return Berry.fromJson(map as Map<String, dynamic>) as T;
+    if (T == BerryFirmness) return BerryFirmness.fromJson(map as Map<String, dynamic>) as T;
+    if (T == BerryFlavor) return BerryFlavor.fromJson(map as Map<String, dynamic>) as T;
+    if (T == Characteristic) return Characteristic.fromJson(map as Map<String, dynamic>) as T;
+    if (T == EggGroup) return EggGroup.fromJson(map as Map<String, dynamic>) as T;
+    if (T == Gender) return Gender.fromJson(map as Map<String, dynamic>) as T;
+    if (T == GrowthRate) return GrowthRate.fromJson(map as Map<String, dynamic>) as T;
+    if (T == Item) return Item.fromJson(map as Map<String, dynamic>) as T;
+    if (T == ItemAbility) return ItemAbility.fromJson(map as Map<String, dynamic>) as T;
+    if (T == ItemCategory) return ItemCategory.fromJson(map as Map<String, dynamic>) as T;
+    if (T == ItemFlingEffect) return ItemFlingEffect.fromJson(map as Map<String, dynamic>) as T;
+    if (T == ItemPocket) return ItemPocket.fromJson(map as Map<String, dynamic>) as T;
+    if (T == Nature) return Nature.fromJson(map as Map<String, dynamic>) as T;
+    if (T == PokeAthlonStat) return PokeAthlonStat.fromJson(map as Map<String, dynamic>) as T;
+    if (T == Pokemon) return Pokemon.fromJson(map as Map<String, dynamic>) as T;
+    if (T == PokemonColor) return PokemonColor.fromJson(map as Map<String, dynamic>) as T;
+    if (T == PokemonForm) return PokemonForm.fromJson(map as Map<String, dynamic>) as T;
+    if (T == PokemonHabitat) return PokemonHabitat.fromJson(map as Map<String, dynamic>) as T;
+    if (T == PokemonShape) return PokemonShape.fromJson(map as Map<String, dynamic>) as T;
+    if (T == PokemonSpecie) return PokemonSpecie.fromJson(map as Map<String, dynamic>) as T;
+    if (T == Stat) return Stat.fromJson(map as Map<String, dynamic>) as T;
+    if (T == Type) return Type.fromJson(map as Map<String, dynamic>) as T;
+    if (T == ContestEffect) return ContestEffect.fromJson(map as Map<String, dynamic>) as T;
+    if (T == ContestType) return ContestType.fromJson(map as Map<String, dynamic>) as T;
+    if (T == SuperContestEffect) return SuperContestEffect.fromJson(map as Map<String, dynamic>) as T;
+    if (T == EncounterCondition) return EncounterCondition.fromJson(map as Map<String, dynamic>) as T;
     if (T == EncounterConditionValue)
-      return EncounterConditionValue.fromJson(map) as T;
-    if (T == EncounterMethod) return EncounterMethod.fromJson(map) as T;
-    if (T == EvolutionChain) return EvolutionChain.fromJson(map) as T;
-    if (T == EvolutionTrigger) return EvolutionTrigger.fromJson(map) as T;
-    if (T == Generation) return Generation.fromJson(map) as T;
-    if (T == Pokedex) return Pokedex.fromJson(map) as T;
-    if (T == Version) return Version.fromJson(map) as T;
-    if (T == VersionGroup) return VersionGroup.fromJson(map) as T;
-    if (T == Location) return Location.fromJson(map) as T;
-    if (T == LocationArea) return LocationArea.fromJson(map) as T;
-    if (T == PalParkArea) return PalParkArea.fromJson(map) as T;
-    if (T == Region) return Region.fromJson(map) as T;
-    if (T == Machine) return Machine.fromJson(map) as T;
-    if (T == Move) return Move.fromJson(map) as T;
-    if (T == MoveAilment) return MoveAilment.fromJson(map) as T;
-    if (T == MoveBattleStyle) return MoveBattleStyle.fromJson(map) as T;
-    if (T == MoveCategory) return MoveCategory.fromJson(map) as T;
-    if (T == MoveDamageClass) return MoveDamageClass.fromJson(map) as T;
-    if (T == MoveLearnMethod) return MoveLearnMethod.fromJson(map) as T;
-    if (T == MoveTarget) return MoveTarget.fromJson(map) as T;
+      return EncounterConditionValue.fromJson(map as Map<String, dynamic>) as T;
+    if (T == EncounterMethod) return EncounterMethod.fromJson(map as Map<String, dynamic>) as T;
+    if (T == EvolutionChain) return EvolutionChain.fromJson(map as Map<String, dynamic>) as T;
+    if (T == EvolutionTrigger) return EvolutionTrigger.fromJson(map as Map<String, dynamic>) as T;
+    if (T == Generation) return Generation.fromJson(map as Map<String, dynamic>) as T;
+    if (T == Pokedex) return Pokedex.fromJson(map as Map<String, dynamic>) as T;
+    if (T == Version) return Version.fromJson(map as Map<String, dynamic>) as T;
+    if (T == VersionGroup) return VersionGroup.fromJson(map as Map<String, dynamic>) as T;
+    if (T == Location) return Location.fromJson(map as Map<String, dynamic>) as T;
+    if (T == LocationArea) return LocationArea.fromJson(map as Map<String, dynamic>) as T;
+    if (T == PalParkArea) return PalParkArea.fromJson(map as Map<String, dynamic>) as T;
+    if (T == Region) return Region.fromJson(map as Map<String, dynamic>) as T;
+    if (T == Machine) return Machine.fromJson(map as Map<String, dynamic>) as T;
+    if (T == Move) return Move.fromJson(map as Map<String, dynamic>) as T;
+    if (T == MoveAilment) return MoveAilment.fromJson(map as Map<String, dynamic>) as T;
+    if (T == MoveBattleStyle) return MoveBattleStyle.fromJson(map as Map<String, dynamic>) as T;
+    if (T == MoveCategory) return MoveCategory.fromJson(map as Map<String, dynamic>) as T;
+    if (T == MoveDamageClass) return MoveDamageClass.fromJson(map as Map<String, dynamic>) as T;
+    if (T == MoveLearnMethod) return MoveLearnMethod.fromJson(map as Map<String, dynamic>) as T;
+    if (T == MoveTarget) return MoveTarget.fromJson(map as Map<String, dynamic>) as T;
   }
 
-  static Future<List<NamedAPIResource>> getCommonList<T>(
+  static Future<List<NamedAPIResource>?> getCommonList<T>(
       int offset, int limit) async {
     String url = await getBaseUrl<T>();
 
     url += "?offset=${offset - 1}&limit=$limit";
-    var response = await Http.get(url);
+    var response = await Http.get(Uri.parse(url));
     Map listMap = json.decode(response.body);
-    List<NamedAPIResource> commonResultList = Common.fromJson(listMap).results;
+    List<NamedAPIResource>? commonResultList = Common.fromJson(listMap as Map<String, dynamic>).results;
 
     return commonResultList;
   }
 
-  static Future<List<T>> getObjectList<T>(int offset, int limit) async {
-    List<T> objectList = new List();
+  static Future<List<T?>> getObjectList<T>(int offset, int limit) async {
+    List<T?> objectList =  [];
     var url = await getBaseUrl<T>();
 
     url += "?offset=${offset - 1}&limit=$limit";
     var response = await Http.get(url);
     Map listMap = json.decode(response.body);
-    List<NamedAPIResource> commonResultList = Common.fromJson(listMap).results;
+    List<NamedAPIResource> commonResultList = Common.fromJson(listMap as Map<String, dynamic>).results!;
 
     for (NamedAPIResource result in commonResultList) {
-      response = await Http.get(result.url);
+      response = await Http.get(Uri.parse(result.url!));
       objectList.add(_mapJson<T>(response));
     }
     return objectList;
   }
 
-  static Future<T> getObject<T>(int id) async {
+  static Future<T?> getObject<T>(int id) async {
     String url = await getBaseUrl<T>();
     url += "?offset=${id - 1}&limit=1";
-    var response = await Http.get(url);
+    var response = await Http.get(Uri.parse(url));
     Map listMap = json.decode(response.body);
-    List<NamedAPIResource> commonResultList = Common.fromJson(listMap).results;
+    List<NamedAPIResource> commonResultList = Common.fromJson(listMap as Map<String, dynamic>).results!;
 
     if (commonResultList.isNotEmpty) {
-      response = await Http.get(commonResultList[0].url);
+      response = await Http.get(Uri.parse(commonResultList[0].url!));
       return _mapJson<T>(response);
     } else {
       return null;
@@ -160,7 +160,7 @@ class PokeAPI {
 
   static getBaseUrl<T>() async {
     var api = await _getAPI();
-    String url;
+    String? url;
 
     if (T == Ability) url = api.ability;
     if (T == Berry) url = api.berry;

@@ -1,10 +1,10 @@
 import 'package:pokeapi/model/utils/common.dart';
 
 class Machine {
-  NamedAPIResource item;
-  NamedAPIResource move;
-  NamedAPIResource versionGroup;
-  int id;
+  NamedAPIResource? item;
+  NamedAPIResource? move;
+  NamedAPIResource? versionGroup;
+  int? id;
 
   Machine({this.item, this.move, this.versionGroup, this.id});
 
@@ -24,13 +24,13 @@ class Machine {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.item != null) {
-      data['item'] = this.item.toJson();
+      data['item'] = this.item!.toJson();
     }
     if (this.move != null) {
-      data['move'] = this.move.toJson();
+      data['move'] = this.move!.toJson();
     }
     if (this.versionGroup != null) {
-      data['version_group'] = this.versionGroup.toJson();
+      data['version_group'] = this.versionGroup!.toJson();
     }
     data['id'] = this.id;
     return data;

@@ -1,17 +1,17 @@
 import 'package:pokeapi/model/utils/common.dart';
 
 class PokemonForm {
-  int id;
-  String name;
-  int order;
-  int formOrder;
-  bool isDefault;
-  bool isBattleOnly;
-  bool isMega;
-  String formName;
-  NamedAPIResource pokemon;
-  Sprites sprites;
-  NamedAPIResource versionGroup;
+  int? id;
+  String? name;
+  int? order;
+  int? formOrder;
+  bool? isDefault;
+  bool? isBattleOnly;
+  bool? isMega;
+  String? formName;
+  NamedAPIResource? pokemon;
+  Sprites? sprites;
+  NamedAPIResource? versionGroup;
 
   PokemonForm(
       {this.id,
@@ -56,13 +56,13 @@ class PokemonForm {
     data['is_mega'] = this.isMega;
     data['form_name'] = this.formName;
     if (this.pokemon != null) {
-      data['pokemon'] = this.pokemon.toJson();
+      data['pokemon'] = this.pokemon!.toJson();
     }
     if (this.sprites != null) {
-      data['sprites'] = this.sprites.toJson();
+      data['sprites'] = this.sprites!.toJson();
     }
     if (this.versionGroup != null) {
-      data['version_group'] = this.versionGroup.toJson();
+      data['version_group'] = this.versionGroup!.toJson();
     }
     return data;
   }
@@ -74,10 +74,10 @@ class PokemonForm {
 }
 
 class Sprites {
-  String backDefault;
-  String backShiny;
-  String frontDefault;
-  String frontShiny;
+  String? backDefault;
+  String? backShiny;
+  String? frontDefault;
+  String? frontShiny;
 
   Sprites(
       {this.backDefault, this.backShiny, this.frontDefault, this.frontShiny});

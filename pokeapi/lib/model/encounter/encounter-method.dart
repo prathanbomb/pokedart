@@ -1,18 +1,18 @@
 import 'package:pokeapi/model/utils/common.dart';
 
 class EncounterMethod {
-  List<EncounterMethodName> names;
-  String name;
-  int id;
-  int order;
+  List<EncounterMethodName>? names;
+  String? name;
+  int? id;
+  int? order;
 
   EncounterMethod({this.names, this.name, this.id, this.order});
 
   EncounterMethod.fromJson(Map<String, dynamic> json) {
     if (json['names'] != null) {
-      names = new List<EncounterMethodName>();
+      names =  <EncounterMethodName>[];
       (json['names'] as List).forEach((v) {
-        names.add(new EncounterMethodName.fromJson(v));
+        names!.add( EncounterMethodName.fromJson(v));
       });
     }
     name = json['name'];
@@ -21,9 +21,9 @@ class EncounterMethod {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     if (this.names != null) {
-      data['names'] = this.names.map((v) => v.toJson()).toList();
+      data['names'] = this.names!.map((v) => v.toJson()).toList();
     }
     data['name'] = this.name;
     data['id'] = this.id;
@@ -38,23 +38,23 @@ class EncounterMethod {
 }
 
 class EncounterMethodName {
-  String name;
-  NamedAPIResource language;
+  String? name;
+  NamedAPIResource? language;
 
   EncounterMethodName({this.name, this.language});
 
   EncounterMethodName.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     language = json['language'] != null
-        ? new NamedAPIResource.fromJson(json['language'])
+        ?  NamedAPIResource.fromJson(json['language'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['name'] = this.name;
     if (this.language != null) {
-      data['language'] = this.language.toJson();
+      data['language'] = this.language!.toJson();
     }
     return data;
   }

@@ -1,29 +1,29 @@
 import 'package:pokeapi/model/utils/common.dart';
 
 class Move {
-  NamedAPIResource generation;
-  int pp;
-  List<NamedAPIResource> statChanges;
-  int accuracy;
-  MoveContestCombos contestCombos;
-  int priority;
-  NamedAPIResource superContestEffect;
-  NamedAPIResource type;
-  List<NamedAPIResource> effectChanges;
-  NamedAPIResource target;
-  List<MoveEffectEntry> effectEntries;
-  NamedAPIResource contestType;
-  List<NamedAPIResource> pastValues;
-  List<MoveName> names;
-  MoveMeta meta;
-  List<MoveFlavorTextEntry> flavorTextEntries;
-  NamedAPIResource damageClass;
-  String name;
+  NamedAPIResource? generation;
+  int? pp;
+  List<NamedAPIResource>? statChanges;
+  int? accuracy;
+  MoveContestCombos? contestCombos;
+  int? priority;
+  NamedAPIResource? superContestEffect;
+  NamedAPIResource? type;
+  List<NamedAPIResource>? effectChanges;
+  NamedAPIResource? target;
+  List<MoveEffectEntry>? effectEntries;
+  NamedAPIResource? contestType;
+  List<NamedAPIResource>? pastValues;
+  List<MoveName>? names;
+  MoveMeta? meta;
+  List<MoveFlavorTextEntry>? flavorTextEntries;
+  NamedAPIResource? damageClass;
+  String? name;
   dynamic effectChance;
-  int id;
-  List<NamedAPIResource> machines;
-  int power;
-  NamedAPIResource contestEffect;
+  int? id;
+  List<NamedAPIResource>? machines;
+  int? power;
+  NamedAPIResource? contestEffect;
 
   Move(
       {this.generation,
@@ -52,73 +52,73 @@ class Move {
 
   Move.fromJson(Map<String, dynamic> json) {
     generation = json['generation'] != null
-        ? new NamedAPIResource.fromJson(json['generation'])
+        ?  NamedAPIResource.fromJson(json['generation'])
         : null;
     pp = json['pp'];
     if (json['stat_changes'] != null) {
-      statChanges = new List<NamedAPIResource>();
+      statChanges = <NamedAPIResource>[];
     }
     accuracy = json['accuracy'];
     contestCombos = json['contest_combos'] != null
-        ? new MoveContestCombos.fromJson(json['contest_combos'])
+        ?  MoveContestCombos.fromJson(json['contest_combos'])
         : null;
     priority = json['priority'];
     superContestEffect = json['super_contest_effect'] != null
-        ? new NamedAPIResource.fromJson(json['super_contest_effect'])
+        ?  NamedAPIResource.fromJson(json['super_contest_effect'])
         : null;
     type = json['type'] != null
-        ? new NamedAPIResource.fromJson(json['type'])
+        ?  NamedAPIResource.fromJson(json['type'])
         : null;
     if (json['effect_changes'] != null) {
-      effectChanges = new List<NamedAPIResource>();
+      effectChanges = <NamedAPIResource>[];
     }
     target = json['target'] != null
-        ? new NamedAPIResource.fromJson(json['target'])
+        ?  NamedAPIResource.fromJson(json['target'])
         : null;
     if (json['effect_entries'] != null) {
-      effectEntries = new List<MoveEffectEntry>();
+      effectEntries = <MoveEffectEntry>[];
       (json['effect_entries'] as List).forEach((v) {
-        effectEntries.add(new MoveEffectEntry.fromJson(v));
+        effectEntries!.add( MoveEffectEntry.fromJson(v));
       });
     }
     contestType = json['contest_type'] != null
-        ? new NamedAPIResource.fromJson(json['contest_type'])
+        ?  NamedAPIResource.fromJson(json['contest_type'])
         : null;
     if (json['past_values'] != null) {
-      pastValues = new List<NamedAPIResource>();
+      pastValues = <NamedAPIResource>[];
     }
     if (json['names'] != null) {
-      names = new List<MoveName>();
+      names = <MoveName>[];
       (json['names'] as List).forEach((v) {
-        names.add(new MoveName.fromJson(v));
+        names!.add( MoveName.fromJson(v));
       });
     }
-    meta = json['meta'] != null ? new MoveMeta.fromJson(json['meta']) : null;
+    meta = json['meta'] != null ?  MoveMeta.fromJson(json['meta']) : null;
     if (json['flavor_text_entries'] != null) {
-      flavorTextEntries = new List<MoveFlavorTextEntry>();
+      flavorTextEntries = <MoveFlavorTextEntry>[];
       (json['flavor_text_entries'] as List).forEach((v) {
-        flavorTextEntries.add(new MoveFlavorTextEntry.fromJson(v));
+        flavorTextEntries!.add( MoveFlavorTextEntry.fromJson(v));
       });
     }
     damageClass = json['damage_class'] != null
-        ? new NamedAPIResource.fromJson(json['damage_class'])
+        ?  NamedAPIResource.fromJson(json['damage_class'])
         : null;
     name = json['name'];
     effectChance = json['effect_chance'];
     id = json['id'];
     if (json['machines'] != null) {
-      machines = new List<NamedAPIResource>();
+      machines = <NamedAPIResource>[];
     }
     power = json['power'];
     contestEffect = json['contest_effect'] != null
-        ? new NamedAPIResource.fromJson(json['contest_effect'])
+        ?  NamedAPIResource.fromJson(json['contest_effect'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     if (this.generation != null) {
-      data['generation'] = this.generation.toJson();
+      data['generation'] = this.generation!.toJson();
     }
     data['pp'] = this.pp;
     if (this.statChanges != null) {
@@ -126,43 +126,43 @@ class Move {
     }
     data['accuracy'] = this.accuracy;
     if (this.contestCombos != null) {
-      data['contest_combos'] = this.contestCombos.toJson();
+      data['contest_combos'] = this.contestCombos!.toJson();
     }
     data['priority'] = this.priority;
     if (this.superContestEffect != null) {
-      data['super_contest_effect'] = this.superContestEffect.toJson();
+      data['super_contest_effect'] = this.superContestEffect!.toJson();
     }
     if (this.type != null) {
-      data['type'] = this.type.toJson();
+      data['type'] = this.type!.toJson();
     }
     if (this.effectChanges != null) {
       data['effect_changes'] = [];
     }
     if (this.target != null) {
-      data['target'] = this.target.toJson();
+      data['target'] = this.target!.toJson();
     }
     if (this.effectEntries != null) {
       data['effect_entries'] =
-          this.effectEntries.map((v) => v.toJson()).toList();
+          this.effectEntries!.map((v) => v.toJson()).toList();
     }
     if (this.contestType != null) {
-      data['contest_type'] = this.contestType.toJson();
+      data['contest_type'] = this.contestType!.toJson();
     }
     if (this.pastValues != null) {
       data['past_values'] = [];
     }
     if (this.names != null) {
-      data['names'] = this.names.map((v) => v.toJson()).toList();
+      data['names'] = this.names!.map((v) => v.toJson()).toList();
     }
     if (this.meta != null) {
-      data['meta'] = this.meta.toJson();
+      data['meta'] = this.meta!.toJson();
     }
     if (this.flavorTextEntries != null) {
       data['flavor_text_entries'] =
-          this.flavorTextEntries.map((v) => v.toJson()).toList();
+          this.flavorTextEntries!.map((v) => v.toJson()).toList();
     }
     if (this.damageClass != null) {
-      data['damage_class'] = this.damageClass.toJson();
+      data['damage_class'] = this.damageClass!.toJson();
     }
     data['name'] = this.name;
     data['effect_chance'] = this.effectChance;
@@ -172,7 +172,7 @@ class Move {
     }
     data['power'] = this.power;
     if (this.contestEffect != null) {
-      data['contest_effect'] = this.contestEffect.toJson();
+      data['contest_effect'] = this.contestEffect!.toJson();
     }
     return data;
   }
@@ -184,27 +184,27 @@ class Move {
 }
 
 class MoveContestCombos {
-  MoveContestCombosSuper xSuper;
-  MoveContestCombosNormal normal;
+  MoveContestCombosSuper? xSuper;
+  MoveContestCombosNormal? normal;
 
   MoveContestCombos({this.xSuper, this.normal});
 
   MoveContestCombos.fromJson(Map<String, dynamic> json) {
     xSuper = json['super'] != null
-        ? new MoveContestCombosSuper.fromJson(json['super'])
+        ?  MoveContestCombosSuper.fromJson(json['super'])
         : null;
     normal = json['normal'] != null
-        ? new MoveContestCombosNormal.fromJson(json['normal'])
+        ?  MoveContestCombosNormal.fromJson(json['normal'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     if (this.xSuper != null) {
-      data['super'] = this.xSuper.toJson();
+      data['super'] = this.xSuper!.toJson();
     }
     if (this.normal != null) {
-      data['normal'] = this.normal.toJson();
+      data['normal'] = this.normal!.toJson();
     }
     return data;
   }
@@ -227,7 +227,7 @@ class MoveContestCombosSuper {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['use_after'] = this.useAfter;
     data['use_before'] = this.useBefore;
     return data;
@@ -241,25 +241,25 @@ class MoveContestCombosSuper {
 
 class MoveContestCombosNormal {
   dynamic useAfter;
-  List<NamedAPIResource> useBefore;
+  List<NamedAPIResource>? useBefore;
 
   MoveContestCombosNormal({this.useAfter, this.useBefore});
 
   MoveContestCombosNormal.fromJson(Map<String, dynamic> json) {
     useAfter = json['use_after'];
     if (json['use_before'] != null) {
-      useBefore = new List<NamedAPIResource>();
+      useBefore =  <NamedAPIResource>[];
       (json['use_before'] as List).forEach((v) {
-        useBefore.add(new NamedAPIResource.fromJson(v));
+        useBefore!.add( NamedAPIResource.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['use_after'] = this.useAfter;
     if (this.useBefore != null) {
-      data['use_before'] = this.useBefore.map((v) => v.toJson()).toList();
+      data['use_before'] = this.useBefore!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -271,9 +271,9 @@ class MoveContestCombosNormal {
 }
 
 class MoveEffectEntry {
-  String shortEffect;
-  String effect;
-  NamedAPIResource language;
+  String? shortEffect;
+  String? effect;
+  NamedAPIResource? language;
 
   MoveEffectEntry({this.shortEffect, this.effect, this.language});
 
@@ -281,16 +281,16 @@ class MoveEffectEntry {
     shortEffect = json['short_effect'];
     effect = json['effect'];
     language = json['language'] != null
-        ? new NamedAPIResource.fromJson(json['language'])
+        ?  NamedAPIResource.fromJson(json['language'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['short_effect'] = this.shortEffect;
     data['effect'] = this.effect;
     if (this.language != null) {
-      data['language'] = this.language.toJson();
+      data['language'] = this.language!.toJson();
     }
     return data;
   }
@@ -302,23 +302,23 @@ class MoveEffectEntry {
 }
 
 class MoveName {
-  String name;
-  NamedAPIResource language;
+  String? name;
+  NamedAPIResource? language;
 
   MoveName({this.name, this.language});
 
   MoveName.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     language = json['language'] != null
-        ? new NamedAPIResource.fromJson(json['language'])
+        ?  NamedAPIResource.fromJson(json['language'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['name'] = this.name;
     if (this.language != null) {
-      data['language'] = this.language.toJson();
+      data['language'] = this.language!.toJson();
     }
     return data;
   }
@@ -330,18 +330,18 @@ class MoveName {
 }
 
 class MoveMeta {
-  int healing;
+  int? healing;
   dynamic minHits;
   dynamic maxHits;
-  int ailmentChance;
-  int critRate;
-  int flinchChance;
+  int? ailmentChance;
+  int? critRate;
+  int? flinchChance;
   dynamic minTurns;
-  NamedAPIResource ailment;
-  NamedAPIResource category;
+  NamedAPIResource? ailment;
+  NamedAPIResource? category;
   dynamic maxTurns;
-  int drain;
-  int statChance;
+  int? drain;
+  int? statChance;
 
   MoveMeta(
       {this.healing,
@@ -366,10 +366,10 @@ class MoveMeta {
     flinchChance = json['flinch_chance'];
     minTurns = json['min_turns'];
     ailment = json['ailment'] != null
-        ? new NamedAPIResource.fromJson(json['ailment'])
+        ?  NamedAPIResource.fromJson(json['ailment'])
         : null;
     category = json['category'] != null
-        ? new NamedAPIResource.fromJson(json['category'])
+        ?  NamedAPIResource.fromJson(json['category'])
         : null;
     maxTurns = json['max_turns'];
     drain = json['drain'];
@@ -377,7 +377,7 @@ class MoveMeta {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['healing'] = this.healing;
     data['min_hits'] = this.minHits;
     data['max_hits'] = this.maxHits;
@@ -386,10 +386,10 @@ class MoveMeta {
     data['flinch_chance'] = this.flinchChance;
     data['min_turns'] = this.minTurns;
     if (this.ailment != null) {
-      data['ailment'] = this.ailment.toJson();
+      data['ailment'] = this.ailment!.toJson();
     }
     if (this.category != null) {
-      data['category'] = this.category.toJson();
+      data['category'] = this.category!.toJson();
     }
     data['max_turns'] = this.maxTurns;
     data['drain'] = this.drain;
@@ -404,29 +404,29 @@ class MoveMeta {
 }
 
 class MoveFlavorTextEntry {
-  NamedAPIResource versionGroup;
-  NamedAPIResource language;
-  String flavorText;
+  NamedAPIResource? versionGroup;
+  NamedAPIResource? language;
+  String? flavorText;
 
   MoveFlavorTextEntry({this.versionGroup, this.language, this.flavorText});
 
   MoveFlavorTextEntry.fromJson(Map<String, dynamic> json) {
     versionGroup = json['version_group'] != null
-        ? new NamedAPIResource.fromJson(json['version_group'])
+        ?  NamedAPIResource.fromJson(json['version_group'])
         : null;
     language = json['language'] != null
-        ? new NamedAPIResource.fromJson(json['language'])
+        ?  NamedAPIResource.fromJson(json['language'])
         : null;
     flavorText = json['flavor_text'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     if (this.versionGroup != null) {
-      data['version_group'] = this.versionGroup.toJson();
+      data['version_group'] = this.versionGroup!.toJson();
     }
     if (this.language != null) {
-      data['language'] = this.language.toJson();
+      data['language'] = this.language!.toJson();
     }
     data['flavor_text'] = this.flavorText;
     return data;

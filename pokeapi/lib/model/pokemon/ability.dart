@@ -1,15 +1,15 @@
 import 'package:pokeapi/model/utils/common.dart';
 
 class Ability {
-  int id;
-  String name;
-  bool isMainSeries;
-  NamedAPIResource generation;
-  List<Names> names;
-  List<AbilityEffectEntries> effectEntries;
-  List<AbilityEffectChanges> effectChanges;
-  List<AbilityFlavorTextEntries> flavorTextEntries;
-  List<NamedAPIResource> pokemon;
+  int? id;
+  String? name;
+  bool? isMainSeries;
+  NamedAPIResource? generation;
+  List<Names>? names;
+  List<AbilityEffectEntries>? effectEntries;
+  List<AbilityEffectChanges>? effectChanges;
+  List<AbilityFlavorTextEntries>? flavorTextEntries;
+  List<NamedAPIResource>? pokemon;
 
   Ability(
       {this.id,
@@ -27,66 +27,66 @@ class Ability {
     name = json['name'];
     isMainSeries = json['is_main_series'];
     generation = json['generation'] != null
-        ? new NamedAPIResource.fromJson(json['generation'])
+        ?  NamedAPIResource.fromJson(json['generation'])
         : null;
     if (json['names'] != null) {
-      names = new List<Names>();
+      names = <Names>[];
       json['names'].forEach((v) {
-        names.add(new Names.fromJson(v));
+        names!.add( Names.fromJson(v));
       });
     }
     if (json['effect_entries'] != null) {
-      effectEntries = new List<AbilityEffectEntries>();
+      effectEntries = <AbilityEffectEntries>[];
       json['effect_entries'].forEach((v) {
-        effectEntries.add(new AbilityEffectEntries.fromJson(v));
+        effectEntries!.add( AbilityEffectEntries.fromJson(v));
       });
     }
     if (json['effect_changes'] != null) {
-      effectChanges = new List<AbilityEffectChanges>();
+      effectChanges = <AbilityEffectChanges>[];
       json['effect_changes'].forEach((v) {
-        effectChanges.add(new AbilityEffectChanges.fromJson(v));
+        effectChanges!.add( AbilityEffectChanges.fromJson(v));
       });
     }
     if (json['flavor_text_entries'] != null) {
-      flavorTextEntries = new List<AbilityFlavorTextEntries>();
+      flavorTextEntries = <AbilityFlavorTextEntries>[];
       json['flavor_text_entries'].forEach((v) {
-        flavorTextEntries.add(new AbilityFlavorTextEntries.fromJson(v));
+        flavorTextEntries!.add( AbilityFlavorTextEntries.fromJson(v));
       });
     }
     if (json['pokemon'] != null) {
-      pokemon = new List<NamedAPIResource>();
+      pokemon = <NamedAPIResource>[];
       json['pokemon'].forEach((v) {
         v = v['pokemon'];
-        pokemon.add(new NamedAPIResource.fromJson(v));
+        pokemon!.add( NamedAPIResource.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['id'] = this.id;
     data['name'] = this.name;
     data['is_main_series'] = this.isMainSeries;
     if (this.generation != null) {
-      data['generation'] = this.generation.toJson();
+      data['generation'] = this.generation!.toJson();
     }
     if (this.names != null) {
-      data['names'] = this.names.map((v) => v.toJson()).toList();
+      data['names'] = this.names!.map((v) => v.toJson()).toList();
     }
     if (this.effectEntries != null) {
       data['effect_entries'] =
-          this.effectEntries.map((v) => v.toJson()).toList();
+          this.effectEntries!.map((v) => v.toJson()).toList();
     }
     if (this.effectChanges != null) {
       data['effect_changes'] =
-          this.effectChanges.map((v) => v.toJson()).toList();
+          this.effectChanges!.map((v) => v.toJson()).toList();
     }
     if (this.flavorTextEntries != null) {
       data['flavor_text_entries'] =
-          this.flavorTextEntries.map((v) => v.toJson()).toList();
+          this.flavorTextEntries!.map((v) => v.toJson()).toList();
     }
     if (this.pokemon != null) {
-      data['pokemon'] = this.pokemon.map((v) => v.toJson()).toList();
+      data['pokemon'] = this.pokemon!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -98,23 +98,23 @@ class Ability {
 }
 
 class Names {
-  String name;
-  NamedAPIResource language;
+  String? name;
+  NamedAPIResource? language;
 
   Names({this.name, this.language});
 
   Names.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     language = json['language'] != null
-        ? new NamedAPIResource.fromJson(json['language'])
+        ?  NamedAPIResource.fromJson(json['language'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['name'] = this.name;
     if (this.language != null) {
-      data['language'] = this.language.toJson();
+      data['language'] = this.language!.toJson();
     }
     return data;
   }
@@ -126,9 +126,9 @@ class Names {
 }
 
 class AbilityEffectEntries {
-  String effect;
-  String shortEffect;
-  NamedAPIResource language;
+  String? effect;
+  String? shortEffect;
+  NamedAPIResource? language;
 
   AbilityEffectEntries({this.effect, this.shortEffect, this.language});
 
@@ -136,16 +136,16 @@ class AbilityEffectEntries {
     effect = json['effect'];
     shortEffect = json['short_effect'];
     language = json['language'] != null
-        ? new NamedAPIResource.fromJson(json['language'])
+        ?  NamedAPIResource.fromJson(json['language'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['effect'] = this.effect;
     data['short_effect'] = this.shortEffect;
     if (this.language != null) {
-      data['language'] = this.language.toJson();
+      data['language'] = this.language!.toJson();
     }
     return data;
   }
@@ -157,31 +157,31 @@ class AbilityEffectEntries {
 }
 
 class AbilityEffectChanges {
-  NamedAPIResource versionGroup;
-  List<AbilityEffectEntries> effectEntries;
+  NamedAPIResource? versionGroup;
+  List<AbilityEffectEntries>? effectEntries;
 
   AbilityEffectChanges({this.versionGroup, this.effectEntries});
 
   AbilityEffectChanges.fromJson(Map<String, dynamic> json) {
     versionGroup = json['version_group'] != null
-        ? new NamedAPIResource.fromJson(json['version_group'])
+        ?  NamedAPIResource.fromJson(json['version_group'])
         : null;
     if (json['effect_entries'] != null) {
-      effectEntries = new List<AbilityEffectEntries>();
+      effectEntries =  <AbilityEffectEntries>[];
       json['effect_entries'].forEach((v) {
-        effectEntries.add(new AbilityEffectEntries.fromJson(v));
+        effectEntries!.add( AbilityEffectEntries.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     if (this.versionGroup != null) {
-      data['version_group'] = this.versionGroup.toJson();
+      data['version_group'] = this.versionGroup!.toJson();
     }
     if (this.effectEntries != null) {
       data['effect_entries'] =
-          this.effectEntries.map((v) => v.toJson()).toList();
+          this.effectEntries!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -193,30 +193,30 @@ class AbilityEffectChanges {
 }
 
 class AbilityFlavorTextEntries {
-  String flavorText;
-  NamedAPIResource language;
-  NamedAPIResource versionGroup;
+  String? flavorText;
+  NamedAPIResource? language;
+  NamedAPIResource? versionGroup;
 
   AbilityFlavorTextEntries({this.flavorText, this.language, this.versionGroup});
 
   AbilityFlavorTextEntries.fromJson(Map<String, dynamic> json) {
     flavorText = json['flavor_text'];
     language = json['language'] != null
-        ? new NamedAPIResource.fromJson(json['language'])
+        ?  NamedAPIResource.fromJson(json['language'])
         : null;
     versionGroup = json['version_group'] != null
-        ? new NamedAPIResource.fromJson(json['version_group'])
+        ?  NamedAPIResource.fromJson(json['version_group'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['flavor_text'] = this.flavorText;
     if (this.language != null) {
-      data['language'] = this.language.toJson();
+      data['language'] = this.language!.toJson();
     }
     if (this.versionGroup != null) {
-      data['version_group'] = this.versionGroup.toJson();
+      data['version_group'] = this.versionGroup!.toJson();
     }
     return data;
   }
@@ -228,9 +228,9 @@ class AbilityFlavorTextEntries {
 }
 
 class AbilityPokemon {
-  bool isHidden;
-  int slot;
-  AbilityPokemon pokemon;
+  bool? isHidden;
+  int? slot;
+  AbilityPokemon? pokemon;
 
   AbilityPokemon({this.isHidden, this.slot, this.pokemon});
 
@@ -238,16 +238,16 @@ class AbilityPokemon {
     isHidden = json['is_hidden'];
     slot = json['slot'];
     pokemon = json['pokemon'] != null
-        ? new AbilityPokemon.fromJson(json['pokemon'])
+        ?  AbilityPokemon.fromJson(json['pokemon'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['is_hidden'] = this.isHidden;
     data['slot'] = this.slot;
     if (this.pokemon != null) {
-      data['pokemon'] = this.pokemon.toJson();
+      data['pokemon'] = this.pokemon!.toJson();
     }
     return data;
   }

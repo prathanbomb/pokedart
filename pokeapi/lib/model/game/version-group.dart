@@ -1,14 +1,14 @@
 import 'package:pokeapi/model/utils/common.dart';
 
 class VersionGroup {
-  NamedAPIResource generation;
-  List<NamedAPIResource> regions;
-  List<NamedAPIResource> pokedexes;
-  List<NamedAPIResource> versions;
-  String name;
-  int id;
-  List<NamedAPIResource> moveLearnMethods;
-  int order;
+  NamedAPIResource? generation;
+  List<NamedAPIResource>? regions;
+  List<NamedAPIResource>? pokedexes;
+  List<NamedAPIResource>? versions;
+  String? name;
+  int? id;  
+  List<NamedAPIResource>? moveLearnMethods;
+  int? order;
 
   VersionGroup(
       {this.generation,
@@ -22,56 +22,56 @@ class VersionGroup {
 
   VersionGroup.fromJson(Map<String, dynamic> json) {
     generation = json['generation'] != null
-        ? new NamedAPIResource.fromJson(json['generation'])
+        ?  NamedAPIResource.fromJson(json['generation'])
         : null;
     if (json['regions'] != null) {
-      regions = new List<NamedAPIResource>();
+      regions =  <NamedAPIResource>[];
       (json['regions'] as List).forEach((v) {
-        regions.add(new NamedAPIResource.fromJson(v));
+        regions!.add( NamedAPIResource.fromJson(v));
       });
     }
     if (json['pokedexes'] != null) {
-      pokedexes = new List<NamedAPIResource>();
+      pokedexes =  <NamedAPIResource>[];
       (json['pokedexes'] as List).forEach((v) {
-        pokedexes.add(new NamedAPIResource.fromJson(v));
+        pokedexes!.add( NamedAPIResource.fromJson(v));
       });
     }
     if (json['versions'] != null) {
-      versions = new List<NamedAPIResource>();
+      versions =  <NamedAPIResource>[];
       (json['versions'] as List).forEach((v) {
-        versions.add(new NamedAPIResource.fromJson(v));
+        versions!.add( NamedAPIResource.fromJson(v));
       });
     }
     name = json['name'];
     id = json['id'];
     if (json['move_learn_methods'] != null) {
-      moveLearnMethods = new List<NamedAPIResource>();
+      moveLearnMethods =  <NamedAPIResource>[];
       (json['move_learn_methods'] as List).forEach((v) {
-        moveLearnMethods.add(new NamedAPIResource.fromJson(v));
+        moveLearnMethods!.add( NamedAPIResource.fromJson(v));
       });
     }
     order = json['order'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     if (this.generation != null) {
-      data['generation'] = this.generation.toJson();
+      data['generation'] = this.generation!.toJson();
     }
     if (this.regions != null) {
-      data['regions'] = this.regions.map((v) => v.toJson()).toList();
+      data['regions'] = this.regions!.map((v) => v.toJson()).toList();
     }
     if (this.pokedexes != null) {
-      data['pokedexes'] = this.pokedexes.map((v) => v.toJson()).toList();
+      data['pokedexes'] = this.pokedexes!.map((v) => v.toJson()).toList();
     }
     if (this.versions != null) {
-      data['versions'] = this.versions.map((v) => v.toJson()).toList();
+      data['versions'] = this.versions!.map((v) => v.toJson()).toList();
     }
     data['name'] = this.name;
     data['id'] = this.id;
     if (this.moveLearnMethods != null) {
       data['move_learn_methods'] =
-          this.moveLearnMethods.map((v) => v.toJson()).toList();
+          this.moveLearnMethods!.map((v) => v.toJson()).toList();
     }
     data['order'] = this.order;
     return data;

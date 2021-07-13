@@ -1,10 +1,10 @@
 import 'package:pokeapi/model/utils/common.dart';
 
 class ItemFlingEffect {
-  int id;
-  String name;
-  List<EffectEntries> effectEntries;
-  List<NamedAPIResource> items;
+  int? id;
+  String? name;
+  List<EffectEntries>? effectEntries;
+  List<NamedAPIResource>? items;
 
   ItemFlingEffect({this.id, this.name, this.effectEntries, this.items});
 
@@ -12,15 +12,15 @@ class ItemFlingEffect {
     id = json['id'];
     name = json['name'];
     if (json['effect_entries'] != null) {
-      effectEntries = new List<EffectEntries>();
+      effectEntries = <EffectEntries>[];
       json['effect_entries'].forEach((v) {
-        effectEntries.add(new EffectEntries.fromJson(v));
+        effectEntries!.add(new EffectEntries.fromJson(v));
       });
     }
     if (json['items'] != null) {
-      items = new List<NamedAPIResource>();
+      items = <NamedAPIResource>[];
       json['items'].forEach((v) {
-        items.add(new NamedAPIResource.fromJson(v));
+        items!.add(new NamedAPIResource.fromJson(v));
       });
     }
   }
@@ -31,10 +31,10 @@ class ItemFlingEffect {
     data['name'] = this.name;
     if (this.effectEntries != null) {
       data['effect_entries'] =
-          this.effectEntries.map((v) => v.toJson()).toList();
+          this.effectEntries!.map((v) => v.toJson()).toList();
     }
     if (this.items != null) {
-      data['items'] = this.items.map((v) => v.toJson()).toList();
+      data['items'] = this.items!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -46,8 +46,8 @@ class ItemFlingEffect {
 }
 
 class EffectEntries {
-  String effect;
-  NamedAPIResource language;
+  String? effect;
+  NamedAPIResource? language;
 
   EffectEntries({this.effect, this.language});
 
@@ -62,7 +62,7 @@ class EffectEntries {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['effect'] = this.effect;
     if (this.language != null) {
-      data['language'] = this.language.toJson();
+      data['language'] = this.language!.toJson();
     }
     return data;
   }

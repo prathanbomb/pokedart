@@ -1,11 +1,11 @@
 import 'package:pokeapi/model/utils/common.dart';
 
 class ContestEffect {
-  List<ContestEffectEffectEntry> effectEntries;
-  List<ContestEffectFlavorTextEntry> flavorTextEntries;
-  int jam;
-  int appeal;
-  int id;
+  List<ContestEffectEffectEntry>? effectEntries;
+  List<ContestEffectFlavorTextEntry>? flavorTextEntries;
+  int? jam;
+  int? appeal;
+  int? id;
 
   ContestEffect(
       {this.effectEntries,
@@ -16,15 +16,15 @@ class ContestEffect {
 
   ContestEffect.fromJson(Map<String, dynamic> json) {
     if (json['effect_entries'] != null) {
-      effectEntries = new List<ContestEffectEffectEntry>();
+      effectEntries =  <ContestEffectEffectEntry>[];
       (json['effect_entries'] as List).forEach((v) {
-        effectEntries.add(new ContestEffectEffectEntry.fromJson(v));
+        effectEntries!.add( ContestEffectEffectEntry.fromJson(v));
       });
     }
     if (json['flavor_text_entries'] != null) {
-      flavorTextEntries = new List<ContestEffectFlavorTextEntry>();
+      flavorTextEntries =  <ContestEffectFlavorTextEntry>[];
       (json['flavor_text_entries'] as List).forEach((v) {
-        flavorTextEntries.add(new ContestEffectFlavorTextEntry.fromJson(v));
+        flavorTextEntries!.add( ContestEffectFlavorTextEntry.fromJson(v));
       });
     }
     jam = json['jam'];
@@ -33,14 +33,14 @@ class ContestEffect {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     if (this.effectEntries != null) {
       data['effect_entries'] =
-          this.effectEntries.map((v) => v.toJson()).toList();
+          this.effectEntries!.map((v) => v.toJson()).toList();
     }
     if (this.flavorTextEntries != null) {
       data['flavor_text_entries'] =
-          this.flavorTextEntries.map((v) => v.toJson()).toList();
+          this.flavorTextEntries!.map((v) => v.toJson()).toList();
     }
     data['jam'] = this.jam;
     data['appeal'] = this.appeal;
@@ -55,23 +55,23 @@ class ContestEffect {
 }
 
 class ContestEffectEffectEntry {
-  String effect;
-  NamedAPIResource language;
+  String? effect;
+  NamedAPIResource? language;
 
   ContestEffectEffectEntry({this.effect, this.language});
 
   ContestEffectEffectEntry.fromJson(Map<String, dynamic> json) {
     effect = json['effect'];
     language = json['language'] != null
-        ? new NamedAPIResource.fromJson(json['language'])
+        ?  NamedAPIResource.fromJson(json['language'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['effect'] = this.effect;
     if (this.language != null) {
-      data['language'] = this.language.toJson();
+      data['language'] = this.language!.toJson();
     }
     return data;
   }
@@ -83,22 +83,22 @@ class ContestEffectEffectEntry {
 }
 
 class ContestEffectFlavorTextEntry {
-  NamedAPIResource language;
-  String flavorText;
+  NamedAPIResource? language;
+  String? flavorText;
 
   ContestEffectFlavorTextEntry({this.language, this.flavorText});
 
   ContestEffectFlavorTextEntry.fromJson(Map<String, dynamic> json) {
     language = json['language'] != null
-        ? new NamedAPIResource.fromJson(json['language'])
+        ?  NamedAPIResource.fromJson(json['language'])
         : null;
     flavorText = json['flavor_text'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     if (this.language != null) {
-      data['language'] = this.language.toJson();
+      data['language'] = this.language!.toJson();
     }
     data['flavor_text'] = this.flavorText;
     return data;

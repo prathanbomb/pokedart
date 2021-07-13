@@ -1,21 +1,21 @@
 import 'package:pokeapi/model/utils/common.dart';
 
 class ContestType {
-  NamedAPIResource berryFlavor;
-  List<ContestTypeName> names;
-  String name;
-  int id;
+  NamedAPIResource? berryFlavor;
+  List<ContestTypeName>? names;
+  String? name;
+  int? id;
 
   ContestType({this.berryFlavor, this.names, this.name, this.id});
 
   ContestType.fromJson(Map<String, dynamic> json) {
     berryFlavor = json['berry_flavor'] != null
-        ? new NamedAPIResource.fromJson(json['berry_flavor'])
+        ?  NamedAPIResource.fromJson(json['berry_flavor'])
         : null;
     if (json['names'] != null) {
-      names = new List<ContestTypeName>();
+      names =  <ContestTypeName>[];
       (json['names'] as List).forEach((v) {
-        names.add(new ContestTypeName.fromJson(v));
+        names!.add( ContestTypeName.fromJson(v));
       });
     }
     name = json['name'];
@@ -23,12 +23,12 @@ class ContestType {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     if (this.berryFlavor != null) {
-      data['berry_flavor'] = this.berryFlavor.toJson();
+      data['berry_flavor'] = this.berryFlavor!.toJson();
     }
     if (this.names != null) {
-      data['names'] = this.names.map((v) => v.toJson()).toList();
+      data['names'] = this.names!.map((v) => v.toJson()).toList();
     }
     data['name'] = this.name;
     data['id'] = this.id;
@@ -42,9 +42,9 @@ class ContestType {
 }
 
 class ContestTypeName {
-  String color;
-  String name;
-  NamedAPIResource language;
+  String? color;
+  String? name;
+  NamedAPIResource? language;
 
   ContestTypeName({this.color, this.name, this.language});
 
@@ -52,16 +52,16 @@ class ContestTypeName {
     color = json['color'];
     name = json['name'];
     language = json['language'] != null
-        ? new NamedAPIResource.fromJson(json['language'])
+        ?  NamedAPIResource.fromJson(json['language'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['color'] = this.color;
     data['name'] = this.name;
     if (this.language != null) {
-      data['language'] = this.language.toJson();
+      data['language'] = this.language!.toJson();
     }
     return data;
   }

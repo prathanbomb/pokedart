@@ -1,11 +1,11 @@
 import 'package:pokeapi/model/utils/common.dart';
 
 class Characteristic {
-  int id;
-  int geneModulo;
-  List<int> possibleValues;
-  NamedAPIResource highestStat;
-  List<Descriptions> descriptions;
+  int? id;
+  int? geneModulo;
+  List<int>? possibleValues;
+  NamedAPIResource? highestStat;
+  List<Descriptions>? descriptions;
 
   Characteristic(
       {this.id,
@@ -19,26 +19,26 @@ class Characteristic {
     geneModulo = json['gene_modulo'];
     possibleValues = json['possible_values'].cast<int>();
     highestStat = json['highest_stat'] != null
-        ? new NamedAPIResource.fromJson(json['highest_stat'])
+        ?  NamedAPIResource.fromJson(json['highest_stat'])
         : null;
     if (json['descriptions'] != null) {
-      descriptions = new List<Descriptions>();
+      descriptions =  <Descriptions>[];
       json['descriptions'].forEach((v) {
-        descriptions.add(new Descriptions.fromJson(v));
+        descriptions!.add( Descriptions.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['id'] = this.id;
     data['gene_modulo'] = this.geneModulo;
     data['possible_values'] = this.possibleValues;
     if (this.highestStat != null) {
-      data['highest_stat'] = this.highestStat.toJson();
+      data['highest_stat'] = this.highestStat!.toJson();
     }
     if (this.descriptions != null) {
-      data['descriptions'] = this.descriptions.map((v) => v.toJson()).toList();
+      data['descriptions'] = this.descriptions!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -50,23 +50,23 @@ class Characteristic {
 }
 
 class Descriptions {
-  String description;
-  NamedAPIResource language;
+  String? description;
+  NamedAPIResource? language;
 
   Descriptions({this.description, this.language});
 
   Descriptions.fromJson(Map<String, dynamic> json) {
     description = json['description'];
     language = json['language'] != null
-        ? new NamedAPIResource.fromJson(json['language'])
+        ?  NamedAPIResource.fromJson(json['language'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['description'] = this.description;
     if (this.language != null) {
-      data['language'] = this.language.toJson();
+      data['language'] = this.language!.toJson();
     }
     return data;
   }

@@ -1,10 +1,10 @@
 import 'package:pokeapi/model/utils/common.dart';
 
 class PokemonColor {
-  int id;
-  String name;
-  List<Names> names;
-  List<NamedAPIResource> pokemonSpecies;
+  int? id;
+  String? name;
+  List<Names>? names;
+  List<NamedAPIResource>? pokemonSpecies;
 
   PokemonColor({this.id, this.name, this.names, this.pokemonSpecies});
 
@@ -12,15 +12,15 @@ class PokemonColor {
     id = json['id'];
     name = json['name'];
     if (json['names'] != null) {
-      names = new List<Names>();
+      names = <Names>[];
       json['names'].forEach((v) {
-        names.add(new Names.fromJson(v));
+        names!.add(new Names.fromJson(v));
       });
     }
     if (json['pokemon_species'] != null) {
-      pokemonSpecies = new List<NamedAPIResource>();
+      pokemonSpecies = <NamedAPIResource>[];
       json['pokemon_species'].forEach((v) {
-        pokemonSpecies.add(new NamedAPIResource.fromJson(v));
+        pokemonSpecies!.add(new NamedAPIResource.fromJson(v));
       });
     }
   }
@@ -30,11 +30,11 @@ class PokemonColor {
     data['id'] = this.id;
     data['name'] = this.name;
     if (this.names != null) {
-      data['names'] = this.names.map((v) => v.toJson()).toList();
+      data['names'] = this.names!.map((v) => v.toJson()).toList();
     }
     if (this.pokemonSpecies != null) {
       data['pokemon_species'] =
-          this.pokemonSpecies.map((v) => v.toJson()).toList();
+          this.pokemonSpecies!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -46,8 +46,8 @@ class PokemonColor {
 }
 
 class Names {
-  String name;
-  NamedAPIResource language;
+  String? name;
+  NamedAPIResource? language;
 
   Names({this.name, this.language});
 
@@ -62,7 +62,7 @@ class Names {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['name'] = this.name;
     if (this.language != null) {
-      data['language'] = this.language.toJson();
+      data['language'] = this.language!.toJson();
     }
     return data;
   }

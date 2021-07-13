@@ -1,12 +1,12 @@
 import 'package:pokeapi/model/utils/common.dart';
 
 class Location {
-  List<LocationGameIndex> gameIndices;
-  List<LocationName> names;
-  String name;
-  List<NamedAPIResource> areas;
-  int id;
-  NamedAPIResource region;
+  List<LocationGameIndex>? gameIndices;
+  List<LocationName>? names;
+  String? name;
+  List<NamedAPIResource>? areas;
+  int? id;
+  NamedAPIResource? region;
 
   Location(
       {this.gameIndices,
@@ -18,45 +18,45 @@ class Location {
 
   Location.fromJson(Map<String, dynamic> json) {
     if (json['game_indices'] != null) {
-      gameIndices = new List<LocationGameIndex>();
+      gameIndices =  <LocationGameIndex>[];
       (json['game_indices'] as List).forEach((v) {
-        gameIndices.add(new LocationGameIndex.fromJson(v));
+        gameIndices!.add( LocationGameIndex.fromJson(v));
       });
     }
     if (json['names'] != null) {
-      names = new List<LocationName>();
+      names =  <LocationName>[];
       (json['names'] as List).forEach((v) {
-        names.add(new LocationName.fromJson(v));
+        names!.add( LocationName.fromJson(v));
       });
     }
     name = json['name'];
     if (json['areas'] != null) {
-      areas = new List<NamedAPIResource>();
+      areas =  <NamedAPIResource>[];
       (json['areas'] as List).forEach((v) {
-        areas.add(new NamedAPIResource.fromJson(v));
+        areas!.add( NamedAPIResource.fromJson(v));
       });
     }
     id = json['id'];
     region = json['region'] != null
-        ? new NamedAPIResource.fromJson(json['region'])
+        ?  NamedAPIResource.fromJson(json['region'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     if (this.gameIndices != null) {
-      data['game_indices'] = this.gameIndices.map((v) => v.toJson()).toList();
+      data['game_indices'] = this.gameIndices!.map((v) => v.toJson()).toList();
     }
     if (this.names != null) {
-      data['names'] = this.names.map((v) => v.toJson()).toList();
+      data['names'] = this.names!.map((v) => v.toJson()).toList();
     }
     data['name'] = this.name;
     if (this.areas != null) {
-      data['areas'] = this.areas.map((v) => v.toJson()).toList();
+      data['areas'] = this.areas!.map((v) => v.toJson()).toList();
     }
     data['id'] = this.id;
     if (this.region != null) {
-      data['region'] = this.region.toJson();
+      data['region'] = this.region!.toJson();
     }
     return data;
   }
@@ -68,22 +68,22 @@ class Location {
 }
 
 class LocationGameIndex {
-  NamedAPIResource generation;
-  int gameIndex;
+  NamedAPIResource? generation;
+  int? gameIndex;
 
   LocationGameIndex({this.generation, this.gameIndex});
 
   LocationGameIndex.fromJson(Map<String, dynamic> json) {
     generation = json['generation'] != null
-        ? new NamedAPIResource.fromJson(json['generation'])
+        ?  NamedAPIResource.fromJson(json['generation'])
         : null;
     gameIndex = json['game_index'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     if (this.generation != null) {
-      data['generation'] = this.generation.toJson();
+      data['generation'] = this.generation!.toJson();
     }
     data['game_index'] = this.gameIndex;
     return data;
@@ -96,23 +96,23 @@ class LocationGameIndex {
 }
 
 class LocationName {
-  String name;
-  NamedAPIResource language;
+  String? name;
+  NamedAPIResource? language;
 
   LocationName({this.name, this.language});
 
   LocationName.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     language = json['language'] != null
-        ? new NamedAPIResource.fromJson(json['language'])
+        ?  NamedAPIResource.fromJson(json['language'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['name'] = this.name;
     if (this.language != null) {
-      data['language'] = this.language.toJson();
+      data['language'] = this.language!.toJson();
     }
     return data;
   }

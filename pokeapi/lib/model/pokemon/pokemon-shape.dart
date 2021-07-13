@@ -1,11 +1,11 @@
 import 'package:pokeapi/model/utils/common.dart';
 
 class PokemonShape {
-  int id;
-  String name;
-  List<AwesomeNames> awesomeNames;
-  List<Names> names;
-  List<NamedAPIResource> pokemonSpecies;
+  int? id;
+  String? name;
+  List<AwesomeNames>? awesomeNames;
+  List<Names>? names;
+  List<NamedAPIResource>? pokemonSpecies;
 
   PokemonShape(
       {this.id, this.name, this.awesomeNames, this.names, this.pokemonSpecies});
@@ -14,38 +14,38 @@ class PokemonShape {
     id = json['id'];
     name = json['name'];
     if (json['awesome_names'] != null) {
-      awesomeNames = new List<AwesomeNames>();
+      awesomeNames =  <AwesomeNames>[];
       json['awesome_names'].forEach((v) {
-        awesomeNames.add(new AwesomeNames.fromJson(v));
+        awesomeNames!.add( AwesomeNames.fromJson(v));
       });
     }
     if (json['names'] != null) {
-      names = new List<Names>();
+      names =  <Names>[];
       json['names'].forEach((v) {
-        names.add(new Names.fromJson(v));
+        names!.add( Names.fromJson(v));
       });
     }
     if (json['pokemon_species'] != null) {
-      pokemonSpecies = new List<NamedAPIResource>();
+      pokemonSpecies =  <NamedAPIResource>[];
       json['pokemon_species'].forEach((v) {
-        pokemonSpecies.add(new NamedAPIResource.fromJson(v));
+        pokemonSpecies!.add( NamedAPIResource.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['id'] = this.id;
     data['name'] = this.name;
     if (this.awesomeNames != null) {
-      data['awesome_names'] = this.awesomeNames.map((v) => v.toJson()).toList();
+      data['awesome_names'] = this.awesomeNames!.map((v) => v.toJson()).toList();
     }
     if (this.names != null) {
-      data['names'] = this.names.map((v) => v.toJson()).toList();
+      data['names'] = this.names!.map((v) => v.toJson()).toList();
     }
     if (this.pokemonSpecies != null) {
       data['pokemon_species'] =
-          this.pokemonSpecies.map((v) => v.toJson()).toList();
+          this.pokemonSpecies!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -57,23 +57,23 @@ class PokemonShape {
 }
 
 class AwesomeNames {
-  String awesomeName;
-  NamedAPIResource language;
+  String? awesomeName;
+  NamedAPIResource? language;
 
   AwesomeNames({this.awesomeName, this.language});
 
   AwesomeNames.fromJson(Map<String, dynamic> json) {
     awesomeName = json['awesome_name'];
     language = json['language'] != null
-        ? new NamedAPIResource.fromJson(json['language'])
+        ?  NamedAPIResource.fromJson(json['language'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['awesome_name'] = this.awesomeName;
     if (this.language != null) {
-      data['language'] = this.language.toJson();
+      data['language'] = this.language!.toJson();
     }
     return data;
   }
@@ -85,23 +85,23 @@ class AwesomeNames {
 }
 
 class Names {
-  String name;
-  NamedAPIResource language;
+  String? name;
+  NamedAPIResource? language;
 
   Names({this.name, this.language});
 
   Names.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     language = json['language'] != null
-        ? new NamedAPIResource.fromJson(json['language'])
+        ?  NamedAPIResource.fromJson(json['language'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['name'] = this.name;
     if (this.language != null) {
-      data['language'] = this.language.toJson();
+      data['language'] = this.language!.toJson();
     }
     return data;
   }

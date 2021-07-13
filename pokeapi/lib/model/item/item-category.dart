@@ -1,11 +1,11 @@
 import 'package:pokeapi/model/utils/common.dart';
 
 class ItemCategory {
-  int id;
-  String name;
-  List<NamedAPIResource> items;
-  List<NamedAPIResource> names;
-  NamedAPIResource pocket;
+  int? id;
+  String? name;
+  List<NamedAPIResource>? items;
+  List<NamedAPIResource>? names;
+  NamedAPIResource? pocket;
 
   ItemCategory({this.id, this.name, this.items, this.names, this.pocket});
 
@@ -13,16 +13,16 @@ class ItemCategory {
     id = json['id'];
     name = json['name'];
     if (json['items'] != null) {
-      items = new List<NamedAPIResource>();
+      items =<NamedAPIResource>[];
       json['items'].forEach((v) {
-        items.add(new NamedAPIResource.fromJson(v));
+        items!.add(new NamedAPIResource.fromJson(v));
       });
     }
     if (json['names'] != null) {
-      names = new List<NamedAPIResource>();
+      names =<NamedAPIResource>[];
       json['names'].forEach((v) {
         v = v['language'];
-        names.add(new NamedAPIResource.fromJson(v));
+        names!.add(new NamedAPIResource.fromJson(v));
       });
     }
     pocket = json['pocket'] != null
@@ -35,21 +35,21 @@ class ItemCategory {
     data['id'] = this.id;
     data['name'] = this.name;
     if (this.items != null) {
-      data['items'] = this.items.map((v) => v.toJson()).toList();
+      data['items'] = this.items!.map((v) => v.toJson()).toList();
     }
     if (this.names != null) {
-      data['names'] = this.names.map((v) => v.toJson()).toList();
+      data['names'] = this.names!.map((v) => v.toJson()).toList();
     }
     if (this.pocket != null) {
-      data['pocket'] = this.pocket.toJson();
+      data['pocket'] = this.pocket!.toJson();
     }
     return data;
   }
 }
 
 class Language {
-  String name;
-  String url;
+  String? name;
+  String? url;
 
   Language({this.name, this.url});
 

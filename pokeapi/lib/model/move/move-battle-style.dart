@@ -1,17 +1,17 @@
 import 'package:pokeapi/model/utils/common.dart';
 
 class MoveBattleStyle {
-  List<MoveBattleStyleName> names;
-  String name;
-  int id;
+  List<MoveBattleStyleName>? names;
+  String? name;
+  int? id;
 
   MoveBattleStyle({this.names, this.name, this.id});
 
   MoveBattleStyle.fromJson(Map<String, dynamic> json) {
     if (json['names'] != null) {
-      names = new List<MoveBattleStyleName>();
+      names =  <MoveBattleStyleName>[];
       (json['names'] as List).forEach((v) {
-        names.add(new MoveBattleStyleName.fromJson(v));
+        names!.add( MoveBattleStyleName.fromJson(v));
       });
     }
     name = json['name'];
@@ -19,9 +19,9 @@ class MoveBattleStyle {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     if (this.names != null) {
-      data['names'] = this.names.map((v) => v.toJson()).toList();
+      data['names'] = this.names!.map((v) => v.toJson()).toList();
     }
     data['name'] = this.name;
     data['id'] = this.id;
@@ -35,23 +35,23 @@ class MoveBattleStyle {
 }
 
 class MoveBattleStyleName {
-  String name;
-  NamedAPIResource language;
+  String? name;
+  NamedAPIResource? language;
 
   MoveBattleStyleName({this.name, this.language});
 
   MoveBattleStyleName.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     language = json['language'] != null
-        ? new NamedAPIResource.fromJson(json['language'])
+        ?  NamedAPIResource.fromJson(json['language'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['name'] = this.name;
     if (this.language != null) {
-      data['language'] = this.language.toJson();
+      data['language'] = this.language!.toJson();
     }
     return data;
   }
