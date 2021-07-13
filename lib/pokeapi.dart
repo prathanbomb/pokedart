@@ -57,7 +57,7 @@ class PokeAPI {
   static get _baseUrl => "https://pokeapi.co/api/v2/";
 
   static Future<Api> _getAPI() async {
-    var response = await Http.get(_baseUrl);
+    var response = await Http.get(Uri.parse(_baseUrl));
     Map map = json.decode(response.body);
     return Api.fromJson(map as Map<String, dynamic>);
   }
@@ -132,7 +132,7 @@ class PokeAPI {
     var url = await getBaseUrl<T>();
 
     url += "?offset=${offset - 1}&limit=$limit";
-    var response = await Http.get(url);
+    var response = await Http.get(Uri.parse(url));
     Map listMap = json.decode(response.body);
     List<NamedAPIResource> commonResultList = Common.fromJson(listMap as Map<String, dynamic>).results!;
 
