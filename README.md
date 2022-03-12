@@ -23,7 +23,7 @@ Wrapper for [Poke API](https://pokeapi.co), written in Dart. *Supports PokeAPI v
 
 ## Documentation
 
-Full API documentation can be found at [Poke API](https://pokeapi.co/docs/v2.html).
+Full API documentation can be found at [Poke API](https://pokeapi.co/docs/v2).
 
 ## Getting Started
 
