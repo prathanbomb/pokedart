@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   future: PokeAPI.getObjectList<Pokemon>(1, 10),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      List<Pokemon> pokemonList = snapshot.data;
+                      List<Pokemon> pokemonList = snapshot.data as List<Pokemon>;
                       return Text(pokemonList.toString());
                     } else {
                       return Text("");
