@@ -1,4 +1,3 @@
-import 'package:test/test.dart';
 import 'package:pokeapi/model/berry/berry-firmness.dart';
 import 'package:pokeapi/model/berry/berry-flavor.dart';
 import 'package:pokeapi/model/berry/berry.dart';
@@ -47,6 +46,7 @@ import 'package:pokeapi/model/pokemon/pokemon.dart';
 import 'package:pokeapi/model/pokemon/stat.dart';
 import 'package:pokeapi/model/pokemon/type.dart';
 import 'package:pokeapi/pokeapi.dart';
+import 'package:test/test.dart';
 
 void main() {
   Future getObject<T>(int id) {

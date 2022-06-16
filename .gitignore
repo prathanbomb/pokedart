@@ -3,6 +3,8 @@
 
 .packages
 .pub/
+.idea/
+android/.gradle
 
 build/
 ios/.generated/
