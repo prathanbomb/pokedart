@@ -35,7 +35,10 @@ class Pokedex {
       });
     }
     if (json['version_groups'] != null) {
-      versionGroups = <Null>[] as List<NamedAPIResource>;
+      versionGroups = <NamedAPIResource>[];
+      (json['version_groups'] as List).forEach((v) {
+        versionGroups!.add(new NamedAPIResource.fromJson(v));
+      });
     }
     name = json['name'];
     id = json['id'];

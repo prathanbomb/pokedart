@@ -92,8 +92,7 @@ class PokeAPI {
     if (T == ContestType) return ContestType.fromJson(map as Map<String, dynamic>) as T;
     if (T == SuperContestEffect) return SuperContestEffect.fromJson(map as Map<String, dynamic>) as T;
     if (T == EncounterCondition) return EncounterCondition.fromJson(map as Map<String, dynamic>) as T;
-    if (T == EncounterConditionValue)
-      return EncounterConditionValue.fromJson(map as Map<String, dynamic>) as T;
+    if (T == EncounterConditionValue) return EncounterConditionValue.fromJson(map as Map<String, dynamic>) as T;
     if (T == EncounterMethod) return EncounterMethod.fromJson(map as Map<String, dynamic>) as T;
     if (T == EvolutionChain) return EvolutionChain.fromJson(map as Map<String, dynamic>) as T;
     if (T == EvolutionTrigger) return EvolutionTrigger.fromJson(map as Map<String, dynamic>) as T;
