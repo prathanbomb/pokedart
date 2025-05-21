@@ -51,15 +51,124 @@ import 'package:pokeapi/model/pokemon/pokemon.dart';
 import 'package:pokeapi/model/pokemon/stat.dart';
 import 'package:pokeapi/model/pokemon/type.dart';
 import 'package:pokeapi/model/utils/api.dart';
+import 'package:pokeapi/model/utils/cache_config.dart';
+import 'package:pokeapi/model/utils/cache_manager.dart';
 import 'package:pokeapi/model/utils/common.dart';
+import 'package:pokeapi/model/utils/connectivity_service.dart';
 
+/// The main class for interacting with the PokeAPI.
 class PokeAPI {
   static get _baseUrl => "https://pokeapi.co/api/v2/";
-
+  
+  // Cache configuration
+  static CacheConfig _cacheConfig = CacheConfig.defaultConfig;
+  static final CacheManager _cacheManager = CacheManager();
+  static final ConnectivityService _connectivityService = ConnectivityService();
+  
+  // Memory cache for frequently accessed objects (to avoid disk I/O)
+  static final Map<String, dynamic> _memoryCache = {};
+  
+  /// Configures the caching behavior.
+  /// 
+  /// To disable caching, use `PokeAPI.configureCaching(CacheConfig.noCache)`.
+  static void configureCaching(CacheConfig config) {
+    _cacheConfig = config;
+    
+    // Clear memory cache when changing config
+    if (!config.enabled) {
+      _memoryCache.clear();
+    }
+  }
+  
+  /// Clears all cached data.
+  static Future<bool> clearCache() async {
+    _memoryCache.clear();
+    return await _cacheManager.clearCache();
+  }
+  
+  /// Checks if an item exists in cache.
+  static Future<bool> isInCache(String cacheKey) async {
+    if (!_cacheConfig.enabled) return false;
+    
+    // Check memory cache first
+    if (_memoryCache.containsKey(cacheKey)) {
+      return true;
+    }
+    
+    // Then check disk cache
+    final data = await _cacheManager.getData(cacheKey);
+    return data != null;
+  }
+  
+  /// Generates a cache key based on the object type and parameters.
+  static String _generateCacheKey<T>(String type, {int? id, String? name, int? offset, int? limit}) {
+    if (id != null) {
+      return 'pokeapi_${T.toString()}_$id';
+    } else if (name != null) {
+      return 'pokeapi_${T.toString()}_$name';
+    } else if (offset != null && limit != null) {
+      return 'pokeapi_${T.toString()}_list_${offset}_$limit';
+    } else {
+      return 'pokeapi_${T.toString()}_$type';
+    }
+  }
+  
+  /// Stores data in the cache.
+  static Future<void> _cacheData(String cacheKey, dynamic data) async {
+    if (!_cacheConfig.enabled) return;
+    
+    // Store in memory cache
+    if (_memoryCache.length >= _cacheConfig.maxMemoryCacheItems) {
+      // Remove a random item if cache is full
+      _memoryCache.remove(_memoryCache.keys.first);
+    }
+    _memoryCache[cacheKey] = data;
+    
+    // Store in persistent cache
+    await _cacheManager.setData(cacheKey, data, expiryDuration: _cacheConfig.expiryDuration);
+  }
+  
+  /// Retrieves data from the cache.
+  static Future<dynamic> _getCachedData(String cacheKey) async {
+    if (!_cacheConfig.enabled) return null;
+    
+    // Check memory cache first
+    if (_memoryCache.containsKey(cacheKey)) {
+      return _memoryCache[cacheKey];
+    }
+    
+    // Then check disk cache
+    final data = await _cacheManager.getData(cacheKey);
+    if (data != null) {
+      // Update memory cache with this data
+      _memoryCache[cacheKey] = data;
+    }
+    
+    return data;
+  }
+  
   static Future<Api> _getAPI() async {
-    var response = await Http.get(Uri.parse(_baseUrl));
-    Map map = json.decode(response.body);
-    return Api.fromJson(map as Map<String, dynamic>);
+    // Check if we have the API structure cached
+    final cacheKey = _generateCacheKey<Api>('base');
+    final cachedApi = await _getCachedData(cacheKey);
+    
+    if (cachedApi != null) {
+      return Api.fromJson(cachedApi);
+    }
+    
+    try {
+      final response = await Http.get(Uri.parse(_baseUrl));
+      Map map = json.decode(response.body);
+      final api = Api.fromJson(map as Map<String, dynamic>);
+      
+      // Cache the API structure
+      await _cacheData(cacheKey, map);
+      
+      return api;
+    } catch (e) {
+      print('Error fetching API: $e');
+      throw Exception('Failed to load API structure: $e');
+    }
   }
 
   static dynamic _mapJson<T>(Http.Response response) {
@@ -114,46 +223,147 @@ class PokeAPI {
     if (T == MoveTarget) return MoveTarget.fromJson(map as Map<String, dynamic>) as T;
   }
 
+  /// Fetches a list of resources with pagination info.
+  /// 
+  /// This method returns basic information for each resource (name and URL).
   static Future<List<NamedAPIResource>?> getCommonList<T>(
       int offset, int limit) async {
-    String url = await getBaseUrl<T>();
-
-    url += "?offset=${offset - 1}&limit=$limit";
-    var response = await Http.get(Uri.parse(url));
-    Map listMap = json.decode(response.body);
-    List<NamedAPIResource>? commonResultList = Common.fromJson(listMap as Map<String, dynamic>).results;
-
-    return commonResultList;
-  }
-
-  static Future<List<T?>> getObjectList<T>(int offset, int limit) async {
-    List<T?> objectList =  [];
-    var url = await getBaseUrl<T>();
-
-    url += "?offset=${offset - 1}&limit=$limit";
-    var response = await Http.get(Uri.parse(url));
-    Map listMap = json.decode(response.body);
-    List<NamedAPIResource> commonResultList = Common.fromJson(listMap as Map<String, dynamic>).results!;
-
-    for (NamedAPIResource result in commonResultList) {
-      response = await Http.get(Uri.parse(result.url!));
-      objectList.add(_mapJson<T>(response));
+    // Check cache first
+    final cacheKey = _generateCacheKey<T>('commonlist', offset: offset, limit: limit);
+    final cachedData = await _getCachedData(cacheKey);
+    
+    if (cachedData != null) {
+      List<NamedAPIResource> commonResultList = [];
+      for (var item in cachedData) {
+        commonResultList.add(NamedAPIResource.fromJson(item));
+      }
+      return commonResultList;
     }
-    return objectList;
+    
+    // Check connectivity
+    final isConnected = await _connectivityService.isConnected();
+    if (!isConnected && !_cacheConfig.useWhenOffline) {
+      throw Exception('No internet connection and offline mode is disabled');
+    }
+    
+    try {
+      String? baseUrl = await getBaseUrl<T>();
+      if (baseUrl == null) {
+        throw Exception('No base URL found for type $T');
+      }
+      String url = baseUrl;
+      url += "?offset=${offset - 1}&limit=$limit";
+      
+      final response = await Http.get(Uri.parse(url));
+      Map listMap = json.decode(response.body);
+      List<NamedAPIResource>? commonResultList = Common.fromJson(listMap as Map<String, dynamic>).results;
+      
+      // Cache the results
+      if (commonResultList != null) {
+        final jsonList = commonResultList.map((resource) => resource.toJson()).toList();
+        await _cacheData(cacheKey, jsonList);
+      }
+      
+      return commonResultList;
+    } catch (e) {
+      print('Error fetching common list: $e');
+      throw Exception('Failed to load resource list: $e');
+    }
   }
 
-  static Future<T?> getObject<T>(int id) async {
-    String url = await getBaseUrl<T>();
-    url += "?offset=${id - 1}&limit=1";
-    var response = await Http.get(Uri.parse(url));
-    Map listMap = json.decode(response.body);
-    List<NamedAPIResource> commonResultList = Common.fromJson(listMap as Map<String, dynamic>).results!;
+  /// Fetches a list of detailed objects.
+  /// 
+  /// This method returns complete objects rather than just basic info.
+  static Future<List<T?>> getObjectList<T>(int offset, int limit) async {
+    // Check cache first
+    final cacheKey = _generateCacheKey<T>('objectlist', offset: offset, limit: limit);
+    final cachedData = await _getCachedData(cacheKey);
+    
+    if (cachedData != null) {
+      return _deserializeList<T>(cachedData);
+    }
+    
+    // Check connectivity
+    final isConnected = await _connectivityService.isConnected();
+    if (!isConnected && !_cacheConfig.useWhenOffline) {
+      throw Exception('No internet connection and offline mode is disabled');
+    }
+    
+    try {
+      List<T?> objectList =  [];
+      String? baseUrl = await getBaseUrl<T>();
+      if (baseUrl == null) {
+        throw Exception('No base URL found for type $T');
+      }
+      String url = baseUrl;
+      url += "?offset=${offset - 1}&limit=$limit";
+      var response = await Http.get(Uri.parse(url));
+      Map listMap = json.decode(response.body);
+      List<NamedAPIResource> commonResultList = Common.fromJson(listMap as Map<String, dynamic>).results!;
+      
+      final List<Map<String, dynamic>> rawResponseList = [];
+      
+      for (NamedAPIResource result in commonResultList) {
+        response = await Http.get(Uri.parse(result.url!));
+        Map<String, dynamic> responseMap = json.decode(response.body);
+        rawResponseList.add(responseMap);
+        objectList.add(_mapJson<T>(response));
+      }
+      
+      // Cache the raw responses for future reconstruction
+      await _cacheData(cacheKey, rawResponseList);
+      
+      return objectList;
+    } catch (e) {
+      print('Error fetching object list: $e');
+      throw Exception('Failed to load object list: $e');
+    }
+  }
 
-    if (commonResultList.isNotEmpty) {
-      response = await Http.get(Uri.parse(commonResultList[0].url!));
-      return _mapJson<T>(response);
-    } else {
-      return null;
+  /// Fetches a single object by its ID.
+  static Future<T?> getObject<T>(int id) async {
+    // Check cache first
+    final cacheKey = _generateCacheKey<T>('object', id: id);
+    final cachedData = await _getCachedData(cacheKey);
+    
+    if (cachedData != null) {
+      return _deserialize<T>(cachedData);
+    }
+    
+    // Check connectivity
+    final isConnected = await _connectivityService.isConnected();
+    if (!isConnected && !_cacheConfig.useWhenOffline) {
+      throw Exception('No internet connection and offline mode is disabled');
+    }
+    
+    try {
+      String? baseUrl = await getBaseUrl<T>();
+      if (baseUrl == null) {
+        throw Exception('No base URL found for type $T');
+      }
+      String url = baseUrl;
+      url += "?offset=${id - 1}&limit=1";
+      var response = await Http.get(Uri.parse(url));
+      Map listMap = json.decode(response.body);
+      List<NamedAPIResource> commonResultList = Common.fromJson(listMap as Map<String, dynamic>).results!;
+      
+      if (commonResultList.isNotEmpty) {
+        if (commonResultList[0].url == null) {
+          throw Exception('URL is null for the requested resource');
+        }
+        response = await Http.get(Uri.parse(commonResultList[0].url!));
+        final responseData = json.decode(response.body);
+        
+        // Cache the raw response for future reconstruction
+        await _cacheData(cacheKey, responseData);
+        
+        return _mapJson<T>(response);
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print('Error fetching object: $e');
+      throw Exception('Failed to load object with ID $id: $e');
     }
   }
 
@@ -164,20 +374,41 @@ class PokeAPI {
   /// This provides a more convenient way to fetch objects when you know their name
   /// rather than their ID.
   static Future<T?> getObjectByName<T>(String name) async {
-    String baseUrl = await getBaseUrl<T>();
-    // Remove trailing slash if present
-    if (baseUrl.endsWith('/')) {
-      baseUrl = baseUrl.substring(0, baseUrl.length - 1);
+    // Check cache first
+    final cacheKey = _generateCacheKey<T>('object', name: name);
+    final cachedData = await _getCachedData(cacheKey);
+    
+    if (cachedData != null) {
+      return _deserialize<T>(cachedData);
     }
     
-    // Direct access by name is supported by the PokeAPI
-    String url = "$baseUrl/$name";
+    // Check connectivity
+    final isConnected = await _connectivityService.isConnected();
+    if (!isConnected && !_cacheConfig.useWhenOffline) {
+      throw Exception('No internet connection and offline mode is disabled');
+    }
     
     try {
+      String? baseUrl = await getBaseUrl<T>();
+      if (baseUrl == null) {
+        throw Exception('No base URL found for type $T');
+      }
+      // Remove trailing slash if present
+      if (baseUrl.endsWith('/')) {
+        baseUrl = baseUrl.substring(0, baseUrl.length - 1);
+      }
+      // Direct access by name is supported by the PokeAPI
+      String url = "$baseUrl/$name";
+      
       var response = await Http.get(Uri.parse(url));
       
       // Check if the response was successful
       if (response.statusCode == 200) {
+        final responseData = json.decode(response.body);
+        
+        // Cache the raw response for future reconstruction
+        await _cacheData(cacheKey, responseData);
+        
         return _mapJson<T>(response);
       } else {
         print("Error fetching object by name: ${response.statusCode}");
@@ -189,7 +420,8 @@ class PokeAPI {
     }
   }
 
-  static getBaseUrl<T>() async {
+  /// Gets the base URL for the specified resource type.
+  static Future<String?> getBaseUrl<T>() async {
     var api = await _getAPI();
     String? url;
 
@@ -242,5 +474,69 @@ class PokeAPI {
     if (T == MoveTarget) url = api.moveTarget;
 
     return url;
+  }
+  
+  /// Helper method to deserialize a single object from cached data.
+  static T _deserialize<T>(Map<String, dynamic> data) {
+    if (T == Ability) return Ability.fromJson(data) as T;
+    if (T == Berry) return Berry.fromJson(data) as T;
+    if (T == BerryFirmness) return BerryFirmness.fromJson(data) as T;
+    if (T == BerryFlavor) return BerryFlavor.fromJson(data) as T;
+    if (T == Characteristic) return Characteristic.fromJson(data) as T;
+    if (T == EggGroup) return EggGroup.fromJson(data) as T;
+    if (T == Gender) return Gender.fromJson(data) as T;
+    if (T == GrowthRate) return GrowthRate.fromJson(data) as T;
+    if (T == Item) return Item.fromJson(data) as T;
+    if (T == ItemAbility) return ItemAbility.fromJson(data) as T;
+    if (T == ItemCategory) return ItemCategory.fromJson(data) as T;
+    if (T == ItemFlingEffect) return ItemFlingEffect.fromJson(data) as T;
+    if (T == ItemPocket) return ItemPocket.fromJson(data) as T;
+    if (T == Nature) return Nature.fromJson(data) as T;
+    if (T == PokeAthlonStat) return PokeAthlonStat.fromJson(data) as T;
+    if (T == Pokemon) return Pokemon.fromJson(data) as T;
+    if (T == PokemonColor) return PokemonColor.fromJson(data) as T;
+    if (T == PokemonForm) return PokemonForm.fromJson(data) as T;
+    if (T == PokemonHabitat) return PokemonHabitat.fromJson(data) as T;
+    if (T == PokemonShape) return PokemonShape.fromJson(data) as T;
+    if (T == PokemonSpecie) return PokemonSpecie.fromJson(data) as T;
+    if (T == Stat) return Stat.fromJson(data) as T;
+    if (T == Type) return Type.fromJson(data) as T;
+    if (T == ContestEffect) return ContestEffect.fromJson(data) as T;
+    if (T == ContestType) return ContestType.fromJson(data) as T;
+    if (T == SuperContestEffect) return SuperContestEffect.fromJson(data) as T;
+    if (T == EncounterCondition) return EncounterCondition.fromJson(data) as T;
+    if (T == EncounterConditionValue) return EncounterConditionValue.fromJson(data) as T;
+    if (T == EncounterMethod) return EncounterMethod.fromJson(data) as T;
+    if (T == EvolutionChain) return EvolutionChain.fromJson(data) as T;
+    if (T == EvolutionTrigger) return EvolutionTrigger.fromJson(data) as T;
+    if (T == Generation) return Generation.fromJson(data) as T;
+    if (T == Pokedex) return Pokedex.fromJson(data) as T;
+    if (T == Version) return Version.fromJson(data) as T;
+    if (T == VersionGroup) return VersionGroup.fromJson(data) as T;
+    if (T == Location) return Location.fromJson(data) as T;
+    if (T == LocationArea) return LocationArea.fromJson(data) as T;
+    if (T == PalParkArea) return PalParkArea.fromJson(data) as T;
+    if (T == Region) return Region.fromJson(data) as T;
+    if (T == Machine) return Machine.fromJson(data) as T;
+    if (T == Move) return Move.fromJson(data) as T;
+    if (T == MoveAilment) return MoveAilment.fromJson(data) as T;
+    if (T == MoveBattleStyle) return MoveBattleStyle.fromJson(data) as T;
+    if (T == MoveCategory) return MoveCategory.fromJson(data) as T;
+    if (T == MoveDamageClass) return MoveDamageClass.fromJson(data) as T;
+    if (T == MoveLearnMethod) return MoveLearnMethod.fromJson(data) as T;
+    if (T == MoveTarget) return MoveTarget.fromJson(data) as T;
+    
+    throw Exception('Unsupported type for deserialization: $T');
+  }
+  
+  /// Helper method to deserialize a list of objects from cached data.
+  static List<T?> _deserializeList<T>(List<dynamic> dataList) {
+    List<T?> resultList = [];
+    
+    for (var data in dataList) {
+      resultList.add(_deserialize<T>(data));
+    }
+    
+    return resultList;
   }
 }

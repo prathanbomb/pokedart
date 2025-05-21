@@ -30,6 +30,87 @@ To use this plugin, add `pokeapi` as a [dependency in your pubspec.yaml file](ht
 import 'package:pokeapi/pokeapi.dart';
 ```
 
+## Enhanced Nullable Handling
+
+The package includes utilities to make working with nullable values more convenient and safer:
+
+```dart
+import 'package:pokeapi/nullable.dart';
+
+// Get data with enhanced nullable handling
+final pokemon = await PokeAPI.getObject<Pokemon>(25); // Pikachu
+
+// Use extension methods for safer access
+final name = pokemon?.name.orDefault('Unknown');
+final formattedName = pokemon?.name.formattedName();
+
+// Or use the enhanced Pokemon methods
+final displayName = pokemon?.getFormattedName();
+final types = pokemon?.getFormattedTypes();
+final heightInMeters = pokemon?.getHeightInMeters();
+
+// Get sprite URL safely
+final spriteUrl = pokemon?.getSpriteUrl(
+  preference: SpritePreference.front,
+  shiny: true
+);
+
+// Get stats safely
+final hp = PokemonStatsHelper.getHP(pokemon);
+final stats = PokemonStatsHelper.getAllStats(pokemon);
+
+// Work with types
+final typeColor = PokemonTypeHelper.getTypeColor(pokemon?.types?.first?.type?.name);
+```
+
+For more details on nullable handling, see the [nullable handling documentation](lib/docs/nullable_handling.md).
+
+## Caching
+
+The package includes a robust caching system to improve performance and enable offline usage. By default, caching is enabled with a 4-hour expiration time.
+
+### Configuring Caching
+
+You can configure caching behavior to suit your needs:
+
+```dart
+import 'package:pokeapi/model/utils/cache_config.dart';
+
+// Enable caching with custom settings
+PokeAPI.configureCaching(CacheConfig(
+  enabled: true,
+  expiryDuration: Duration(days: 1), // Cache for 1 day
+  maxMemoryCacheItems: 100, // Keep 100 items in memory cache
+  useWhenOffline: true, // Use cached data when offline
+));
+
+// Or use one of the predefined configurations
+PokeAPI.configureCaching(CacheConfig.longTerm); // 30-day cache
+PokeAPI.configureCaching(CacheConfig.shortTerm); // 30-minute cache
+PokeAPI.configureCaching(CacheConfig.noCache); // Disable caching
+```
+
+### Managing the Cache
+
+You can manage the cache programmatically:
+
+```dart
+// Clear all cached data
+await PokeAPI.clearCache();
+
+// Check if an item is in the cache
+bool isCached = await PokeAPI.isInCache(cacheKey);
+```
+
+### Benefits of Caching
+
+1. **Improved Performance**: Repeated requests for the same data load instantly
+2. **Reduced API Usage**: Fewer calls to the PokeAPI servers
+3. **Offline Support**: Access previously loaded data when offline
+4. **Battery Savings**: Less network activity means better battery life
+
+The caching system uses a combination of memory caching (for fastest access) and persistent storage (for data that persists between app launches).
+
 ## Endpoints
 
 ### Berries
