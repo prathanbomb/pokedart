@@ -117,7 +117,7 @@ class EvolutionChainChainEvolvesTo {
       data['species'] = this.species!.toJson();
     }
     if (this.evolvesTo != null) {
-      data['evolves_to'] = [];
+      data['evolves_to'] = this.evolvesTo!.map((v) => v.toJson()).toList();
     }
     data['is_baby'] = this.isBaby;
     return data;
