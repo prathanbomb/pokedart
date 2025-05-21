@@ -10,3 +10,7 @@ build/
 ios/.generated/
 ios/Flutter/Generated.xcconfig
 ios/Runner/GeneratedPluginRegistrant.*
+android/local.properties
+ios/Flutter/ephemeral/
+pokeapi/.flutter-plugins
+pokeapi/.flutter-plugins-dependencies
