@@ -4,7 +4,7 @@ version: 1.0.3
 homepage: "https://github.com/prathanbomb/pokedart"
 
 environment:
-    sdk: '>=2.14.2 <3.0.0'
+    sdk: '>=3.2.4 <4.0.0'
 
 dependencies:
   flutter:
