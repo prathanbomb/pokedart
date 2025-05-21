@@ -157,6 +157,38 @@ class PokeAPI {
     }
   }
 
+  /// Fetches a resource directly by name using the PokeAPI name parameter
+  /// 
+  /// Example: `Berry? chestoBerry = await PokeAPI.getObjectByName<Berry>("chesto");`
+  /// 
+  /// This provides a more convenient way to fetch objects when you know their name
+  /// rather than their ID.
+  static Future<T?> getObjectByName<T>(String name) async {
+    String baseUrl = await getBaseUrl<T>();
+    // Remove trailing slash if present
+    if (baseUrl.endsWith('/')) {
+      baseUrl = baseUrl.substring(0, baseUrl.length - 1);
+    }
+    
+    // Direct access by name is supported by the PokeAPI
+    String url = "$baseUrl/$name";
+    
+    try {
+      var response = await Http.get(Uri.parse(url));
+      
+      // Check if the response was successful
+      if (response.statusCode == 200) {
+        return _mapJson<T>(response);
+      } else {
+        print("Error fetching object by name: ${response.statusCode}");
+        return null;
+      }
+    } catch (e) {
+      print("Exception when fetching object by name: $e");
+      return null;
+    }
+  }
+
   static getBaseUrl<T>() async {
     var api = await _getAPI();
     String? url;

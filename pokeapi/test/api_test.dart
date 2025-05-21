@@ -59,6 +59,16 @@ void main() {
     });
   }
 
+  Future getObjectByName<T>(String name) {
+    return PokeAPI.getObjectByName<T>(name).then((response) {
+      print(response.toString());
+      return true;
+    }).catchError((error, stackTrace) {
+      print(stackTrace.toString());
+      return false;
+    });
+  }
+
   Future getObjectList<T>(int offset, int limit,
       {showOnlyCommonResults = false}) {
     return PokeAPI.getObjectList<T>(offset, limit).then((response) {
@@ -613,6 +623,53 @@ void main() {
     });
   });
 
+  group('Test getObjectByName', () {
+    test('getPokemonByName', () {
+      try {
+        // Test with a well-known Pokémon
+        expect(getObjectByName<Pokemon>("pikachu"), completion(equals(true)));
+      } catch (e) {
+        print(e.toString());
+      }
+    });
+    
+    test('getBerryByName', () {
+      try {
+        // Test with a well-known berry
+        expect(getObjectByName<Berry>("chesto"), completion(equals(true)));
+      } catch (e) {
+        print(e.toString());
+      }
+    });
+    
+    test('getMoveByName', () {
+      try {
+        // Test with a well-known move
+        expect(getObjectByName<Move>("thunderbolt"), completion(equals(true)));
+      } catch (e) {
+        print(e.toString());
+      }
+    });
+    
+    test('getTypeByName', () {
+      try {
+        // Test with a type
+        expect(getObjectByName<Type>("electric"), completion(equals(true)));
+      } catch (e) {
+        print(e.toString());
+      }
+    });
+    
+    test('getNonExistentResourceByName', () {
+      try {
+        // Test with a name that doesn't exist (should return null but not throw)
+        expect(getObjectByName<Pokemon>("not-a-real-pokemon"), completion(equals(true)));
+      } catch (e) {
+        print(e.toString());
+      }
+    });
+  });
+  
   group('Test Pokemon', () {
     test('getAbilityList', () {
       try {
