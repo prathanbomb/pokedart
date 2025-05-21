@@ -265,6 +265,123 @@ void main() {
         print(e.toString());
       }
     });
+
+    test('thirdTierEvolutionTest', () async {
+      try {
+        // Get Bulbasaur's evolution chain (chain ID 1)
+        final evolutionChain = await PokeAPI.getObject<EvolutionChain>(1);
+        
+        // Verify that the first tier exists (Bulbasaur)
+        expect(evolutionChain?.chain?.species?.name, equals('bulbasaur'));
+        
+        // Verify that the second tier exists (Ivysaur)
+        expect(evolutionChain?.chain?.evolvesTo?.length, equals(1));
+        expect(evolutionChain?.chain?.evolvesTo?[0]?.species?.name, equals('ivysaur'));
+        
+        // Verify that the third tier exists (Venusaur)
+        expect(evolutionChain?.chain?.evolvesTo?[0]?.evolvesTo?.length, equals(1));
+        expect(evolutionChain?.chain?.evolvesTo?[0]?.evolvesTo?[0]?.species?.name, equals('venusaur'));
+        
+        // Test another evolution chain with a third tier (chain ID 2 - Charmander family)
+        final charmFamily = await PokeAPI.getObject<EvolutionChain>(2);
+        expect(charmFamily?.chain?.species?.name, equals('charmander'));
+        expect(charmFamily?.chain?.evolvesTo?[0]?.species?.name, equals('charmeleon'));
+        expect(charmFamily?.chain?.evolvesTo?[0]?.evolvesTo?[0]?.species?.name, equals('charizard'));
+        
+        return true;
+      } catch (e) {
+        print(e.toString());
+        return false;
+      }
+    });
+    
+    test('evolutionChainComplexPatternsTest', () async {
+      try {
+        // Test Eevee's branching evolution chain (chain ID 67)
+        final eeveeChain = await PokeAPI.getObject<EvolutionChain>(67);
+        
+        // Verify base Pokemon is Eevee
+        expect(eeveeChain?.chain?.species?.name, equals('eevee'));
+        
+        // Verify multiple evolutions (Eevee should have 8 or more evolutions)
+        expect(eeveeChain?.chain?.evolvesTo?.length, greaterThanOrEqualTo(8));
+        
+        // Check specific evolutions exist
+        var evolutionNames = eeveeChain?.chain?.evolvesTo?.map((e) => e.species?.name).toList();
+        expect(evolutionNames, contains('vaporeon'));
+        expect(evolutionNames, contains('jolteon'));
+        expect(evolutionNames, contains('flareon'));
+        expect(evolutionNames, contains('espeon'));
+        expect(evolutionNames, contains('umbreon'));
+        
+        // Test a Pokemon with no evolutions (chain ID 77 contains Magikarp->Gyarados)
+        final magikarpChain = await PokeAPI.getObject<EvolutionChain>(77);
+        expect(magikarpChain?.chain?.species?.name, equals('magikarp'));
+        expect(magikarpChain?.chain?.evolvesTo?.length, equals(1));
+        expect(magikarpChain?.chain?.evolvesTo?[0]?.species?.name, equals('gyarados'));
+        expect(magikarpChain?.chain?.evolvesTo?[0]?.evolvesTo?.length, equals(0)); // Gyarados doesn't evolve
+        
+        // Test serialization/deserialization roundtrip (important for our fix)
+        // First, convert to JSON
+        var magikarpJson = magikarpChain?.toJson();
+        // Then create a new object from that JSON
+        var recreatedChain = EvolutionChain.fromJson(magikarpJson as Map<String, dynamic>);
+        // Verify data is preserved correctly
+        expect(recreatedChain.chain?.species?.name, equals('magikarp'));
+        expect(recreatedChain.chain?.evolvesTo?[0]?.species?.name, equals('gyarados'));
+        
+        return true;
+      } catch (e) {
+        print(e.toString());
+        return false;
+      }
+    });
+    
+    test('evolutionChainEdgeCasesTest', () async {
+      try {
+        // Test Tyrogue's evolution chain (branches based on stats - chain ID 47)
+        final tyrogueChain = await PokeAPI.getObject<EvolutionChain>(47);
+        expect(tyrogueChain?.chain?.species?.name, equals('tyrogue'));
+        expect(tyrogueChain?.chain?.evolvesTo?.length, equals(3)); // Evolves to 3 different Pokemon
+        
+        // Check all three evolutions
+        var evolutionNames = tyrogueChain?.chain?.evolvesTo?.map((e) => e.species?.name).toList();
+        expect(evolutionNames, contains('hitmonlee'));
+        expect(evolutionNames, contains('hitmonchan'));
+        expect(evolutionNames, contains('hitmontop'));
+        
+        // Test a Pokemon with no evolutions at all (Tauros - chain ID 112)
+        final taurosChain = await PokeAPI.getObject<EvolutionChain>(112);
+        expect(taurosChain?.chain?.species?.name, equals('tauros'));
+        expect(taurosChain?.chain?.evolvesTo?.length, equals(0)); // No evolutions
+        
+        // Check Wurmple which has branching second-tier evolutions (chain ID 135)
+        final wurmpleChain = await PokeAPI.getObject<EvolutionChain>(135);
+        expect(wurmpleChain?.chain?.species?.name, equals('wurmple'));
+        expect(wurmpleChain?.chain?.evolvesTo?.length, equals(2)); // Cascoon and Silcoon
+        
+        // Check that third tier evolutions exist for both branches
+        var cascoonPath = wurmpleChain?.chain?.evolvesTo?.firstWhere(
+          (e) => e.species?.name == 'cascoon',
+          orElse: () => EvolutionChainChainEvolvesTo()
+        );
+        var silcoonPath = wurmpleChain?.chain?.evolvesTo?.firstWhere(
+          (e) => e.species?.name == 'silcoon',
+          orElse: () => EvolutionChainChainEvolvesTo()
+        );
+        
+        expect(cascoonPath?.evolvesTo?.length, equals(1));
+        expect(cascoonPath?.evolvesTo?[0]?.species?.name, equals('dustox'));
+        
+        expect(silcoonPath?.evolvesTo?.length, equals(1));
+        expect(silcoonPath?.evolvesTo?[0]?.species?.name, equals('beautifly'));
+        
+        return true;
+      } catch (e) {
+        print(e.toString());
+        return false;
+      }
+    });
   });
 
   group('Test Game', () {
