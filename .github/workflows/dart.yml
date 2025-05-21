@@ -1,26 +1,59 @@
-name: Dart CI
+name: Flutter CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, main ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, main ]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
-    container:
-      image:  google/dart:latest
-
     steps:
-    - uses: actions/checkout@v2
-    - name: install dependencies
-      uses: steebchen/flutter@v1.1.0
-      with:
-        args: pub get
-    - name: run tests
-      uses: steebchen/flutter@v1.1.0
-      with:
-        args: test
+      - uses: actions/checkout@v3
+      
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.16.x'
+          channel: 'stable'
+          cache: true
+      
+      - name: Check Flutter version
+        run: flutter --version
+      
+      - name: Install dependencies
+        run: flutter pub get
+        
+      - name: Verify formatting
+        run: dart format --output=none --set-exit-if-changed .
+        
+      - name: Analyze project source
+        run: dart analyze
+        
+      - name: Run tests
+        run: flutter test
+
+  build_example:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.16.x'
+          channel: 'stable'
+          cache: true
+      
+      - name: Install dependencies for example
+        run: |
+          cd example
+          flutter pub get
+        
+      - name: Build APK
+        run: |
+          cd example
+          flutter build apk --debug
