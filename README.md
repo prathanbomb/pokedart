@@ -5,6 +5,10 @@ Wrapper for [Poke API](https://pokeapi.co), written in Dart. *Supports PokeAPI v
 - [pokeapi-dart](#pokeapi-dart)
   - [Documentation](#Documentation)
   - [Getting Started](#Getting-Started)
+  - [Features](#Features)
+    - [Main API Functions](#Main-API-Functions)
+    - [Caching System](#Caching-System)
+    - [Connectivity Features](#Connectivity-Features)
   - [Endpoints](#Endpoints)
     - [Berries](#Berries)
     - [Contests](#Contests)
@@ -30,6 +34,69 @@ To use this plugin, add `pokeapi` as a [dependency in your pubspec.yaml file](ht
 import 'package:pokeapi/pokeapi.dart';
 ```
 
+## Features
+
+### Main API Functions
+
+- **Get Object by ID**: Fetch individual resources by their ID
+  ```dart
+  var pokemon = await PokeAPI.getObject<Pokemon>(1); // Get Bulbasaur
+  ```
+
+- **Get Object by Name**: Fetch resources by their name (more convenient than ID in many cases)
+  ```dart
+  var pokemon = await PokeAPI.getObjectByName<Pokemon>("bulbasaur");
+  ```
+
+- **Get List of Objects**: Fetch paginated lists of complete objects
+  ```dart
+  var pokemonList = await PokeAPI.getObjectList<Pokemon>(1, 10); // Get first 10 Pokemon
+  ```
+
+- **Get Common List**: Fetch basic information (name and URL) for resources
+  ```dart
+  var basicPokemonList = await PokeAPI.getCommonList<Pokemon>(1, 20);
+  ```
+
+### Caching System
+
+- **Configurable Caching**: Control how data is cached
+  ```dart
+  // Use default cache settings (4 hour expiry)
+  PokeAPI.configureCaching(CacheConfig.defaultConfig);
+  
+  // Disable caching
+  PokeAPI.configureCaching(CacheConfig.noCache);
+  
+  // Long-term caching (30 days)
+  PokeAPI.configureCaching(CacheConfig.longTerm);
+  
+  // Short-term caching (30 minutes)
+  PokeAPI.configureCaching(CacheConfig.shortTerm);
+  
+  // Custom cache configuration
+  PokeAPI.configureCaching(CacheConfig(
+    enabled: true,
+    expiryDuration: Duration(hours: 12),
+    maxMemoryCacheItems: 200,
+    useWhenOffline: true,
+  ));
+  ```
+
+- **Cache Management**:
+  ```dart
+  // Clear all cached data
+  await PokeAPI.clearCache();
+  
+  // Check if an item exists in cache
+  bool isCached = await PokeAPI.isInCache('cache_key');
+  ```
+
+### Connectivity Features
+
+- **Offline Support**: Automatically use cached data when offline (configurable)
+- **Connectivity Detection**: Built-in connectivity checking to handle offline scenarios
+
 ## Endpoints
 
 ### Berries
@@ -52,6 +119,14 @@ import 'package:pokeapi/pokeapi.dart';
   ```dart
   var response = PokeAPI.getObject<Berry>(1);
   ```
+  
+  #### Get Berry by Name
+  
+  *Must pass a name as String (e.g. "chesto").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<Berry>("chesto");
+  ```
 </details>
 
 <details>
@@ -72,6 +147,14 @@ import 'package:pokeapi/pokeapi.dart';
   ```dart
   var response = PokeAPI.getObject<BerryFirmness>(1);
   ```
+  
+  #### Get Berry Firmness by Name
+  
+  *Must pass a name as String (e.g. "very-soft").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<BerryFirmness>("very-soft");
+  ```
 </details>
 
 <details>
@@ -91,6 +174,14 @@ import 'package:pokeapi/pokeapi.dart';
 
   ```dart
   var response = PokeAPI.getObject<BerryFlavor>(1);
+  ```
+  
+  #### Get Berry Flavor by Name
+  
+  *Must pass a name as String (e.g. "spicy").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<BerryFlavor>("spicy");
   ```
 </details>
 
@@ -113,6 +204,14 @@ import 'package:pokeapi/pokeapi.dart';
 
   ```dart
   var response = PokeAPI.getObject<ContestType>(1);
+  ```
+  
+  #### Get Contest Type by Name
+  
+  *Must pass a name as String (e.g. "cool").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<ContestType>("cool");
   ```
 </details>
 
@@ -176,6 +275,14 @@ import 'package:pokeapi/pokeapi.dart';
   ```dart
   var response = PokeAPI.getObject<EncounterMethod>(1);
   ```
+  
+  #### Get Encounter Method by Name
+  
+  *Must pass a name as String (e.g. "walk").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<EncounterMethod>("walk");
+  ```
 </details>
 
 <details>
@@ -196,6 +303,14 @@ import 'package:pokeapi/pokeapi.dart';
   ```dart
   var response = PokeAPI.getObject<EncounterCondition>(1);
   ```
+  
+  #### Get Encounter Condition by Name
+  
+  *Must pass a name as String (e.g. "swarm").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<EncounterCondition>("swarm");
+  ```
 </details>
 
 <details>
@@ -215,6 +330,14 @@ import 'package:pokeapi/pokeapi.dart';
 
   ```dart
   var response = PokeAPI.getObject<EncounterConditionValue>(1);
+  ```
+  
+  #### Get Encounter Condition Value by Name
+  
+  *Must pass a name as String (e.g. "swarm-yes").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<EncounterConditionValue>("swarm-yes");
   ```
 </details>
 
@@ -238,6 +361,14 @@ import 'package:pokeapi/pokeapi.dart';
   ```dart
   var response = PokeAPI.getObject<EvolutionChain>(1);
   ```
+  
+  #### Evolution Chain Support Features
+  
+  * Full support for all evolution pattern types:
+    * Linear evolutions (e.g., Bulbasaur → Ivysaur → Venusaur)
+    * Branching evolutions (e.g., Eevee → Vaporeon/Jolteon/Flareon/etc.)
+    * Multi-path evolutions (e.g., Wurmple → Cascoon/Silcoon → Dustox/Beautifly)
+    * Complex evolution requirements (stats, time of day, held items, etc.)
 </details>
 
 <details>
@@ -257,6 +388,14 @@ import 'package:pokeapi/pokeapi.dart';
 
   ```dart
   var response = PokeAPI.getObject<EvolutionTrigger>(1);
+  ```
+  
+  #### Get Evolution Trigger by Name
+  
+  *Must pass a name as String (e.g. "level-up").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<EvolutionTrigger>("level-up");
   ```
 </details>
 
@@ -280,6 +419,14 @@ import 'package:pokeapi/pokeapi.dart';
   ```dart
   var response = PokeAPI.getObject<Generation>(1);
   ```
+  
+  #### Get Generation by Name
+  
+  *Must pass a name as String (e.g. "generation-i").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<Generation>("generation-i");
+  ```
 </details>
 
 <details>
@@ -299,6 +446,14 @@ import 'package:pokeapi/pokeapi.dart';
 
   ```dart
   var response = PokeAPI.getObject<Pokedex>(1);
+  ```
+  
+  #### Get Pokedex by Name
+  
+  *Must pass a name as String (e.g. "national").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<Pokedex>("national");
   ```
 </details>
 
@@ -320,6 +475,14 @@ import 'package:pokeapi/pokeapi.dart';
   ```dart
   var response = PokeAPI.getObject<Version>(1);
   ```
+  
+  #### Get Version by Name
+  
+  *Must pass a name as String (e.g. "red").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<Version>("red");
+  ```
 </details>
 
 <details>
@@ -339,6 +502,14 @@ import 'package:pokeapi/pokeapi.dart';
 
   ```dart
   var response = PokeAPI.getObject<VersionGroup>(1);
+  ```
+  
+  #### Get Version Group by Name
+  
+  *Must pass a name as String (e.g. "red-blue").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<VersionGroup>("red-blue");
   ```
 </details>
 
@@ -362,6 +533,14 @@ import 'package:pokeapi/pokeapi.dart';
   ```dart
   var response = PokeAPI.getObject<Item>(1);
   ```
+  
+  #### Get Item by Name
+  
+  *Must pass a name as String (e.g. "master-ball").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<Item>("master-ball");
+  ```
 </details>
 
 <details>
@@ -372,7 +551,7 @@ import 'package:pokeapi/pokeapi.dart';
   *Must pass an offset and limit as Int (e.g. 1, 1).*
 
   ```dart
-  var response = PokeAPI.getObjectList<ItemAttribute>(1, 1);
+  var response = PokeAPI.getObjectList<ItemAbility>(1, 1);
   ```
 
   #### Get Item Attribute
@@ -380,7 +559,15 @@ import 'package:pokeapi/pokeapi.dart';
   *Must pass an ID as Int (e.g. 1).*
 
   ```dart
-  var response = PokeAPI.getObject<ItemAttribute>(1);
+  var response = PokeAPI.getObject<ItemAbility>(1);
+  ```
+  
+  #### Get Item Attribute by Name
+  
+  *Must pass a name as String (e.g. "countable").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<ItemAbility>("countable");
   ```
 </details>
 
@@ -402,6 +589,14 @@ import 'package:pokeapi/pokeapi.dart';
   ```dart
   var response = PokeAPI.getObject<ItemCategory>(1);
   ```
+  
+  #### Get Item Category by Name
+  
+  *Must pass a name as String (e.g. "stat-boosts").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<ItemCategory>("stat-boosts");
+  ```
 </details>
 
 <details>
@@ -422,6 +617,14 @@ import 'package:pokeapi/pokeapi.dart';
   ```dart
   var response = PokeAPI.getObject<ItemFlingEffect>(1);
   ```
+  
+  #### Get Item Fling Effect by Name
+  
+  *Must pass a name as String (e.g. "badly-poison").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<ItemFlingEffect>("badly-poison");
+  ```
 </details>
 
 <details>
@@ -441,6 +644,14 @@ import 'package:pokeapi/pokeapi.dart';
 
   ```dart
   var response = PokeAPI.getObject<ItemPocket>(1);
+  ```
+  
+  #### Get Item Pocket by Name
+  
+  *Must pass a name as String (e.g. "misc").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<ItemPocket>("misc");
   ```
 </details>
 
@@ -464,6 +675,14 @@ import 'package:pokeapi/pokeapi.dart';
   ```dart
   var response = PokeAPI.getObject<Location>(1);
   ```
+  
+  #### Get Location by Name
+  
+  *Must pass a name as String (e.g. "canalave-city").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<Location>("canalave-city");
+  ```
 </details>
 
 <details>
@@ -483,6 +702,14 @@ import 'package:pokeapi/pokeapi.dart';
 
   ```dart
   var response = PokeAPI.getObject<LocationArea>(1);
+  ```
+  
+  #### Get Location Area by Name
+  
+  *Must pass a name as String (e.g. "canalave-city-area").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<LocationArea>("canalave-city-area");
   ```
 </details>
 
@@ -504,6 +731,14 @@ import 'package:pokeapi/pokeapi.dart';
   ```dart
   var response = PokeAPI.getObject<PalParkArea>(1);
   ```
+  
+  #### Get Pal Park Area by Name
+  
+  *Must pass a name as String (e.g. "forest").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<PalParkArea>("forest");
+  ```
 </details>
 
 <details>
@@ -523,6 +758,14 @@ import 'package:pokeapi/pokeapi.dart';
 
   ```dart
   var response = PokeAPI.getObject<Region>(1);
+  ```
+  
+  #### Get Region by Name
+  
+  *Must pass a name as String (e.g. "kanto").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<Region>("kanto");
   ```
 </details>
 
@@ -568,6 +811,14 @@ import 'package:pokeapi/pokeapi.dart';
   ```dart
   var response = PokeAPI.getObject<Move>(1);
   ```
+  
+  #### Get Move by Name
+  
+  *Must pass a name as String (e.g. "pound").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<Move>("pound");
+  ```
 </details>
 
 <details>
@@ -587,6 +838,14 @@ import 'package:pokeapi/pokeapi.dart';
 
   ```dart
   var response = PokeAPI.getObject<MoveAilment>(1);
+  ```
+  
+  #### Get Move Ailment by Name
+  
+  *Must pass a name as String (e.g. "paralysis").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<MoveAilment>("paralysis");
   ```
 </details>
 
@@ -608,6 +867,14 @@ import 'package:pokeapi/pokeapi.dart';
   ```dart
   var response = PokeAPI.getObject<MoveBattleStyle>(1);
   ```
+  
+  #### Get Move Battle Style by Name
+  
+  *Must pass a name as String (e.g. "attack").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<MoveBattleStyle>("attack");
+  ```
 </details>
 
 <details>
@@ -627,6 +894,14 @@ import 'package:pokeapi/pokeapi.dart';
 
   ```dart
   var response = PokeAPI.getObject<MoveCategory>(1);
+  ```
+  
+  #### Get Move Category by Name
+  
+  *Must pass a name as String (e.g. "damage").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<MoveCategory>("damage");
   ```
 </details>
 
@@ -648,6 +923,14 @@ import 'package:pokeapi/pokeapi.dart';
   ```dart
   var response = PokeAPI.getObject<MoveDamageClass>(1);
   ```
+  
+  #### Get Move Damage Class by Name
+  
+  *Must pass a name as String (e.g. "status").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<MoveDamageClass>("status");
+  ```
 </details>
 
 <details>
@@ -668,6 +951,14 @@ import 'package:pokeapi/pokeapi.dart';
   ```dart
   var response = PokeAPI.getObject<MoveLearnMethod>(1);
   ```
+  
+  #### Get Move Learn Method by Name
+  
+  *Must pass a name as String (e.g. "level-up").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<MoveLearnMethod>("level-up");
+  ```
 </details>
 
 <details>
@@ -687,6 +978,14 @@ import 'package:pokeapi/pokeapi.dart';
 
   ```dart
   var response = PokeAPI.getObject<MoveTarget>(1);
+  ```
+  
+  #### Get Move Target by Name
+  
+  *Must pass a name as String (e.g. "selected-pokemon").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<MoveTarget>("selected-pokemon");
   ```
 </details>
 
@@ -709,6 +1008,14 @@ import 'package:pokeapi/pokeapi.dart';
 
   ```dart
   var response = PokeAPI.getObject<Ability>(1);
+  ```
+  
+  #### Get Ability by Name
+  
+  *Must pass a name as String (e.g. "stench").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<Ability>("stench");
   ```
 </details>
 
@@ -750,6 +1057,14 @@ import 'package:pokeapi/pokeapi.dart';
   ```dart
   var response = PokeAPI.getObject<EggGroup>(1);
   ```
+  
+  #### Get Egg Group by Name
+  
+  *Must pass a name as String (e.g. "monster").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<EggGroup>("monster");
+  ```
 </details>
 
 <details>
@@ -769,6 +1084,14 @@ import 'package:pokeapi/pokeapi.dart';
 
   ```dart
   var response = PokeAPI.getObject<Gender>(1);
+  ```
+  
+  #### Get Gender by Name
+  
+  *Must pass a name as String (e.g. "female").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<Gender>("female");
   ```
 </details>
 
@@ -790,6 +1113,14 @@ import 'package:pokeapi/pokeapi.dart';
   ```dart
   var response = PokeAPI.getObject<GrowthRate>(1);
   ```
+  
+  #### Get Growth Rate by Name
+  
+  *Must pass a name as String (e.g. "slow").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<GrowthRate>("slow");
+  ```
 </details>
 
 <details>
@@ -810,6 +1141,14 @@ import 'package:pokeapi/pokeapi.dart';
   ```dart
   var response = PokeAPI.getObject<Nature>(1);
   ```
+  
+  #### Get Nature by Name
+  
+  *Must pass a name as String (e.g. "hardy").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<Nature>("hardy");
+  ```
 </details>
 
 <details>
@@ -820,7 +1159,7 @@ import 'package:pokeapi/pokeapi.dart';
   *Must pass an offset and limit as Int (e.g. 1, 1).*
 
   ```dart
-  var response = PokeAPI.getObjectList<PokeAthlon>(1, 1);
+  var response = PokeAPI.getObjectList<PokeAthlonStat>(1, 1);
   ```
 
   #### Get Pokeathlon Stat
@@ -828,7 +1167,15 @@ import 'package:pokeapi/pokeapi.dart';
   *Must pass an ID as Int (e.g. 1).*
 
   ```dart
-  var response = PokeAPI.getObject<PokeAthlon>(1);
+  var response = PokeAPI.getObject<PokeAthlonStat>(1);
+  ```
+  
+  #### Get Pokeathlon Stat by Name
+  
+  *Must pass a name as String (e.g. "speed").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<PokeAthlonStat>("speed");
   ```
 </details>
 
@@ -850,6 +1197,22 @@ import 'package:pokeapi/pokeapi.dart';
   ```dart
   var response = PokeAPI.getObject<Pokemon>(1);
   ```
+  
+  #### Get Pokemon by Name
+  
+  *Must pass a name as String (e.g. "bulbasaur").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<Pokemon>("bulbasaur");
+  ```
+  
+  #### Get Basic Pokemon List
+  
+  *For performance, you can get just names and URLs:*
+  
+  ```dart
+  var basicList = PokeAPI.getCommonList<Pokemon>(1, 20);
+  ```
 </details>
 
 <details>
@@ -869,6 +1232,14 @@ import 'package:pokeapi/pokeapi.dart';
 
   ```dart
   var response = PokeAPI.getObject<PokemonColor>(1);
+  ```
+  
+  #### Get Pokemon Color by Name
+  
+  *Must pass a name as String (e.g. "black").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<PokemonColor>("black");
   ```
 </details>
 
@@ -890,6 +1261,14 @@ import 'package:pokeapi/pokeapi.dart';
   ```dart
   var response = PokeAPI.getObject<PokemonForm>(1);
   ```
+  
+  #### Get Pokemon Form by Name
+  
+  *Must pass a name as String (e.g. "bulbasaur").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<PokemonForm>("bulbasaur");
+  ```
 </details>
 
 <details>
@@ -909,6 +1288,14 @@ import 'package:pokeapi/pokeapi.dart';
 
   ```dart
   var response = PokeAPI.getObject<PokemonHabitat>(1);
+  ```
+  
+  #### Get Pokemon Habitat by Name
+  
+  *Must pass a name as String (e.g. "cave").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<PokemonHabitat>("cave");
   ```
 </details>
 
@@ -930,6 +1317,14 @@ import 'package:pokeapi/pokeapi.dart';
   ```dart
   var response = PokeAPI.getObject<PokemonShape>(1);
   ```
+  
+  #### Get Pokemon Shape by Name
+  
+  *Must pass a name as String (e.g. "ball").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<PokemonShape>("ball");
+  ```
 </details>
 
 <details>
@@ -949,6 +1344,14 @@ import 'package:pokeapi/pokeapi.dart';
 
   ```dart
   var response = PokeAPI.getObject<PokemonSpecie>(1);
+  ```
+  
+  #### Get Pokemon Species by Name
+  
+  *Must pass a name as String (e.g. "bulbasaur").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<PokemonSpecie>("bulbasaur");
   ```
 </details>
 
@@ -970,6 +1373,14 @@ import 'package:pokeapi/pokeapi.dart';
   ```dart
   var response = PokeAPI.getObject<Stat>(1);
   ```
+  
+  #### Get Stat by Name
+  
+  *Must pass a name as String (e.g. "hp").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<Stat>("hp");
+  ```
 </details>
 
 <details>
@@ -989,6 +1400,14 @@ import 'package:pokeapi/pokeapi.dart';
 
   ```dart
   var response = PokeAPI.getObject<Type>(1);
+  ```
+  
+  #### Get Type by Name
+  
+  *Must pass a name as String (e.g. "normal").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<Type>("normal");
   ```
 </details>
 
@@ -1011,5 +1430,13 @@ import 'package:pokeapi/pokeapi.dart';
 
   ```dart
   var response = PokeAPI.getObject<Language>(1);
+  ```
+  
+  #### Get Language by Name
+  
+  *Must pass a name as String (e.g. "en").*
+  
+  ```dart
+  var response = PokeAPI.getObjectByName<Language>("en");
   ```
 </details>
