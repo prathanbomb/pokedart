@@ -114,7 +114,7 @@ import 'package:pokeapi/pokeapi.dart';
 
   #### Get Berry
 
-  *Must pass an ID as Int as Int (e.g. 1).*
+  *Must pass an ID as Int (e.g. 1).*
 
   ```dart
   var response = PokeAPI.getObject<Berry>(1);
@@ -142,7 +142,7 @@ import 'package:pokeapi/pokeapi.dart';
 
   #### Get Berry Firmness
 
-  *Must pass an ID as Int as Int (e.g. 1).*
+  *Must pass an ID as Int (e.g. 1).*
 
   ```dart
   var response = PokeAPI.getObject<BerryFirmness>(1);
