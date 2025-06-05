@@ -1,15 +1,15 @@
 import 'package:pokeapi/model/utils/common.dart';
 
-class ItemAbility {
+class ItemAttribute {
   int? id;
   String? name;
   List<Descriptions>? descriptions;
   List<NamedAPIResource>? items;
   List<Names>? names;
 
-  ItemAbility({this.id, this.name, this.descriptions, this.items, this.names});
+  ItemAttribute({this.id, this.name, this.descriptions, this.items, this.names});
 
-  ItemAbility.fromJson(Map<String, dynamic> json) {
+  ItemAttribute.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     if (json['descriptions'] != null) {
@@ -50,7 +50,7 @@ class ItemAbility {
 
   @override
   String toString() {
-    return 'ItemAbility{id: $id, name: $name, descriptions: $descriptions, items: $items, names: $names}';
+    return 'ItemAttribute{id: $id, name: $name, descriptions: $descriptions, items: $items, names: $names}';
   }
 }
 

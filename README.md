@@ -551,7 +551,7 @@ import 'package:pokeapi/pokeapi.dart';
   *Must pass an offset and limit as Int (e.g. 1, 1).*
 
   ```dart
-  var response = PokeAPI.getObjectList<ItemAbility>(1, 1);
+  var response = PokeAPI.getObjectList<ItemAttribute>(1, 1);
   ```
 
   #### Get Item Attribute
@@ -559,7 +559,7 @@ import 'package:pokeapi/pokeapi.dart';
   *Must pass an ID as Int (e.g. 1).*
 
   ```dart
-  var response = PokeAPI.getObject<ItemAbility>(1);
+  var response = PokeAPI.getObject<ItemAttribute>(1);
   ```
   
   #### Get Item Attribute by Name
@@ -567,7 +567,7 @@ import 'package:pokeapi/pokeapi.dart';
   *Must pass a name as String (e.g. "countable").*
   
   ```dart
-  var response = PokeAPI.getObjectByName<ItemAbility>("countable");
+  var response = PokeAPI.getObjectByName<ItemAttribute>("countable");
   ```
 </details>
 

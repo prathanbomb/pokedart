@@ -469,7 +469,7 @@ void main() {
 
     test('getItemAttributeList', () {
       try {
-        expect(getObjectList<ItemAbility>(1, 3), completion(equals(true)));
+        expect(getObjectList<ItemAttribute>(1, 3), completion(equals(true)));
       } catch (e) {
         print(e.toString());
       }
@@ -477,7 +477,7 @@ void main() {
 
     test('getItemAttribute', () {
       try {
-        expect(getObject<ItemAbility>(1), completion(equals(true)));
+        expect(getObject<ItemAttribute>(1), completion(equals(true)));
       } catch (e) {
         print(e.toString());
       }
