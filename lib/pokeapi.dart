@@ -74,7 +74,7 @@ class PokeAPI {
     if (T == Gender) return Gender.fromJson(map as Map<String, dynamic>) as T;
     if (T == GrowthRate) return GrowthRate.fromJson(map as Map<String, dynamic>) as T;
     if (T == Item) return Item.fromJson(map as Map<String, dynamic>) as T;
-    if (T == ItemAbility) return ItemAbility.fromJson(map as Map<String, dynamic>) as T;
+    if (T == ItemAttribute) return ItemAttribute.fromJson(map as Map<String, dynamic>) as T;
     if (T == ItemCategory) return ItemCategory.fromJson(map as Map<String, dynamic>) as T;
     if (T == ItemFlingEffect) return ItemFlingEffect.fromJson(map as Map<String, dynamic>) as T;
     if (T == ItemPocket) return ItemPocket.fromJson(map as Map<String, dynamic>) as T;
@@ -171,7 +171,7 @@ class PokeAPI {
     if (T == Gender) url = api.gender;
     if (T == GrowthRate) url = api.growthRate;
     if (T == Item) url = api.item;
-    if (T == ItemAbility) url = api.itemAttribute;
+    if (T == ItemAttribute) url = api.itemAttribute;
     if (T == ItemCategory) url = api.itemCategory;
     if (T == ItemFlingEffect) url = api.itemFlingEffect;
     if (T == ItemPocket) url = api.itemPocket;
